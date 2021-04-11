@@ -1,1 +1,1 @@
-console.dir("Hello world!🧠");
+console.dir("Hello world!🧠;)");
