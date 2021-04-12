@@ -1,5 +1,10 @@
 .additional-menu-container {
     background-color: #fff;
+    position: sticky;
+    top: 0;
+    align-self: start;
+    min-height: 100vh;
+    padding-top: 25px;
 }
 
 .additional-menu {
@@ -13,6 +18,7 @@
 }
 
 .additional-menu li {
+    cursor: pointer;
     margin-bottom: 20px;
     display: inline-block;
     background-color: #f6fbff;
