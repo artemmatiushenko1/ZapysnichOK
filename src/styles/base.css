@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    background-color: #fafcff;
+    color: #a2a2a2;
+}
+
+.app-container {
+    width: 1600px;
+    min-height: 100vh;
+    margin: 0 auto;
+    height: auto;
+    display: grid;
+    grid-template-columns: 256px 1056px 128px;
+    grid-column-gap: 80px;
+}
