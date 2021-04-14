@@ -1,6 +1,5 @@
 .main-container {
     padding: 25px 0;
-
 }
 
 .add-note-input-container {
@@ -73,9 +72,9 @@
 
 .notes-container {
     display: grid;
-    grid-template-columns: repeat(3, 335px);
+    grid-template-columns: repeat(3, 331px);
     grid-gap: 25px;
-    grid-auto-rows: 335px;
+    grid-auto-rows: 331px;
 }
 
 .note {

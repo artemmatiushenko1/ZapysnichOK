@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous" />
     <link rel="stylesheet" href="./src/styles/main.css" />
+    <script defer src="index.js"></script>
 </head>
 
 <body>
@@ -184,66 +185,6 @@
                         </ul>
                     </div>
                 </div>
-                <!-- <div class="note">
-                    <div class="note-content">
-                        <h2 class="note-headline">Фронтендери 🍀</h2>
-                        <p>
-                            Пишу цю стрішку коду о 16:39. Сподіваюсь у нас
-                            все вийде!
-                        </p>
-                    </div>
-                    <div class="action-btns-container">
-                        <p class="note-group">Важливе</p>
-                        <ul class="btns-container">
-                            <p class="note-time">17:32</p>
-                            <li class="note-action-btn">
-                                <button class="btn-delete-note">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="note">
-                    <div class="note-content">
-                        <h2 class="note-headline">Фронтендери 🍀</h2>
-                        <p>
-                            Пишу цю стрішку коду о 16:39. Сподіваюсь у нас
-                            все вийде!
-                        </p>
-                    </div>
-                    <div class="action-btns-container">
-                        <p class="note-group">Важливе</p>
-                        <ul class="btns-container">
-                            <p class="note-time">17:32</p>
-                            <li class="note-action-btn">
-                                <button class="btn-delete-note">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="note">
-                    <div class="note-content">
-                        <h2 class="note-headline">Фронтендери 🍀</h2>
-                        <p>
-                            Пишу цю стрішку коду о 16:39. Сподіваюсь у нас
-                            все вийде!
-                        </p>
-                    </div>
-                    <div class="action-btns-container">
-                        <p class="note-group">Важливе</p>
-                        <ul class="btns-container">
-                            <p class="note-time">17:32</p>
-                            <li class="note-action-btn">
-                                <button class="btn-delete-note">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
             </div>
         </div>
         <div class="additional-menu-container">
@@ -256,7 +197,22 @@
                 </li>
             </ul>
         </div>
+
+        <div class="overlay hidden">
+            <div class="add-note-window hidden">
+                <button class="btn-close-modal"><i class="fas fa-times"></i></button>
+                <form class="add-note-form">
+                    <div class="inputs-wrapper">
+                        <input type="text" class="note-headline-input" placeholder="Заголовок..." tabindex="1">
+                        <textarea name="note-content-input" class="note-content-input"
+                            placeholder="Твій головний текст..."></textarea>
+                        <button type="submit" class="add-note-btn"><i class="fas fa-check"></i>Готово</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
 </body>
 
 </html>

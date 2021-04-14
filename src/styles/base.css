@@ -13,17 +13,16 @@ body {
 }
 
 .app-container {
-    /* width: 1600px;
-    min-height: 100vh;
-    margin: 0 auto;
-    height: auto;
-    display: grid;
-    grid-template-columns: 256px 1056px 128px;
-    grid-column-gap: 80px; */
+    position: relative;
     width: 100vw;
     max-width: 100%;
     min-height: 100vh;
     display: grid;
     grid-template-columns: 15% 55% 5%;
     grid-column-gap: 12.5%;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
 }
