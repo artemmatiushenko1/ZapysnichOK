@@ -1,3 +1,5 @@
+'use strict';
+
 console.dir("Hello world!🧠;)"); //привет
 
 //Test modal window
