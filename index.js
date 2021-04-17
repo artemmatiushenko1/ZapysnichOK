@@ -23,7 +23,7 @@ addNoteModal.addEventListener('click', function (e) {
 })
 
 const deleteAllNotesBtn = document.querySelector('.delete-all-btn');
-const noteCollection = document.querySelectorAll('.note')
+const noteCollection = document.querySelectorAll('.note');
 
 deleteAllNotesBtn.addEventListener('click', function () {
     const confirmation = confirm('Ви дійсно бажаєте очистити список заміток?');
