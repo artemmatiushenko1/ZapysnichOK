@@ -21,3 +21,15 @@ addNoteModal.addEventListener('click', function (e) {
         overlay.classList.add('hidden');
     }
 })
+
+const deleteAllNotesBtn = document.querySelector('.delete-all-btn');
+const noteCollection = document.querySelectorAll('.note')
+
+deleteAllNotesBtn.addEventListener('click', function () {
+    const confirmation = confirm('Ви дійсно бажаєте очистити список заміток?');
+    if (confirmation) {
+        for (const element of noteCollection) {
+            element.remove();
+        }
+    }
+});
