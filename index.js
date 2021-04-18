@@ -2,6 +2,15 @@
 
 console.dir("Hello world!🧠;)"); //привет
 
+function getFoldersNames(){
+    let foldersNames = [];
+    let folders = Array.from(document.querySelectorAll('.folder a'));
+        for(let element of folders){
+            foldersNames.push(element.textContent);
+        }
+    return foldersNames;
+}
+
 //Test modal window
 const addNoteInput = document.querySelector('.add-note-input');
 const overlay = document.querySelector('.overlay');
