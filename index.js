@@ -1,13 +1,12 @@
-'use strict';
-
+import * as model from './src/js/model.js';
 console.dir("Hello world!🧠;)"); //привет
 
-function getFoldersNames(){
+function getFoldersNames() {
     let foldersNames = [];
     let folders = Array.from(document.querySelectorAll('.folder a'));
-        for(let element of folders){
-            foldersNames.push(element.textContent);
-        }
+    for (let element of folders) {
+        foldersNames.push(element.textContent);
+    }
     return foldersNames;
 }
 
