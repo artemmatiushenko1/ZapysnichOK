@@ -1,3 +1,3 @@
 'use strict';
 
-console.dir("Hello world!🧠;)");//привет
+console.log("Hello world!🧠;)");
