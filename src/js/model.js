@@ -1,4 +1,4 @@
-const state = {
+export const state = {
     notes: [],
     notesId: [],
     folders: {
@@ -7,8 +7,8 @@ const state = {
 }
 
 class Note {
-    constructor(title, description, time, folder) {
-        this.title = title;
+    constructor(headline, description, time, folder) {
+        this.headline = headline;
         this.description = description;
         this.time = time;
         this.folder = folder;
@@ -26,7 +26,7 @@ class Note {
 }
 
 for (let i = 0; i < 10; i++) {
-    state.notes.push(new Note("Заголовок", "Опис", new Date(), state.folders['Важливе']));
+    state.notes.push(new Note("Заголовок", "Опис", new Date(), 'Важливе'));
 }
 
 console.log(state);

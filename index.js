@@ -1,4 +1,3 @@
-import * as model from './src/js/model.js';
 console.dir("Hello world!🧠;)"); //привет
 
 function getFoldersNames() {
