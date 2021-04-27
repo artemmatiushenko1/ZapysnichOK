@@ -26,7 +26,20 @@ class Note {
 }
 
 for (let i = 0; i < 10; i++) {
-    state.notes.push(new Note("Заголовок", "Опис", new Date(), 'Важливе'));
+    let date = normalizationFormat(new Date());
+    state.notes.push(new Note("Заголовок", "Опис", date, 'Важливе'));
 }
 
 console.log(state);
+
+function normalizationFormat(data){
+    let formatter = new Intl.DateTimeFormat("uk", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      });
+     return data = formatter.format(data)
+                            .replace(',', '');
+}
