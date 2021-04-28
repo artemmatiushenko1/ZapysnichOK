@@ -1,8 +1,12 @@
+.main-container {
+    padding: 25px 0;
+    position: relative;
+}
+
 .add-note-input-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 20px;
 }
 
 .add-note-input {
@@ -34,6 +38,7 @@
     width: 335px;
     border: 2px solid transparent;
     padding: 11px 21px;
+    padding-right: 50px;
     border-radius: 40px;
     font-size: 15px;
     font-family: 'Roboto', sans-serif;
@@ -68,9 +73,9 @@
 
 .notes-container {
     display: grid;
-    grid-template-columns: repeat(3, 335px);
-    grid-gap: 25px;
-    grid-auto-rows: 335px;
+    grid-template-columns: repeat(auto-fill, minmax(331px, 1fr));
+    grid-gap: 1rem;
+    grid-auto-rows: minmax(331px, 1fr);
 }
 
 .note {
@@ -116,7 +121,6 @@
 }
 
 .btns-container {
-    /* align-self: flex-end; */
     justify-content: space-between;
     display: flex;
     align-items: center;
@@ -124,8 +128,8 @@
 }
 
 .btn-delete-note {
-    display: inline-block;
     background-color: #f6fbff;
+    outline: none;
     color: #54adff;
     width: 30px;
     cursor: pointer;

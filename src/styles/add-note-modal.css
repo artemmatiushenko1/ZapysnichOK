@@ -1,0 +1,111 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 100;
+    transition: all 0.5s;
+}
+
+.add-note-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    height: 50vh;
+    background-color: white;
+    border-radius: 9px;
+    padding: 80px 45px;
+    padding-bottom: 35px;
+    box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    transition: all 0.5s;
+}
+
+.btn-close-modal,
+.add-note-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #f6fbff;
+    outline: none;
+    color: #54adff;
+    width: 40px;
+    cursor: pointer;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    transition: all 0.1s ease;
+}
+
+.add-note-btn {
+    padding: 0 12px;
+    top: 1rem;
+    right: 4.5rem;
+    width: auto;
+    border-radius: 20px;
+}
+
+.add-note-btn i {
+    margin-right: 8px;
+}
+
+.btn-close-modal:hover,
+.add-note-btn:hover {
+    border: 2px solid transparent;
+    color: #fff;
+    background-color: #54adff;
+}
+
+.add-note-form-headline {
+    color: #54adff;
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+.inputs-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.note-headline-input,
+.note-content-input {
+    outline: none;
+    background: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    border: none;
+    font-weight: 500;
+    color: #6a6a6a;
+    margin-bottom: 20px;
+}
+
+.note-content-input {
+    font-weight: 400;
+    font-size: 16px;
+    width: 100%;
+    height: 460px;
+    margin: 0;
+    resize: none;
+}
+
+.note-content-input::-webkit-scrollbar {
+    width: 8px;
+}
+
+.note-content-input::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+.note-content-input::-webkit-scrollbar-thumb {
+    background-color: #54adff;
+    border-radius: 20px;
+}
