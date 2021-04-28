@@ -25,9 +25,8 @@ export class Note {
     }
 }
 
-<<<<<<< HEAD
 console.log(state);
-=======
+
 for (let i = 0; i < 10; i++) {
     let date = normalizationFormat(new Date());
     state.notes.push(new Note("Заголовок", "Опис", date, 'Важливе'));
@@ -46,4 +45,3 @@ function normalizationFormat(data){
      return data = formatter.format(data)
                             .replace(',', '');
 }
->>>>>>> 36b23b38dfbb459bc9bfa1eb69c98881bf69bdea
