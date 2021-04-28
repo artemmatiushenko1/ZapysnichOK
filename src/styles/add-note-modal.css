@@ -15,8 +15,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70rem;
-    height: 40rem;
+    width: 40vw;
+    height: 50vh;
     background-color: white;
     border-radius: 9px;
     padding: 80px 45px;

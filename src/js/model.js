@@ -2,13 +2,13 @@ export const state = {
     notes: [],
     notesId: [],
     folders: {
-        'Важливе': [],
-    }
-}
+        Важливе: [],
+    },
+};
 
 export class Note {
-    constructor(headline, description, time, folder) {
-        this.headline = headline;
+    constructor(title, description, time, folder) {
+        this.title = title;
         this.description = description;
         this.time = time;
         this.folder = folder;
@@ -22,28 +22,24 @@ export class Note {
         }
         state.notesId.push(id);
         return id;
-    }
+    };
 }
 
-<<<<<<< HEAD
-console.log(state);
-=======
-for (let i = 0; i < 10; i++) {
-    let date = normalizationFormat(new Date());
-    state.notes.push(new Note("Заголовок", "Опис", date, 'Важливе'));
-}
+export const addNote = function (title, description, time, folder) {
+    const newNote = new Note(title, description, time, folder);
+    state.notes.unshift(newNote);
+};
 
 console.log(state);
 
-function normalizationFormat(data){
-    let formatter = new Intl.DateTimeFormat("uk", {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-      });
-     return data = formatter.format(data)
-                            .replace(',', '');
+function normalizationFormat(data) {
+    const formatter = new Intl.DateTimeFormat('uk', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+    });
+    const formattedData = formatter.format(data).replace(',', '');
+    return formattedData;
 }
->>>>>>> 36b23b38dfbb459bc9bfa1eb69c98881bf69bdea

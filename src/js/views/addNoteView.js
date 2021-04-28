@@ -45,7 +45,7 @@ class AddNoteView {
         this.createNoteBtn.addEventListener('click', function (e) {
             e.preventDefault();
             handler();
-        })
+        });
     }
 }
 

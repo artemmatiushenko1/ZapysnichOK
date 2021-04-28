@@ -3,16 +3,15 @@ import NotesView from './views/notesView.js';
 import NotesAppView from './views/notesAppView.js';
 import AddNoteView from './views/addNoteView.js';
 
-
 const controlAddNote = function () {
     const title = AddNoteView.getTitle();
     const description = AddNoteView.getDescription();
-    const newNote = new model.Note(title, description, new Date(), 'Важливе');
-    model.state.notes.unshift(newNote);
+    const time = new Date().getTime();
+    model.addNote(title, description, time, 'Важливе');
     AddNoteView.clearInputs();
     AddNoteView.toogleWindow();
     NotesView.render(model.state.notes);
-}
+};
 
 NotesView.render(model.state.notes);
 AddNoteView.addHandlerAddNote(controlAddNote);
