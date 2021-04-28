@@ -1,9 +1,11 @@
 class NotesView {
     data;
     parentElement = document.querySelector('.notes-container');
+    //rootElement = document.querySelector('.main-container');
     message = 'There is no notes here yet :)';
 
     render(data) {
+        //this.parentElement = this.rootElement.querySelector('.notes-container');
         this.data = data;
         if (!this.data || !Array.isArray(this.data) || this.data.length === 0) {
             this.renderMessage();

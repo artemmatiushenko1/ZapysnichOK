@@ -1,5 +1,6 @@
 .main-container {
     padding: 25px 0;
+    position: relative;
 }
 
 .add-note-input-container {

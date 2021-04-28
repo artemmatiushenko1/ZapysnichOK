@@ -6,7 +6,7 @@ export const state = {
     }
 }
 
-class Note {
+export class Note {
     constructor(headline, description, time, folder) {
         this.headline = headline;
         this.description = description;
@@ -23,10 +23,6 @@ class Note {
         state.notesId.push(id);
         return id;
     }
-}
-
-for (let i = 0; i < 10; i++) {
-    state.notes.push(new Note("Заголовок", "Опис", new Date(), 'Важливе'));
 }
 
 console.log(state);
