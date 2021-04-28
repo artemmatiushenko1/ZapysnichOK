@@ -25,4 +25,25 @@ export class Note {
     }
 }
 
+<<<<<<< HEAD
 console.log(state);
+=======
+for (let i = 0; i < 10; i++) {
+    let date = normalizationFormat(new Date());
+    state.notes.push(new Note("Заголовок", "Опис", date, 'Важливе'));
+}
+
+console.log(state);
+
+function normalizationFormat(data){
+    let formatter = new Intl.DateTimeFormat("uk", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      });
+     return data = formatter.format(data)
+                            .replace(',', '');
+}
+>>>>>>> 36b23b38dfbb459bc9bfa1eb69c98881bf69bdea
