@@ -31,3 +31,12 @@ AddNoteView.addHandlerAddNote(controlAddNote);
     }
     console.log(hash);
 })*/
+
+const btn = document.querySelector('.navbar-header h2');
+const foldersDiv = document.querySelector('.folders-container');
+const icon = document.querySelector('.fa-chevron-down');
+
+btn.addEventListener('click', function () {
+    foldersDiv.classList.toggle('folders-container-active');
+    icon.classList.toggle('fa-chevron-down-active');
+});

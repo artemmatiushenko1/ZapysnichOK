@@ -90,3 +90,30 @@
 .folder:hover a {
     color: #54adff;
 }
+.navbar-header h2:hover {
+    color: #54adff;
+}
+.navbar-header h2 {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.folders-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.folders-container-active {
+    max-height: 500px;
+}
+
+.fa-chevron-down {
+    font-size: 15px;
+    margin-left: 8px;
+    transition: transform 0.2s ease-out;
+}
+
+.fa-chevron-down-active {
+    transform: rotate(-180deg);
+}
