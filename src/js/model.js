@@ -6,6 +6,24 @@ export const state = {
     },
 };
 
+const notesStorage = window.localStorage;
+function writeToNotesStorage() {
+    notesStorage.setItem('notes', JSON.stringify(state.notes));
+}
+function getNotesFromStorage() {
+    if(notesStorage.notes) {
+        state.notes = JSON.parse(notesStorage.getItem('notes'));
+        pushNotesIdInArray();
+    }
+}
+getNotesFromStorage();
+
+function pushNotesIdInArray() {
+    for (const note of state.notes) {
+        state.notesId.push(note.id)
+    }
+}
+
 export class Note {
     constructor(title, description, time, folder) {
         this.title = title;
@@ -28,6 +46,7 @@ export class Note {
 export const addNote = function (title, description, time, folder) {
     const newNote = new Note(title, description, time, folder);
     state.notes.unshift(newNote);
+    writeToNotesStorage();
 };
 
 console.log(state);
