@@ -34,3 +34,25 @@ body {
     visibility: hidden;
     opacity: 0;
 }
+
+.btn-general {
+    background-color: #f6fbff;
+    outline: none;
+    color: #54adff;
+    width: 40px;
+    cursor: pointer;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    transition: all 0.1s ease;
+}
+
+.btn-general:hover {
+    border: 2px solid transparent;
+    color: #fff;
+    background-color: #54adff;
+}

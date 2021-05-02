@@ -59,7 +59,7 @@ class NotesView {
                             new Date(note.time)
                         )}</p>
                         <li class="note-action-btn">
-                            <button class="btn-delete-note">
+                            <button class="btn-general btn-delete-note">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </li>

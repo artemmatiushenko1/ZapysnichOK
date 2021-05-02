@@ -34,28 +34,6 @@
     color: #6a6a6a;
 }
 
-.btn-add-folder {
-    background-color: #f6fbff;
-    outline: none;
-    color: #54adff;
-    width: 40px;
-    cursor: pointer;
-    height: 40px;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    border: 2px solid transparent;
-    transition: all 0.2s ease;
-}
-
-.btn-add-folder:hover {
-    border: 2px solid transparent;
-    color: #fff;
-    background-color: #54adff;
-}
-
 .folders-container {
     width: 100%;
 }

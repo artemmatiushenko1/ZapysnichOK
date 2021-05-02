@@ -127,23 +127,9 @@
 }
 
 .btn-delete-note {
-    background-color: #f6fbff;
-    outline: none;
-    color: #54adff;
     width: 30px;
-    cursor: pointer;
     height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    border: 2px solid transparent;
-    transition: all 0.2s ease;
-}
-
-.btn-delete-note:hover {
-    background-color: #54adff;
-    color: #fff;
+    font-size: 14px;
 }
 
 .note-time {

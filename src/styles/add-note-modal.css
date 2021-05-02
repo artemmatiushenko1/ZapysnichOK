@@ -26,27 +26,14 @@
     transition: all 0.1s;
 }
 
-.btn-close-modal,
-.add-note-btn {
+.btn-close-modal {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background-color: #f6fbff;
-    outline: none;
-    color: #54adff;
-    width: 40px;
-    cursor: pointer;
-    height: 40px;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    border: 2px solid transparent;
-    transition: all 0.1s ease;
 }
 
 .add-note-btn {
+    position: absolute;
     padding: 0 12px;
     top: 1rem;
     right: 4.5rem;

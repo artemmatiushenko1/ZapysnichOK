@@ -33,7 +33,7 @@
                 <div class="folders-navbar">
                     <div class="navbar-header">
                         <h2>Розділи <i class="fas fa-chevron-down"></i></h2>
-                        <button class="btn-add-folder">
+                        <button class="btn-general btn-add-folder">
                             <i class="far fa-edit"></i>
                         </button>
                     </div>
@@ -80,13 +80,13 @@
                         </button>
                     </form>
                     <div class="btns-wrapper">
-                        <button class="btn-add-folder">
+                        <button class="btn-general btn-sort-older-first">
                             <i class="fas fa-history"></i>
                         </button>
-                        <button class="btn-add-folder">
+                        <button class="btn-general btn-sort-z-to-a">
                             <i class="fas fa-sort-alpha-up"></i>
                         </button>
-                        <button class="btn-add-folder">
+                        <button class="btn-general btn-sort-a-to-z">
                             <i class="fas fa-sort-alpha-down"></i>
                         </button>
                     </div>
@@ -96,10 +96,10 @@
             </div>
             <div class="additional-menu-container">
                 <ul class="additional-menu">
-                    <li class>
+                    <li class="btn-general">
                         <a href="#"><i class="fas fa-user-cog"></i></a>
                     </li>
-                    <li class="delete-all-btn">
+                    <li class="btn-general delete-all-btn">
                         <a href="#"><i class="fas fa-trash-alt"></i></a>
                     </li>
                 </ul>
@@ -107,7 +107,7 @@
 
             <div class="overlay hidden">
                 <div class="add-note-window hidden">
-                    <button class="btn-close-modal">
+                    <button class="btn-general btn-close-modal">
                         <i class="fas fa-times"></i>
                     </button>
                     <form class="add-note-form">
@@ -121,9 +121,12 @@
                             <textarea
                                 name="note-content-input"
                                 class="note-content-input"
-                                placeholder="Твій головний текст..."
+                                placeholder="Опис..."
                             ></textarea>
-                            <button type="submit" class="add-note-btn">
+                            <button
+                                type="submit"
+                                class="btn-general add-note-btn"
+                            >
                                 <i class="fas fa-check"></i>Готово
                             </button>
                         </div>

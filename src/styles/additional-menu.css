@@ -17,21 +17,6 @@
     align-items: center;
 }
 
-.additional-menu li {
-    cursor: pointer;
-    margin-bottom: 20px;
-    display: inline-block;
-    background-color: #f6fbff;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    border: 2px solid transparent;
-    transition: all 0.2s ease;
-}
-
 .additional-menu li a {
     color: #54adff;
 }
@@ -39,4 +24,8 @@
 .additional-menu li:hover {
     border: 2px solid #54adff;
     background-color: transparent;
+}
+
+.additional-menu li {
+    margin-bottom: 20px;
 }
