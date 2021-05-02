@@ -45,5 +45,4 @@ const btnSortByTime = document.querySelector('.btn-sort-older-first');
 console.log(btnSortByTime);
 btnSortByTime.addEventListener('click', function () {
         NotesView.render(model.sortByDate());
-        AddNoteView.addHandlerAddNote(controlAddNote);
   });
