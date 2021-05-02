@@ -62,3 +62,36 @@ function normalizationFormat(data) {
     const formattedData = formatter.format(data).replace(',', '');
     return formattedData;
 }
+
+function copyObject(object){
+    const objCopy = {};
+    const keys = Object.keys(object);
+    for (const key of keys){
+        objCopy[key] = object[key];
+    }
+    return objCopy;
+}
+
+function copyNotes(){
+    let copy = [];
+    for (let i = 0; i < state.notes.length; i++){
+        let note = copyObject(state.notes[i]);
+        copy.push(note);
+    }    
+    return copy;
+}
+
+//Bubble sort
+export function sortByDate(){
+    let sortedNotes = copyNotes();
+    for (let i = 0; i < sortedNotes.length - 1; i++){
+        for (let j = 0; j < sortedNotes.length - (i + 1); j++){
+            if (sortedNotes[j].time > sortedNotes[j + 1].time){
+                let tmp = copyObject(sortedNotes[j]);
+                sortedNotes[j] = copyObject(sortedNotes[j + 1]);
+                sortedNotes[j + 1] = tmp;
+            }
+        }
+    }
+    return sortedNotes;
+}
