@@ -95,3 +95,26 @@
 .fa-chevron-down-active {
     transform: rotate(-180deg);
 }
+
+.add-folder-window {
+    display: flex;
+    align-items: center;
+    width: 25vw;
+    height: 10vh;
+    padding: 1rem 2rem;
+}
+
+.btn-create-folder {
+    border-radius: 20px;
+}
+
+.add-folder-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.folder-name-input {
+    width: 70%;
+}

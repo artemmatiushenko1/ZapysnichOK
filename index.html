@@ -106,7 +106,22 @@
             </div>
 
             <div class="overlay hidden">
-                <div class="add-note-window hidden">
+                <div class="add-folder-window modal-default hidden">
+                    <form action="#" class="add-folder-form">
+                        <input
+                            type="text"
+                            class="folder-name-input input-default"
+                            placeholder="Введіть назву папки..."
+                        />
+                        <button
+                            type="submit"
+                            class="btn-create-folder btn-general"
+                        >
+                            <i class="fas fa-folder-plus"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="add-note-window modal-default hidden">
                     <button class="btn-general btn-close-modal">
                         <i class="fas fa-times"></i>
                     </button>
@@ -114,13 +129,13 @@
                         <div class="inputs-wrapper">
                             <input
                                 type="text"
-                                class="note-headline-input"
+                                class="note-headline-input input-default"
                                 placeholder="Заголовок..."
                                 tabindex="1"
                             />
                             <textarea
                                 name="note-content-input"
-                                class="note-content-input"
+                                class="note-content-input input-default"
                                 placeholder="Опис..."
                             ></textarea>
                             <button
