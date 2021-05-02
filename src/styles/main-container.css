@@ -51,7 +51,6 @@
 .search-form {
     display: inline-block;
     position: relative;
-    margin-bottom: 25px;
 }
 
 .search-btn {
@@ -149,4 +148,20 @@
 
 .note-time {
     font-size: 15px;
+}
+
+.toolsbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.btns-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.btns-wrapper button {
+    margin-left: 20px;
 }

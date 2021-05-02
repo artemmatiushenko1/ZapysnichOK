@@ -6,7 +6,7 @@ export const state = {
     },
 };
 
-export class Note {
+class Note {
     constructor(title, description, time, folder) {
         this.title = title;
         this.description = description;
@@ -15,14 +15,14 @@ export class Note {
         this.id = this._generateId();
     }
 
-    _generateId = function () {
+    _generateId() {
         let id = new Date().getTime();
         while (state.notesId.includes(id)) {
             id++;
         }
         state.notesId.push(id);
         return id;
-    };
+    }
 }
 
 export const addNote = function (title, description, time, folder) {
