@@ -7,15 +7,18 @@ export const state = {
 };
 
 const notesStorage = window.localStorage;
+
 function writeToNotesStorage() {
     notesStorage.setItem('notes', JSON.stringify(state.notes));
 }
+
 function getNotesFromStorage() {
     if (notesStorage.notes) {
         state.notes = JSON.parse(notesStorage.getItem('notes'));
         pushNotesIdInArray();
     }
 }
+
 getNotesFromStorage();
 
 function pushNotesIdInArray() {
@@ -30,7 +33,7 @@ export class Note {
         this.description = description;
         this.time = time;
         this.folder = folder;
-        this.id = this._generateId();
+        this.id = this._generateId().toString();
     }
 
     _generateId() {
@@ -63,30 +66,30 @@ function normalizationFormat(data) {
     return formattedData;
 }
 
-function copyObject(object){
+function copyObject(object) {
     const objCopy = {};
     const keys = Object.keys(object);
-    for (const key of keys){
+    for (const key of keys) {
         objCopy[key] = object[key];
     }
     return objCopy;
 }
 
-function copyNotes(){
+function copyNotes() {
     let copy = [];
-    for (let i = 0; i < state.notes.length; i++){
+    for (let i = 0; i < state.notes.length; i++) {
         let note = copyObject(state.notes[i]);
         copy.push(note);
-    }    
+    }
     return copy;
 }
 
 //Bubble sort
-export function sortByDate(){
+export function sortByDate() {
     let sortedNotes = copyNotes();
-    for (let i = 0; i < sortedNotes.length - 1; i++){
-        for (let j = 0; j < sortedNotes.length - (i + 1); j++){
-            if (sortedNotes[j].time > sortedNotes[j + 1].time){
+    for (let i = 0; i < sortedNotes.length - 1; i++) {
+        for (let j = 0; j < sortedNotes.length - (i + 1); j++) {
+            if (sortedNotes[j].time > sortedNotes[j + 1].time) {
                 let tmp = copyObject(sortedNotes[j]);
                 sortedNotes[j] = copyObject(sortedNotes[j + 1]);
                 sortedNotes[j + 1] = tmp;
@@ -95,3 +98,11 @@ export function sortByDate(){
     }
     return sortedNotes;
 }
+
+export const findNoteById = function (id) {
+    const searchResult = state.notes.find((note) => {
+        return note.id === id;
+    });
+
+    return searchResult;
+};

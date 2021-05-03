@@ -13,8 +13,14 @@ const controlAddNote = function () {
     NotesView.render(model.state.notes);
 };
 
+const controlShowNote = function (id) {
+    const note = model.findNoteById(id);
+    console.log(note);
+};
+
 NotesView.render(model.state.notes);
 AddNoteView.addHandlerAddNote(controlAddNote);
+NotesView.addHandlerShowNote(controlShowNote);
 
 //A silly sketch of pagination implementation
 /*window.addEventListener('hashchange', function () {
@@ -44,5 +50,5 @@ btn.addEventListener('click', function () {
 const btnSortByTime = document.querySelector('.btn-sort-older-first');
 console.log(btnSortByTime);
 btnSortByTime.addEventListener('click', function () {
-        NotesView.render(model.sortByDate());
-  });
+    NotesView.render(model.sortByDate());
+});

@@ -28,6 +28,16 @@ class NotesView {
         this.parentElement.innerHTML = '';
     }
 
+    addHandlerShowNote(handler) {
+        this.parentElement.addEventListener('click', function (e) {
+            const note = e.target.closest('.note');
+            if (note) {
+                const noteId = note.getAttribute('id');
+                handler(noteId);
+            }
+        });
+    }
+
     _formatDate(date) {
         if (!date) return;
         const formatter = new Intl.DateTimeFormat('uk', {
