@@ -48,9 +48,10 @@ class NotesView {
             <div class="note" id=${note.id}>
                 <div class="note-content">
                     <h2 class="note-headline">${note.title}</h2>
-                    <p>
-                    ${note.description}
-                    </p>
+                    <p>${note.description}</p>
+                    <button class="btn-general mini-btn btn-pin-note">
+                        <i class="fas fa-thumbtack"></i>
+                    </button>
                 </div>
                 <div class="action-btns-container">
                     <div class="note-group">${note.folder}</div>
@@ -59,7 +60,7 @@ class NotesView {
                             new Date(note.time)
                         )}</p>
                         <li class="note-action-btn">
-                            <button class="btn-general btn-delete-note">
+                            <button class="btn-general mini-btn btn-delete-note">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </li>

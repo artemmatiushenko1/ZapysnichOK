@@ -43,23 +43,23 @@ btn.addEventListener('click', function () {
 
 // sorting
 const btnSortByTime = document.querySelector('.btn-sort-older-first');
-let statusTimeSort = 0
+let statusTimeSort = 0;
 btnSortByTime.addEventListener('click', function () {
-        if(!statusTimeSort){
-            NotesView.render(model.sortByDate());
-            statusTimeSort = 1;
-        } else {
-              NotesView.render(model.state.notes);
-              statusTimeSort = 0;
-          }
+    if (!statusTimeSort) {
+        NotesView.render(model.sortByDate());
+        statusTimeSort = 1;
+    } else {
+        NotesView.render(model.state.notes);
+        statusTimeSort = 0;
+    }
 });
 
 const btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
 btnSortByAbc.addEventListener('click', function () {
-        NotesView.render(model.sortByAZ());
+    NotesView.render(model.sortByAZ());
 });
 
 const btnSortByCba = document.querySelector('.btn-sort-z-to-a');
 btnSortByCba.addEventListener('click', function () {
-      NotesView.render(model.sortByZA());
-}); 
+    NotesView.render(model.sortByZA());
+});

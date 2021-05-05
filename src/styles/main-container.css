@@ -98,10 +98,15 @@
     font-weight: 600;
     color: #6a6a6a;
     margin-bottom: 25px;
+    max-width: 15rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .note-content {
     font-size: 16px;
+    position: relative;
 }
 
 .note-group {
@@ -126,12 +131,6 @@
     list-style: none;
 }
 
-.btn-delete-note {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-}
-
 .note-time {
     font-size: 15px;
 }
@@ -150,4 +149,10 @@
 
 .btns-wrapper button {
     margin-left: 20px;
+}
+
+.btn-pin-note {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
