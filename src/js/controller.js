@@ -2,6 +2,7 @@ import * as model from '../js/model.js';
 import NotesView from './views/notesView.js';
 import NotesAppView from './views/notesAppView.js';
 import AddNoteView from './views/addNoteView.js';
+import AddFolderView from './views/addFolderView.js';
 
 const controlAddNote = function () {
     const title = AddNoteView.getTitle();
@@ -9,7 +10,7 @@ const controlAddNote = function () {
     const time = new Date().getTime();
     model.addNote(title, description, time, 'Важливе');
     AddNoteView.clearInputs();
-    AddNoteView.toogleWindow();
+    AddNoteView.toggleWindow();
     NotesView.render(model.state.notes);
 };
 
@@ -48,7 +49,23 @@ btn.addEventListener('click', function () {
 });
 
 const btnSortByTime = document.querySelector('.btn-sort-older-first');
-console.log(btnSortByTime);
+let statusTimeSort = 0;
 btnSortByTime.addEventListener('click', function () {
-    NotesView.render(model.sortByDate());
+    if (!statusTimeSort) {
+        NotesView.render(model.sortByDate());
+        statusTimeSort = 1;
+    } else {
+        NotesView.render(model.state.notes);
+        statusTimeSort = 0;
+    }
+});
+
+const btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
+btnSortByAbc.addEventListener('click', function () {
+    NotesView.render(model.sortByAZ());
+});
+
+const btnSortByCba = document.querySelector('.btn-sort-z-to-a');
+btnSortByCba.addEventListener('click', function () {
+    NotesView.render(model.sortByZA());
 });
