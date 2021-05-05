@@ -99,10 +99,9 @@
 .add-folder-window {
     display: flex;
     align-items: center;
-    width: 30vw;
+    width: 25vw;
     height: 10vh;
     padding: 1rem 2rem;
-    z-index: 2000;
 }
 
 .btn-create-folder {
