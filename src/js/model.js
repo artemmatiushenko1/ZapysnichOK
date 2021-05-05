@@ -63,6 +63,22 @@ function normalizationFormat(data) {
     return formattedData;
 }
 
+export class Folder {
+
+    constructor(name) {
+        this.name = name;
+    }
+
+    addNoteToFolder(note) {
+        state.folders.name.unshift(note);
+    }
+}
+
+export function addFolder(name) {
+    const newFolder = new Folder(name);
+    state.folders.name = [];
+};
+
 function copyObject(object){
     const objCopy = {};
     const keys = Object.keys(object);

@@ -2,7 +2,7 @@ class AddNoteView {
     rootElement = document.querySelector('.main-container');
     parentElement = document.querySelector('.add-note-form');
     window = document.querySelector('.add-note-window');
-    overlay = document.querySelector('.overlay');
+    overlay = document.querySelector('.overlay-add-note');
     btnOpen = document.querySelector('.add-note-input');
     btnClose = document.querySelector('.btn-close-modal');
     createNoteBtn = document.querySelector('.add-note-btn');
@@ -34,6 +34,7 @@ class AddNoteView {
 
     _addHandlerCloseWindow() {
         this.btnClose.addEventListener('click', this.toogleWindow.bind(this));
+        this.overlay.addEventListener('click', this.toogleWindow.bind(this));
     }
 
     clearInputs() {
