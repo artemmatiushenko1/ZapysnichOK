@@ -85,19 +85,36 @@ function copyNotes() {
 }
 
 //Bubble sort
-export function sortByDate() {
-    let sortedNotes = copyNotes();
-    for (let i = 0; i < sortedNotes.length - 1; i++) {
-        for (let j = 0; j < sortedNotes.length - (i + 1); j++) {
-            if (sortedNotes[j].time > sortedNotes[j + 1].time) {
-                let tmp = copyObject(sortedNotes[j]);
-                sortedNotes[j] = copyObject(sortedNotes[j + 1]);
-                sortedNotes[j + 1] = tmp;
+function sortNotes(key) {
+    return function () {
+        let sortedNotes = copyNotes();
+        for (let i = 0; i < sortedNotes.length - 1; i++) {
+            for (let j = 0; j < sortedNotes.length - (i + 1); j++) {
+                let condition;
+                if (key == 'date') {
+                    condition = sortedNotes[j].time > sortedNotes[j + 1].time;
+                }
+                if (key == 'a-z') {
+                    condition = sortedNotes[j].title > sortedNotes[j + 1].title;
+                }
+                if (key == 'z-a') {
+                    condition = sortedNotes[j].title < sortedNotes[j + 1].title;
+                }
+                if (condition) {
+                    let tmp = copyObject(sortedNotes[j]);
+                    sortedNotes[j] = copyObject(sortedNotes[j + 1]);
+                    sortedNotes[j + 1] = tmp;
+                }
             }
         }
-    }
-    return sortedNotes;
+        return sortedNotes;
+    };
 }
+
+// partial
+export const sortByDate = sortNotes('date');
+export const sortByAZ = sortNotes('a-z');
+export const sortByZA = sortNotes('z-a');
 
 export const findNoteById = function (id) {
     const searchResult = state.notes.find((note) => {

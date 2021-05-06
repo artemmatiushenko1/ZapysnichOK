@@ -2,6 +2,7 @@ import * as model from '../js/model.js';
 import NotesView from './views/notesView.js';
 import NotesAppView from './views/notesAppView.js';
 import AddNoteView from './views/addNoteView.js';
+import NoteContentView from './views/noteContentView.js';
 
 const controlAddNote = function () {
     const title = AddNoteView.getTitle();
@@ -15,12 +16,15 @@ const controlAddNote = function () {
 
 const controlShowNote = function (id) {
     const note = model.findNoteById(id);
+    NoteContentView.setTitle(note.title);
+    NoteContentView.setDescription(note.description);
+    NoteContentView.toogleWindow();
     console.log(note);
 };
 
 NotesView.render(model.state.notes);
 AddNoteView.addHandlerAddNote(controlAddNote);
-NotesView.addHandlerShowNote(controlShowNote);
+NoteContentView.addHandlerShowNote(controlShowNote);
 
 //A silly sketch of pagination implementation
 /*window.addEventListener('hashchange', function () {
@@ -47,8 +51,25 @@ btn.addEventListener('click', function () {
     icon.classList.toggle('fa-chevron-down-active');
 });
 
+// sorting
 const btnSortByTime = document.querySelector('.btn-sort-older-first');
-console.log(btnSortByTime);
+let statusTimeSort = 0;
 btnSortByTime.addEventListener('click', function () {
-    NotesView.render(model.sortByDate());
+    if (!statusTimeSort) {
+        NotesView.render(model.sortByDate());
+        statusTimeSort = 1;
+    } else {
+        NotesView.render(model.state.notes);
+        statusTimeSort = 0;
+    }
+});
+
+const btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
+btnSortByAbc.addEventListener('click', function () {
+    NotesView.render(model.sortByAZ());
+});
+
+const btnSortByCba = document.querySelector('.btn-sort-z-to-a');
+btnSortByCba.addEventListener('click', function () {
+    NotesView.render(model.sortByZA());
 });

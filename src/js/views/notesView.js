@@ -1,11 +1,9 @@
 class NotesView {
     data;
     parentElement = document.querySelector('.notes-container');
-    //rootElement = document.querySelector('.main-container');
     message = 'There is no notes here yet :)';
 
     render(data) {
-        //this.parentElement = this.rootElement.querySelector('.notes-container');
         this.data = data;
         if (!this.data || !Array.isArray(this.data) || this.data.length === 0) {
             this.renderMessage();
@@ -28,16 +26,6 @@ class NotesView {
         this.parentElement.innerHTML = '';
     }
 
-    addHandlerShowNote(handler) {
-        this.parentElement.addEventListener('click', function (e) {
-            const note = e.target.closest('.note');
-            if (note) {
-                const noteId = note.getAttribute('id');
-                handler(noteId);
-            }
-        });
-    }
-
     _formatDate(date) {
         if (!date) return;
         const formatter = new Intl.DateTimeFormat('uk', {
@@ -58,9 +46,10 @@ class NotesView {
             <div class="note" id=${note.id}>
                 <div class="note-content">
                     <h2 class="note-headline">${note.title}</h2>
-                    <p>
-                    ${note.description}
-                    </p>
+                    <p>${note.description}</p>
+                    <button class="btn-general mini-btn btn-pin-note">
+                        <i class="fas fa-thumbtack"></i>
+                    </button>
                 </div>
                 <div class="action-btns-container">
                     <div class="note-group">${note.folder}</div>
@@ -69,7 +58,7 @@ class NotesView {
                             new Date(note.time)
                         )}</p>
                         <li class="note-action-btn">
-                            <button class="btn-general btn-delete-note">
+                            <button class="btn-general mini-btn btn-delete-note">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </li>
