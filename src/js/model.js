@@ -81,34 +81,53 @@ function copyNotes(){
     return copy;
 }
 
+//status of current viev on page:
+export let pinNoteID = 0;
+export let currentNotesView = state.notes;
+
 //Bubble sort
 function sortNotes(key){
     return function(){
-      let sortedNotes = copyNotes();
-      for (let i = 0; i < sortedNotes.length - 1; i++){
-          for (let j = 0; j < sortedNotes.length - (i + 1); j++){
-              let condition;
-              if (key == 'date'){
-                  condition = sortedNotes[j].time > sortedNotes[j + 1].time;
-              }
-              if (key == 'a-z'){
-                  condition = sortedNotes[j].title > sortedNotes[j + 1].title;
-              }
-              if (key == 'z-a'){
-                  condition = sortedNotes[j].title < sortedNotes[j + 1].title;
-              }
-              if (condition){
-                  let tmp = copyObject(sortedNotes[j]);
-                  sortedNotes[j] = copyObject(sortedNotes[j + 1]);
-                  sortedNotes[j + 1] = tmp;
-              }
-          }
-      }
-      return sortedNotes;
+        let sortedNotes = copyNotes();
+        if (pinNoteID) {
+            let indexPinNote = 0;
+            while (sortedNotes[indexPinNote].id != pinNoteID) {
+                indexPinNote++;
+            }
+            let pinnedNote = sortedNotes.pop(indexPinNote);
+        }
+        for (let i = 0; i < sortedNotes.length - 1; i++){
+            for (let j = 0; j < sortedNotes.length - (i + 1); j++){
+                let condition;
+                if (key == 'l-date'){
+                    condition = sortedNotes[j].time > sortedNotes[j + 1].time;
+                }
+                if (key == 'e-date'){
+                    condition = sortedNotes[j].time < sortedNotes[j + 1].time;
+                }
+                if (key == 'a-z'){
+                    condition = sortedNotes[j].title > sortedNotes[j + 1].title;
+                }
+                if (key == 'z-a'){
+                    condition = sortedNotes[j].title < sortedNotes[j + 1].title;
+                }
+                if (condition){
+                    let tmp = copyObject(sortedNotes[j]);
+                    sortedNotes[j] = copyObject(sortedNotes[j + 1]);
+                    sortedNotes[j + 1] = tmp;
+                }
+            }
+        }
+        if (pinNoteID) {
+            sortedNotes.unshift(pinnedNote);
+        }
+        currentNotesView = sortedNotes;
+        return sortedNotes;
     }
 }
 
 // partial
-export const sortByDate = sortNotes('date');
+export const sortFirstLater = sortNotes('l-date');
+export const sortFirstEarlier = sortNotes('e-date');
 export const sortByAZ = sortNotes('a-z');
 export const sortByZA = sortNotes('z-a');
