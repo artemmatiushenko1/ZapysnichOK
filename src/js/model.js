@@ -108,6 +108,13 @@ function sortNotes(key){
     }
 }
 
+export const deleteNote = function deleteNotes(id) {
+    let index = state.notesId.indexOf(id);
+    state.notes.splice(index, 1);
+    state.notesId.splice(index, 1);
+    console.log(state);
+};
+
 // partial
 export const sortByDate = sortNotes('date');
 export const sortByAZ = sortNotes('a-z');
