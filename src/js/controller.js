@@ -13,8 +13,14 @@ const controlAddNote = function () {
     NotesView.render(model.state.notes);
 };
 
+const controlDeleteNote = function (id) {
+    model.deleteNote(id);
+    NotesView.render(model.state.notes);
+}
+
 NotesView.render(model.state.notes);
 AddNoteView.addHandlerAddNote(controlAddNote);
+NotesView.addHandlerDeleteNote(controlDeleteNote);
 
 //A silly sketch of pagination implementation
 /*window.addEventListener('hashchange', function () {

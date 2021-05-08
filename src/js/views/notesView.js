@@ -41,6 +41,18 @@ class NotesView {
         return formattedDate;
     }
 
+    addHandlerDeleteNote(handler) {
+        this.parentElement.addEventListener('click', function(e) {
+            const target = e.target;
+            const btnDelete = target.closest('.btn-delete-note');
+            if (btnDelete) {
+                const note = btnDelete.closest('.note');
+                const noteId = note.getAttribute('id');
+                handler(noteId);
+            }
+        });
+    }
+
     _generateMarkup() {
         return this.data
             .map((note) => {
