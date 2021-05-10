@@ -109,10 +109,10 @@ function sortNotes(key){
 }
 
 export const deleteNote = function deleteNotes(id) {
-    let index = state.notesId.indexOf(id);
-    state.notes.splice(index, 1);
+    let index = state.notesId.indexOf(Number(id));
+    let index2 = state.notes.findIndex((element) => element.id === Number(id));
     state.notesId.splice(index, 1);
-    console.log(state);
+    state.notes.splice(index2, 1);
 };
 
 // partial
