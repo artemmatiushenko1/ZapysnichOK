@@ -5,21 +5,21 @@ import AddNoteView from './views/addNoteView.js';
 import NoteContentView from './views/noteContentView.js';
 
 const controlAddNote = function () {
-    const title = AddNoteView.getTitle();
-    const description = AddNoteView.getDescription();
-    const time = new Date().getTime();
-    model.addNote(title, description, time, 'Важливе');
-    AddNoteView.clearInputs();
-    AddNoteView.toogleWindow();
-    NotesView.render(model.state.notes);
+  const title = AddNoteView.getTitle();
+  const description = AddNoteView.getDescription();
+  const time = new Date().getTime();
+  model.addNote(title, description, time, 'Важливе');
+  AddNoteView.clearInputs();
+  AddNoteView.toogleWindow();
+  NotesView.render(model.state.notes);
 };
 
 const controlShowNote = function (id) {
-    const note = model.findNoteById(id);
-    NoteContentView.setTitle(note.title);
-    NoteContentView.setDescription(note.description);
-    NoteContentView.toogleWindow();
-    console.log(note);
+  const note = model.findNoteById(id);
+  NoteContentView.setTitle(note.title);
+  NoteContentView.setDescription(note.description);
+  NoteContentView.toogleWindow();
+  console.log(note);
 };
 
 NotesView.render(model.state.notes);
@@ -47,29 +47,29 @@ const foldersDiv = document.querySelector('.folders-container');
 const icon = document.querySelector('.fa-chevron-down');
 
 btn.addEventListener('click', function () {
-    foldersDiv.classList.toggle('folders-container-active');
-    icon.classList.toggle('fa-chevron-down-active');
+  foldersDiv.classList.toggle('folders-container-active');
+  icon.classList.toggle('fa-chevron-down-active');
 });
 
 // sorting
 const btnSortByTime = document.querySelector('.btn-sort-older-first');
 let statusTimeSort = 0;
 btnSortByTime.addEventListener('click', function () {
-    if (!statusTimeSort) {
-        NotesView.render(model.sortByDate());
-        statusTimeSort = 1;
-    } else {
-        NotesView.render(model.state.notes);
-        statusTimeSort = 0;
-    }
+  if (!statusTimeSort) {
+    NotesView.render(model.sortByDate());
+    statusTimeSort = 1;
+  } else {
+    NotesView.render(model.state.notes);
+    statusTimeSort = 0;
+  }
 });
 
 const btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
 btnSortByAbc.addEventListener('click', function () {
-    NotesView.render(model.sortByAZ());
+  NotesView.render(model.sortByAZ());
 });
 
 const btnSortByCba = document.querySelector('.btn-sort-z-to-a');
 btnSortByCba.addEventListener('click', function () {
-    NotesView.render(model.sortByZA());
+  NotesView.render(model.sortByZA());
 });
