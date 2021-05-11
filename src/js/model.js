@@ -7,15 +7,18 @@ export const state = {
 };
 
 const notesStorage = window.localStorage;
+
 function writeToNotesStorage() {
   notesStorage.setItem('notes', JSON.stringify(state.notes));
 }
+
 function getNotesFromStorage() {
   if (notesStorage.notes) {
     state.notes = JSON.parse(notesStorage.getItem('notes'));
     pushNotesIdInArray();
   }
 }
+
 getNotesFromStorage();
 
 function pushNotesIdInArray() {
@@ -122,3 +125,9 @@ export const deleteNote = function deleteNotes(id) {
 export const sortByDate = sortNotes('date');
 export const sortByAZ = sortNotes('a-z');
 export const sortByZA = sortNotes('z-a');
+
+export const findNoteById = function (id) {
+  const searchResult = state.notes.find((note) => note.id === id);
+
+  return searchResult;
+};

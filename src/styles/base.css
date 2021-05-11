@@ -84,3 +84,10 @@ body {
     height: 30px;
     font-size: 14px;
 }
+
+.show-note-window {
+    width: 40vw;
+    height: 50vh;
+    padding: 80px 45px;
+    padding-bottom: 35px;
+}

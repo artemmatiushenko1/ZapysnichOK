@@ -2,8 +2,9 @@ import * as model from '../js/model.js';
 import NotesView from './views/notesView.js';
 import NotesAppView from './views/notesAppView.js';
 import AddNoteView from './views/addNoteView.js';
+import NoteContentView from './views/noteContentView.js';
 
-const controlAddNote = function() {
+const controlAddNote = function () {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
   const time = new Date().getTime();
@@ -13,14 +14,23 @@ const controlAddNote = function() {
   NotesView.render(model.state.notes);
 };
 
-const controlDeleteNote = function(id) {
+const controlDeleteNote = function (id) {
   model.deleteNote(id);
   NotesView.render(model.state.notes);
+};
+
+const controlShowNote = function (id) {
+  const note = model.findNoteById(id);
+  NoteContentView.setTitle(note.title);
+  NoteContentView.setDescription(note.description);
+  NoteContentView.toogleWindow();
+  console.log(note);
 };
 
 NotesView.render(model.state.notes);
 AddNoteView.addHandlerAddNote(controlAddNote);
 NotesView.addHandlerDeleteNote(controlDeleteNote);
+NoteContentView.addHandlerShowNote(controlShowNote);
 
 //A silly sketch of pagination implementation
 /*window.addEventListener('hashchange', function () {

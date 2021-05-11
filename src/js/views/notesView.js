@@ -1,11 +1,9 @@
 class NotesView {
   data;
   parentElement = document.querySelector('.notes-container');
-  //rootElement = document.querySelector('.main-container');
   message = 'There is no notes here yet :)';
 
   render(data) {
-    //this.parentElement = this.rootElement.querySelector('.notes-container');
     this.data = data;
     if (!this.data || !Array.isArray(this.data) || this.data.length === 0) {
       this.renderMessage();
@@ -52,7 +50,8 @@ class NotesView {
 
   _generateMarkup() {
     return this.data
-      .map((note) => `
+      .map(
+        (note) => `
             <div class="note" id=${note.id}>
                 <div class="note-content">
                     <h2 class="note-headline">${note.title}</h2>
@@ -64,18 +63,19 @@ class NotesView {
                 <div class="action-btns-container">
                     <div class="note-group">${note.folder}</div>
                     <ul class="btns-container">
-                        <p class="note-time">${this._formatDate(
-    new Date(note.time)
-  )}</p>
+                        <p class="note-time">
+                        ${this._formatDate(new Date(note.time))}
+                        </p>
                         <li class="note-action-btn">
-                            <button class="btn-general mini-btn btn-delete-note">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
+                          <button class="btn-general mini-btn btn-delete-note">
+                              <i class="fas fa-trash-alt"></i>
+                          </button>
                         </li>
                     </ul>
                 </div>
             </div>
-            `)
+            `
+      )
       .join('');
   }
 }
