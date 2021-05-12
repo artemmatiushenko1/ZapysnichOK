@@ -3,6 +3,7 @@ import NotesView from './views/notesView.js';
 import NotesAppView from './views/notesAppView.js';
 import AddNoteView from './views/addNoteView.js';
 import NoteContentView from './views/noteContentView.js';
+import ToolsBarView from './views/toolsBarView.js';
 
 const controlAddNote = function() {
   const title = AddNoteView.getTitle();

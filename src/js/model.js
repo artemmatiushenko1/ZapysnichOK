@@ -87,8 +87,9 @@ function copyNotes() {
 }
 
 //Bubble sort
-function sortNotes(key) {
+function sortNotes(callback) {
   return function() {
+    //get index pinned note by id
     let pinnedNote = 0;
     const sortedNotes = copyNotes();
     if (state.pinNoteID) {
@@ -98,32 +99,12 @@ function sortNotes(key) {
       }
       pinnedNote = sortedNotes.pop(indexPinNote);
     }
-    for (let i = 0; i < sortedNotes.length - 1; i++) {
-      for (let j = 0; j < sortedNotes.length - (i + 1); j++) {
-        let condition;
-        if (key === 'l-date') {
-          condition = sortedNotes[j].time > sortedNotes[j + 1].time;
-        }
-        if (key === 'e-date') {
-          condition = sortedNotes[j].time < sortedNotes[j + 1].time;
-        }
-        if (key === 'a-z') {
-          condition = sortedNotes[j].title > sortedNotes[j + 1].title;
-        }
-        if (key === 'z-a') {
-          condition = sortedNotes[j].title < sortedNotes[j + 1].title;
-        }
-        if (condition) {
-          const tmp = copyObject(sortedNotes[j]);
-          sortedNotes[j] = copyObject(sortedNotes[j + 1]);
-          sortedNotes[j + 1] = tmp;
-        }
-      }
-    }
+    sortedNotes.sort(callback);
     if (state.pinNoteID) {
       sortedNotes.unshift(pinnedNote);
     }
     state.currentNotesView = sortedNotes;
+
     return sortedNotes;
   };
 }
@@ -139,10 +120,26 @@ export const deleteNote = function deleteNotes(id) {
 };
 
 // partial
-export const sortFirstLater = sortNotes('l-date');
-export const sortFirstEarlier = sortNotes('e-date');
-export const sortByAZ = sortNotes('a-z');
-export const sortByZA = sortNotes('z-a');
+function compareStrZA(a, b){
+  if (a.title < b.title){
+    return 1;
+  } else {
+    return -1;
+  }
+}
+
+function compareStrAZ(a, b){
+  if (a.title > b.title){
+    return 1;
+  } else {
+    return -1;
+  }
+}
+
+export const sortFirstLater = sortNotes((a, b) => a.time - b.time);
+export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time);
+export const sortByAZ = sortNotes(compareStrZA);
+export const sortByZA = sortNotes(compareStrAZ);
 
 export const findNoteById = function(id) {
   const searchResult = state.notes.find((note) => note.id === id);
