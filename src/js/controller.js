@@ -4,7 +4,7 @@ import NotesAppView from './views/notesAppView.js';
 import AddNoteView from './views/addNoteView.js';
 import NoteContentView from './views/noteContentView.js';
 
-const controlAddNote = function () {
+const controlAddNote = function() {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
   const time = new Date().getTime();
@@ -14,12 +14,12 @@ const controlAddNote = function () {
   NotesView.render(model.state.notes);
 };
 
-const controlDeleteNote = function (id) {
+const controlDeleteNote = function(id) {
   model.deleteNote(id);
   NotesView.render(model.state.notes);
 };
 
-const controlShowNote = function (id) {
+const controlShowNote = function(id) {
   const note = model.findNoteById(id);
   NoteContentView.setTitle(note.title);
   NoteContentView.setDescription(note.description);
@@ -60,25 +60,25 @@ btn.addEventListener('click', () => {
 // sorting
 const btnSortByTime = document.querySelector('.btn-sort-older-first');
 let statusTimeSort = 0;
-btnSortByTime.addEventListener('click', function () {
-    if(!statusTimeSort){
-        model.sortFirstLater();
-        statusTimeSort = 1;
-    } else {
-        model.sortFirstEarlier();
-        statusTimeSort = 0;
-    }
-    NotesView.render(model.currentNotesView);
+btnSortByTime.addEventListener('click', () => {
+  if (!statusTimeSort) {
+    model.sortFirstLater();
+    statusTimeSort = 1;
+  } else {
+    model.sortFirstEarlier();
+    statusTimeSort = 0;
+  }
+  NotesView.render(model.state.currentNotesView);
 });
 
 const btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
-btnSortByAbc.addEventListener('click', function () {
-    model.sortByAZ()
-    NotesView.render(model.currentNotesView);
+btnSortByAbc.addEventListener('click', () => {
+  model.sortByAZ();
+  NotesView.render(model.state.currentNotesView);
 });
 
 const btnSortByCba = document.querySelector('.btn-sort-z-to-a');
-btnSortByCba.addEventListener('click', function () {
-    model.sortByZA()
-    NotesView.render(model.currentNotesView);
-}); 
+btnSortByCba.addEventListener('click', () => {
+  model.sortByZA();
+  NotesView.render(model.state.currentNotesView);
+});

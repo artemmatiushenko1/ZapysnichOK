@@ -28,7 +28,7 @@ class NoteContentView {
   }
 
   addHandlerShowNote(handler) {
-    this.parentElement.addEventListener('click', function (e) {
+    this.parentElement.addEventListener('click', (e) => {
       const target = e.target;
       if (target.closest('.mini-btn')) return;
       const note = target.closest('.note');
