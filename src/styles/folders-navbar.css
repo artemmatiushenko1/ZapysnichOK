@@ -1,120 +1,121 @@
 .folders-navbar-container {
-    background-color: #fff;
-    padding: 25px 20px;
-    position: sticky;
-    align-self: start;
-    top: 0;
-    min-height: 100vh;
+  background-color: #fff;
+  padding: 25px 20px;
+  position: sticky;
+  align-self: start;
+  top: 0;
+  min-height: 100vh;
 }
 
 .logo {
-    color: #54adff;
-    font-size: 30px;
-    font-weight: 900;
-    text-align: center;
-    letter-spacing: 1px;
-    margin-bottom: 40px;
-    text-transform: uppercase;
+  color: #54adff;
+  font-size: 30px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
 }
 
 .logo span img {
-    width: 10%;
-    margin-left: 5px;
+  width: 10%;
+  margin-left: 5px;
 }
 
 .navbar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .navbar-header h2 {
-    font-size: 18px;
-    color: #6a6a6a;
+  font-size: 18px;
+  color: #6a6a6a;
 }
 
 .folders-container {
-    width: 100%;
+  width: 100%;
 }
 
 .folders {
-    list-style: none;
+  list-style: none;
 }
 
 .folders .folder {
-    margin-bottom: 6px;
-    border-left: 4px solid #a2a2a2;
-    padding: 12px 15px;
-    font-size: 16px;
+  margin-bottom: 6px;
+  border-left: 4px solid #a2a2a2;
+  padding: 12px 15px;
+  font-size: 16px;
 }
 
 .folder a {
-    text-decoration: none;
-    color: #a2a2a2;
-    transition: all 0.2s ease;
+  text-decoration: none;
+  color: #a2a2a2;
+  transition: all 0.2s ease;
 }
 
 .folder {
-    cursor: pointer;
-    transition: all 0.2s ease;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .folder:hover {
-    border-color: #54adff;
-    transform: translateX(5px);
+  border-color: #54adff;
+  transform: translateX(5px);
 }
 
 .folder:hover a {
-    color: #54adff;
+  color: #54adff;
 }
 .navbar-header h2:hover {
-    color: #54adff;
+  color: #54adff;
 }
 .navbar-header h2 {
-    cursor: pointer;
-    transition: all 0.2s ease;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .folders-container {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
 }
 
 .folders-container-active {
-    max-height: 500px;
+  max-height: 500px;
 }
 
 .fa-chevron-down {
-    font-size: 15px;
-    margin-left: 8px;
-    transition: transform 0.2s ease-out;
+  font-size: 15px;
+  margin-left: 8px;
+  transition: transform 0.2s ease-out;
 }
 
 .fa-chevron-down-active {
-    transform: rotate(-180deg);
+  transform: rotate(-180deg);
 }
 
 .add-folder-window {
-    display: flex;
-    align-items: center;
-    width: 25vw;
-    height: 10vh;
-    padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  width: 25vw;
+  height: 10vh;
+  padding: 1rem 2rem;
+  z-index: 1000;
 }
 
 .btn-create-folder {
-    border-radius: 20px;
+  border-radius: 20px;
 }
 
 .add-folder-form {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .folder-name-input {
-    width: 70%;
+  width: 70%;
 }
