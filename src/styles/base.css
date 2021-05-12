@@ -78,3 +78,16 @@ body {
     z-index: 1000;
     transition: all 0.1s;
 }
+
+.mini-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+}
+
+.show-note-window {
+    width: 40vw;
+    height: 50vh;
+    padding: 80px 45px;
+    padding-bottom: 35px;
+}
