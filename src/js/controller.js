@@ -2,19 +2,35 @@ import * as model from '../js/model.js';
 import NotesView from './views/notesView.js';
 import NotesAppView from './views/notesAppView.js';
 import AddNoteView from './views/addNoteView.js';
+import NoteContentView from './views/noteContentView.js';
 
 const controlAddNote = function () {
-    const title = AddNoteView.getTitle();
-    const description = AddNoteView.getDescription();
-    const time = new Date().getTime();
-    model.addNote(title, description, time, 'Важливе');
-    AddNoteView.clearInputs();
-    AddNoteView.toogleWindow();
-    NotesView.render(model.state.notes);
+  const title = AddNoteView.getTitle();
+  const description = AddNoteView.getDescription();
+  const time = new Date().getTime();
+  model.addNote(title, description, time, 'Важливе');
+  AddNoteView.clearInputs();
+  AddNoteView.toogleWindow();
+  NotesView.render(model.state.notes);
+};
+
+const controlDeleteNote = function (id) {
+  model.deleteNote(id);
+  NotesView.render(model.state.notes);
+};
+
+const controlShowNote = function (id) {
+  const note = model.findNoteById(id);
+  NoteContentView.setTitle(note.title);
+  NoteContentView.setDescription(note.description);
+  NoteContentView.toogleWindow();
+  console.log(note);
 };
 
 NotesView.render(model.state.notes);
 AddNoteView.addHandlerAddNote(controlAddNote);
+NotesView.addHandlerDeleteNote(controlDeleteNote);
+NoteContentView.addHandlerShowNote(controlShowNote);
 
 //A silly sketch of pagination implementation
 /*window.addEventListener('hashchange', function () {
@@ -36,9 +52,9 @@ const btn = document.querySelector('.navbar-header h2');
 const foldersDiv = document.querySelector('.folders-container');
 const icon = document.querySelector('.fa-chevron-down');
 
-btn.addEventListener('click', function () {
-    foldersDiv.classList.toggle('folders-container-active');
-    icon.classList.toggle('fa-chevron-down-active');
+btn.addEventListener('click', () => {
+  foldersDiv.classList.toggle('folders-container-active');
+  icon.classList.toggle('fa-chevron-down-active');
 });
 
 // sorting

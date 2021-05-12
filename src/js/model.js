@@ -1,84 +1,87 @@
 export const state = {
-    notes: [],
-    notesId: [],
-    folders: {
-        Важливе: [],
-    },
+  notes: [],
+  notesId: [],
+  folders: {
+    Важливе: [],
+  },
 };
 
 const notesStorage = window.localStorage;
+
 function writeToNotesStorage() {
-    notesStorage.setItem('notes', JSON.stringify(state.notes));
+  notesStorage.setItem('notes', JSON.stringify(state.notes));
 }
+
 function getNotesFromStorage() {
-    if (notesStorage.notes) {
-        state.notes = JSON.parse(notesStorage.getItem('notes'));
-        pushNotesIdInArray();
-    }
+  if (notesStorage.notes) {
+    state.notes = JSON.parse(notesStorage.getItem('notes'));
+    pushNotesIdInArray();
+  }
 }
+
 getNotesFromStorage();
 
 function pushNotesIdInArray() {
-    for (const note of state.notes) {
-        state.notesId.push(note.id);
-    }
+  for (const note of state.notes) {
+    state.notesId.push(note.id);
+  }
 }
 
 export class Note {
-    constructor(title, description, time, folder) {
-        this.title = title;
-        this.description = description;
-        this.time = time;
-        this.folder = folder;
-        this.id = this._generateId();
-    }
+  constructor(title, description, time, folder) {
+    this.title = title;
+    this.description = description;
+    this.time = time;
+    this.folder = folder;
+    this.id = this._generateId();
+  }
 
-    _generateId() {
-        let id = new Date().getTime();
-        while (state.notesId.includes(id)) {
-            id++;
-        }
-        state.notesId.push(id);
-        return id;
+  _generateId() {
+    let id = new Date().getTime();
+    while (state.notesId.includes(id)) {
+      id++;
     }
+    state.notesId.push(id.toString());
+    return id.toString();
+  }
 }
 
 export const addNote = function (title, description, time, folder) {
-    const newNote = new Note(title, description, time, folder);
-    state.notes.unshift(newNote);
-    writeToNotesStorage();
+  const newNote = new Note(title, description, time, folder);
+  state.notes.unshift(newNote);
+  writeToNotesStorage();
 };
 
 console.log(state);
 
 function normalizationFormat(data) {
-    const formatter = new Intl.DateTimeFormat('uk', {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-    });
-    const formattedData = formatter.format(data).replace(',', '');
-    return formattedData;
+  const formatter = new Intl.DateTimeFormat('uk', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+  const formattedData = formatter.format(data).replace(',', '');
+  return formattedData;
 }
 
-function copyObject(object){
-    const objCopy = {};
-    const keys = Object.keys(object);
-    for (const key of keys){
-        objCopy[key] = object[key];
-    }
-    return objCopy;
+function copyObject(object) {
+  const objCopy = {};
+  const keys = Object.keys(object);
+  for (const key of keys) {
+    objCopy[key] = object[key];
+  }
+  return objCopy;
 }
 
-function copyNotes(){
-    let copy = [];
-    for (let i = 0; i < state.notes.length; i++){
-        let note = copyObject(state.notes[i]);
-        copy.push(note);
-    }    
-    return copy;
+function copyNotes() {
+  const copy = [];
+  for (let i = 0; i < state.notes.length; i++) {
+    const note = copyObject(state.notes[i]);
+    copy.push(note);
+  }
+  return copy;
 }
 
 //status of current viev on page:
@@ -126,8 +129,24 @@ function sortNotes(key){
     }
 }
 
+export const deleteNote = function deleteNotes(id) {
+  console.log(id);
+  const index1 = state.notesId.indexOf(id);
+  const index2 = state.notes.findIndex((note) => note.id === id);
+  state.notes.splice(index1, 1);
+  state.notesId.splice(index2, 1);
+  console.log(index1, index2);
+  writeToNotesStorage();
+};
+
 // partial
 export const sortFirstLater = sortNotes('l-date');
 export const sortFirstEarlier = sortNotes('e-date');
 export const sortByAZ = sortNotes('a-z');
 export const sortByZA = sortNotes('z-a');
+
+export const findNoteById = function (id) {
+  const searchResult = state.notes.find((note) => note.id === id);
+
+  return searchResult;
+};
