@@ -6,6 +6,7 @@ import AddFolderView from './views/addFolderView.js';
 
 
 import NoteContentView from './views/noteContentView.js';
+import ToolsBarView from './views/toolsBarView.js';
 
 const controlAddNote = function() {
   const title = AddNoteView.getTitle();
