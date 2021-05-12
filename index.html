@@ -42,7 +42,7 @@
                             <li class="folder">
                                 <a href="#notes">Всі записи</a>
                             </li>
-                            <li class="folder">
+                             <!-- <li class="folder">
                                 <a href="#">Книги</a>
                             </li>
                             <li class="folder">
@@ -53,7 +53,8 @@
                             </li>
                             <li class="folder">
                                 <a href="#">Подорожі</a>
-                            </li>
+                            </li> -->
+                            <div class="new-folders"></div>
                         </ul>
                     </div>
                 </div>
@@ -105,67 +106,63 @@
                 </ul>
             </div>
 
-            <div class="overlay hidden">
-                <div class="add-folder-window modal-default hidden">
-                    <form action="#" class="add-folder-form">
+            <div class="overlay overlay-folders hidden"></div>
+            <div class="overlay overlay-add-note hidden"></div>
+            <div class="overlay overlay-show-note hidden"></div>
+            <div class="add-folder-window modal-default hidden">
+                <form action="#" class="add-folder-form">
+                    <input
+                        type="text"
+                        class="folder-name-input input-default"
+                        placeholder="Введіть назву папки..."
+                    />
+                    <button type="submit" class="btn-create-folder btn-general">
+                        <i class="fas fa-folder-plus"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="add-note-window modal-default hidden">
+                <button class="btn-general btn-close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                <form class="add-note-form">
+                    <div class="inputs-wrapper">
                         <input
                             type="text"
-                            class="folder-name-input input-default"
-                            placeholder="Введіть назву папки..."
+                            class="note-headline-input input-default"
+                            placeholder="Заголовок..."
+                            tabindex="1"
                         />
+                        <textarea
+                            name="note-content-input"
+                            class="note-content-input input-default"
+                            placeholder="Опис..."
+                        ></textarea>
+                        <button type="submit" class="btn-general add-note-btn">
+                            <i class="fas fa-check"></i>Готово
+                        </button>
+                    </div>
+                </form>   
+            </div>
+            <div class="show-note-window modal-default hidden">
+                <button
+                    class="btn-general btn-close-modal btn-close-show-window"
+                >
+                    <i class="fas fa-times"></i>
+                </button>
+                <form class="add-note-form">
+                    <div class="inputs-wrapper">
+                        <h2 class="note-headline"></h2>
+                        <p class="note-description"></p>
                         <button
                             type="submit"
-                            class="btn-create-folder btn-general"
+                            class="btn-general add-note-btn"
                         >
-                            <i class="fas fa-folder-plus"></i>
+                            <i class="fas fa-pen"></i>Редагувати
                         </button>
-                    </form>
-                </div>
-                <div class="add-note-window modal-default hidden">
-                    <button class="btn-general btn-close-modal">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <form class="add-note-form">
-                        <div class="inputs-wrapper">
-                            <input
-                                type="text"
-                                class="note-headline-input input-default"
-                                placeholder="Заголовок..."
-                                tabindex="1"
-                            />
-                            <textarea
-                                name="note-content-input"
-                                class="note-content-input input-default"
-                                placeholder="Опис..."
-                            ></textarea>
-                            <button
-                                type="submit"
-                                class="btn-general add-note-btn"
-                            >
-                                <i class="fas fa-check"></i>Готово
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="show-note-window modal-default hidden">
-                    <button
-                        class="btn-general btn-close-modal btn-close-show-window"
-                    >
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <form class="add-note-form">
-                        <div class="inputs-wrapper">
-                            <h2 class="note-headline"></h2>
-                            <p class="note-description"></p>
-                            <button
-                                type="submit"
-                                class="btn-general add-note-btn"
-                            >
-                                <i class="fas fa-pen"></i>Редагувати
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+            </div>
             </div>
         </div>
     </body>

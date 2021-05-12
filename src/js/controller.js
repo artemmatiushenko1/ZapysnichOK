@@ -2,6 +2,9 @@ import * as model from '../js/model.js';
 import NotesView from './views/notesView.js';
 import NotesAppView from './views/notesAppView.js';
 import AddNoteView from './views/addNoteView.js';
+import AddFolderView from './views/addFolderView.js';
+
+
 import NoteContentView from './views/noteContentView.js';
 
 const controlAddNote = function() {
