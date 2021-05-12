@@ -145,12 +145,10 @@ function sortNotes(key) {
 }
 
 export const deleteNote = function deleteNotes(id) {
-  console.log(id);
-  const index1 = state.notesId.indexOf(id);
-  const index2 = state.notes.findIndex((note) => note.id === id);
-  state.notes.splice(index1, 1);
-  state.notesId.splice(index2, 1);
-  console.log(index1, index2);
+  const index = state.notesId.indexOf(id);
+  const index2 = state.notes.findIndex((element) => element.id === id);
+  state.notesId.splice(index, 1);
+  state.notes.splice(index2, 1);
   writeToNotesStorage();
 };
 
