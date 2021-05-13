@@ -121,7 +121,7 @@ export const deleteNote = function deleteNotes(id) {
 
 // partial
 function compareStrZA(a, b){
-  if (a.title < b.title){
+  if (a.title > b.title){
     return 1;
   } else {
     return -1;
@@ -129,7 +129,7 @@ function compareStrZA(a, b){
 }
 
 function compareStrAZ(a, b){
-  if (a.title > b.title){
+  if (a.title < b.title){
     return 1;
   } else {
     return -1;
