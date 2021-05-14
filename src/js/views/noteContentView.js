@@ -1,4 +1,6 @@
-class NoteContentView {
+import Modal from './modal.js';
+
+class NoteContentView extends Modal {
   parentElement = document.querySelector('.notes-container');
   window = document.querySelector('.show-note-window');
   overlay = document.querySelector('.overlay-show-note');
@@ -7,6 +9,7 @@ class NoteContentView {
   descriptionField = document.querySelector('.note-description');
 
   constructor() {
+    super();
     this._addHandlerCloseWindow();
   }
 
@@ -16,16 +19,6 @@ class NoteContentView {
 
   setDescription(description) {
     this.descriptionField.textContent = description;
-  }
-
-  toogleWindow() {
-    this.window.classList.toggle('hidden');
-    this.overlay.classList.toggle('hidden');
-  }
-
-  _addHandlerCloseWindow() {
-    this.btnClose.addEventListener('click', this.toogleWindow.bind(this));
-    this.overlay.addEventListener('click', this.toogleWindow.bind(this));
   }
 
   addHandlerShowNote(handler) {

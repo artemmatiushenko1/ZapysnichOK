@@ -1,5 +1,5 @@
-class ToolsBarView{
+class ToolsBarView {
 
-} 
+}
 
-export default new ToolsBarView(); 
+export default new ToolsBarView();
