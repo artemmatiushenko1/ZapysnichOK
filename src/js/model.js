@@ -102,7 +102,6 @@ function copyNotes() {
   return copy;
 }
 
-//Bubble sort
 function sortNotes(callback) {
   return function() {
     //get index pinned note by id
