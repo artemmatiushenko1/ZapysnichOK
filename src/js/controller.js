@@ -1,14 +1,11 @@
 import * as model from '../js/model.js';
 import NotesView from './views/notesView.js';
-import NotesAppView from './views/notesAppView.js';
 import AddNoteView from './views/addNoteView.js';
 import AddFolderView from './views/addFolderView.js';
-
-
 import NoteContentView from './views/noteContentView.js';
 import ToolsBarView from './views/toolsBarView.js';
 
-const controlAddNote = function() {
+const controlAddNote = function () {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
   const time = new Date().getTime();
@@ -18,12 +15,12 @@ const controlAddNote = function() {
   NotesView.render(model.state.notes);
 };
 
-const controlDeleteNote = function(id) {
+const controlDeleteNote = function (id) {
   model.deleteNote(id);
   NotesView.render(model.state.notes);
 };
 
-const controlShowNote = function(id) {
+const controlShowNote = function (id) {
   const note = model.findNoteById(id);
   NoteContentView.setTitle(note.title);
   NoteContentView.setDescription(note.description);
@@ -35,22 +32,6 @@ NotesView.render(model.state.notes);
 AddNoteView.addHandlerAddNote(controlAddNote);
 NotesView.addHandlerDeleteNote(controlDeleteNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
-
-//A silly sketch of pagination implementation
-/*window.addEventListener('hashchange', function () {
-    const hash = window.location.hash.slice(1);
-    if (hash === 'notes') {
-        NotesAppView.render();
-        NotesView.render(model.state.notes);
-    }
-
-    if (hash === 'important') {
-        document.querySelector('.main-container').innerHTML = '';
-        const html = `<p>Important</p>`;
-        document.querySelector('.main-container').insertAdjacentHTML('afterbegin', html);
-    }
-    console.log(hash);
-})*/
 
 const btn = document.querySelector('.navbar-header h2');
 const foldersDiv = document.querySelector('.folders-container');

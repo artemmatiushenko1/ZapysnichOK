@@ -48,7 +48,7 @@ export class Note {
   }
 }
 
-export const addNote = function(title, description, time, folder) {
+export const addNote = function (title, description, time, folder) {
   const newNote = new Note(title, description, time, folder);
   state.notes.unshift(newNote);
   writeToNotesStorage();
@@ -56,20 +56,7 @@ export const addNote = function(title, description, time, folder) {
 
 console.log(state);
 
-function normalizationFormat(data) {
-  const formatter = new Intl.DateTimeFormat('uk', {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  });
-  const formattedData = formatter.format(data).replace(',', '');
-  return formattedData;
-}
-
 export class Folder {
-
   constructor(name) {
     this.name = name;
   }
@@ -103,7 +90,7 @@ function copyNotes() {
 }
 
 function sortNotes(callback) {
-  return function() {
+  return function () {
     //get index pinned note by id
     let pinnedNote = 0;
     const sortedNotes = copyNotes();
@@ -154,8 +141,7 @@ export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time);
 export const sortByAZ = sortNotes(compareStrZA);
 export const sortByZA = sortNotes(compareStrAZ);
 
-export const findNoteById = function(id) {
+export const findNoteById = function (id) {
   const searchResult = state.notes.find((note) => note.id === id);
-
   return searchResult;
 };
