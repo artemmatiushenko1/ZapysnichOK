@@ -48,7 +48,7 @@ export class Note {
   }
 }
 
-export const addNote = function(title, description, time, folder) {
+export const addNote = function (title, description, time, folder) {
   const newNote = new Note(title, description, time, folder);
   state.notes.unshift(newNote);
   writeToNotesStorage();
@@ -56,16 +56,19 @@ export const addNote = function(title, description, time, folder) {
 
 console.log(state);
 
-function normalizationFormat(data) {
-  const formatter = new Intl.DateTimeFormat('uk', {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  });
-  const formattedData = formatter.format(data).replace(',', '');
-  return formattedData;
+export class Folder {
+  constructor(name) {
+    this.name = name;
+  }
+
+  addNoteToFolder(note) {
+    state.folders.name.unshift(note);
+  }
+}
+
+export function addFolder(name) {
+  const newFolder = new Folder(name);
+  state.folders[newFolder.name] = [];
 }
 
 function copyObject(object) {
@@ -115,12 +118,10 @@ function sortNotes(callback) {
 }
 
 export const deleteNote = function deleteNotes(id) {
-  console.log(id);
-  const index1 = state.notesId.indexOf(id);
-  const index2 = state.notes.findIndex((note) => note.id === id);
-  state.notes.splice(index1, 1);
-  state.notesId.splice(index2, 1);
-  console.log(index1, index2);
+  const index = state.notesId.indexOf(id);
+  const index2 = state.notes.findIndex((element) => element.id === id);
+  state.notesId.splice(index, 1);
+  state.notes.splice(index2, 1);
   writeToNotesStorage();
 };
 
@@ -146,8 +147,7 @@ export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time);
 export const sortByAZ = sortNotes(compareStrZA);
 export const sortByZA = sortNotes(compareStrAZ);
 
-export const findNoteById = function(id) {
+export const findNoteById = function (id) {
   const searchResult = state.notes.find((note) => note.id === id);
-
   return searchResult;
 };
