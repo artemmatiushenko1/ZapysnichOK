@@ -71,15 +71,6 @@ export function addFolder(name) {
   state.folders[newFolder.name] = [];
 }
 
-function copyObject(object) {
-  const objCopy = {};
-  const keys = Object.keys(object);
-  for (const key of keys) {
-    objCopy[key] = object[key];
-  }
-  return objCopy;
-}
-
 function getIndexPinNote(sortedNotes) {
   let indexPinNote = 0;
   if (state.pinNoteID) {
