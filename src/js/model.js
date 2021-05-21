@@ -86,22 +86,27 @@ function copyNotes() {
   return copy;
 }
 
-//Bubble sort
+function getIndexPinNote(sortedNotes) {
+  let indexPinNote = 0;
+  if (state.pinNoteID) {
+    while (sortedNotes[indexPinNote].id !== state.pinNoteID) {
+      indexPinNote++;
+    }
+  }
+
+  return indexPinNote;
+}
+
 function sortNotes(callback) {
   return function() {
-    //get index pinned note by id
-    let pinnedNote = 0;
     const sortedNotes = copyNotes();
     if (state.pinNoteID) {
-      let indexPinNote = 0;
-      while (sortedNotes[indexPinNote].id !== state.pinNoteID) {
-        indexPinNote++;
-      }
-      pinnedNote = sortedNotes.pop(indexPinNote);
-    }
-    sortedNotes.sort(callback);
-    if (state.pinNoteID) {
+      const indexPinNote = getIndexPinNote(sortedNotes);
+      const pinnedNote = sortedNotes.pop(indexPinNote);
+      sortedNotes.sort(callback);
       sortedNotes.unshift(pinnedNote);
+    } else {
+      sortedNotes.sort(callback);
     }
     state.currentNotesView = sortedNotes;
 
@@ -120,16 +125,16 @@ export const deleteNote = function deleteNotes(id) {
 };
 
 // partial
-function compareStrZA(a, b){
-  if (a.title > b.title){
+function compareStrZA(a, b) {
+  if (a.title > b.title) {
     return 1;
   } else {
     return -1;
   }
 }
 
-function compareStrAZ(a, b){
-  if (a.title < b.title){
+function compareStrAZ(a, b) {
+  if (a.title < b.title) {
     return 1;
   } else {
     return -1;
