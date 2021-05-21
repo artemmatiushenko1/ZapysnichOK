@@ -80,15 +80,6 @@ function copyObject(object) {
   return objCopy;
 }
 
-function copyNotes() {
-  const copy = [];
-  for (let i = 0; i < state.notes.length; i++) {
-    const note = copyObject(state.notes[i]);
-    copy.push(note);
-  }
-  return copy;
-}
-
 function getIndexPinNote(sortedNotes) {
   let indexPinNote = 0;
   if (state.pinNoteID) {
@@ -102,7 +93,7 @@ function getIndexPinNote(sortedNotes) {
 
 function sortNotes(callback) {
   return function() {
-    const sortedNotes = copyNotes();
+    const sortedNotes = [...state.notes];
     if (state.pinNoteID) {
       const indexPinNote = getIndexPinNote(sortedNotes);
       const pinnedNote = sortedNotes.pop(indexPinNote);
