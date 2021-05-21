@@ -117,14 +117,6 @@ function sortNotes(callback) {
   };
 }
 
-export const deleteNote = function deleteNotes(id) {
-  const index = state.notesId.indexOf(id);
-  const index2 = state.notes.findIndex((element) => element.id === id);
-  state.notesId.splice(index, 1);
-  state.notes.splice(index2, 1);
-  writeToNotesStorage();
-};
-
 // partial
 function compareStrZA(a, b) {
   if (a.title > b.title) {
@@ -146,6 +138,14 @@ export const sortFirstLater = sortNotes((a, b) => a.time - b.time);
 export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time);
 export const sortByAZ = sortNotes(compareStrZA);
 export const sortByZA = sortNotes(compareStrAZ);
+
+export const deleteNote = function deleteNotes(id) {
+  const index = state.notesId.indexOf(id);
+  const index2 = state.notes.findIndex((element) => element.id === id);
+  state.notesId.splice(index, 1);
+  state.notes.splice(index2, 1);
+  writeToNotesStorage();
+};
 
 export const findNoteById = function (id) {
   const searchResult = state.notes.find((note) => note.id === id);
