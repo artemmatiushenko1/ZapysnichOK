@@ -64,7 +64,7 @@ class NotesView {
                     <div class="note-group">${note.folder}</div>
                     <ul class="btns-container">
                         <p class="note-time">
-                        ${this._formatDate(new Date(note.time))}
+                        ${this._formatDate(new Date(+note.time))}
                         </p>
                         <li class="note-action-btn">
                           <button class="btn-general mini-btn btn-delete-note">
