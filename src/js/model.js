@@ -1,27 +1,29 @@
 export const state = {
   notes: [],
   notesId: [],
-  folders: {
-    Важливе: [],
-  },
+  folders: {},
   currentNotesView: [],
   pinNoteID: null,
 };
 
-const notesStorage = window.localStorage;
+const storage = window.localStorage;
 
-function writeToNotesStorage() {
-  notesStorage.setItem('notes', JSON.stringify(state.notes));
+function writeToStorage() {
+  storage.setItem('notes', JSON.stringify(state.notes));
+  storage.setItem('folders', JSON.stringify(state.folders));
 }
 
-function getNotesFromStorage() {
-  if (notesStorage.notes) {
-    state.notes = JSON.parse(notesStorage.getItem('notes'));
+function getDataFromStorage() {
+  const writtenNotes = JSON.parse(storage.getItem('notes'));
+  const writtenFolders = JSON.parse(storage.getItem('folders'));
+  if (writtenNotes) {
+    state.notes = writtenNotes;
     pushNotesIdInArray();
   }
+  if (writtenFolders) state.folders = writtenFolders;
 }
 
-getNotesFromStorage();
+getDataFromStorage();
 
 function pushNotesIdInArray() {
   for (const note of state.notes) {
@@ -48,10 +50,10 @@ export class Note {
   }
 }
 
-export const addNote = function (title, description, time, folder) {
+export const addNote = function(title, description, time, folder) {
   const newNote = new Note(title, description, time, folder);
   state.notes.unshift(newNote);
-  writeToNotesStorage();
+  writeToStorage();
 };
 
 console.log(state);
@@ -69,6 +71,7 @@ export class Folder {
 export function addFolder(name) {
   const newFolder = new Folder(name);
   state.folders[newFolder.name] = [];
+  writeToStorage();
 }
 
 function getIndexPinNote(sortedNotes) {
@@ -126,10 +129,10 @@ export const deleteNote = function deleteNotes(id) {
   const index2 = state.notes.findIndex((element) => element.id === id);
   state.notesId.splice(index, 1);
   state.notes.splice(index2, 1);
-  writeToNotesStorage();
+  writeToStorage();
 };
 
-export const findNoteById = function (id) {
+export const findNoteById = function(id) {
   const searchResult = state.notes.find((note) => note.id === id);
   return searchResult;
 };

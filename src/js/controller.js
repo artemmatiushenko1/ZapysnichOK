@@ -1,11 +1,11 @@
 import * as model from '../js/model.js';
 import NotesView from './views/notesView.js';
 import AddNoteView from './views/addNoteView.js';
-import AddFolderView from './views/addFolderView.js';
+import { addFolderView, foldersView } from './views/foldersView.js';
 import NoteContentView from './views/noteContentView.js';
 import ToolsBarView from './views/toolsBarView.js';
 
-const controlAddNote = function () {
+const controlAddNote = function() {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
   const time = new Date().getTime();
@@ -15,12 +15,12 @@ const controlAddNote = function () {
   NotesView.render(model.state.notes);
 };
 
-const controlDeleteNote = function (id) {
+const controlDeleteNote = function(id) {
   model.deleteNote(id);
   NotesView.render(model.state.notes);
 };
 
-const controlShowNote = function (id) {
+const controlShowNote = function(id) {
   const note = model.findNoteById(id);
   NoteContentView.setTitle(note.title);
   NoteContentView.setDescription(note.description);
@@ -28,7 +28,18 @@ const controlShowNote = function (id) {
   console.log(note);
 };
 
+function controlAddFolder() {
+  const name = addFolderView.getName();
+  model.addFolder(name);
+  addFolderView.clearInputs();
+  addFolderView.toogleWindow();
+  foldersView.render(model.state.folders);
+}
+
+addFolderView.addHandlerAddFolder(controlAddFolder);
+
 NotesView.render(model.state.notes);
+foldersView.render(model.state.folders);
 AddNoteView.addHandlerAddNote(controlAddNote);
 NotesView.addHandlerDeleteNote(controlDeleteNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
