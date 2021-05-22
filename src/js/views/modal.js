@@ -8,7 +8,9 @@ export default class Modal {
   }
 
   _addHandlerCloseWindow() {
-    this.btnClose.addEventListener('click', this.toogleWindow.bind(this));
+    if (this.btnClose) {
+      this.btnClose.addEventListener('click', this.toogleWindow.bind(this));
+    }
     this.overlay.addEventListener('click', this.toogleWindow.bind(this));
   }
 
