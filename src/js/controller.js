@@ -17,7 +17,7 @@ const controlAddNote = function() {
 };
 
 const controlDeleteNote = function(id) {
-  if(id == model.state.pinNoteID) model.state.pinNoteID = null;
+  if (id === model.state.pinNoteID) model.state.pinNoteID = null;
   model.deleteNote(id);
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
@@ -40,7 +40,7 @@ function controlAddFolder() {
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);
-
+model.mapSortFunc.get(model.state.currentSorting)();
 NotesView.render(model.state.notes);
 foldersView.render(model.state.folders);
 AddNoteView.addHandlerAddNote(controlAddNote);
@@ -90,8 +90,16 @@ parentElement.addEventListener('click', (e) => {
   if (btnPinNote) {
     const note = btnPinNote.closest('.note');
     const noteId = note.getAttribute('id');
+    if (model.state.pinNoteID) {
+      const currentPinnedNote = model.findNoteById(model.state.pinNoteID);
+      currentPinnedNote.isPinned = false;
+    }
     model.state.pinNoteID = noteId;
+    const newPinnedNote = model.findNoteById(noteId);
+    newPinnedNote.isPinned = true;
+    console.log(noteId);
     model.mapSortFunc.get(model.state.currentSorting)();
     NotesView.render(model.state.currentNotesView);
+    console.log(model.state);
   }
 });

@@ -39,6 +39,7 @@ export class Note {
     this.time = time;
     this.folder = folder;
     this.id = this._generateId();
+    this.isPinned = false;
   }
 
   _generateId() {
@@ -46,7 +47,7 @@ export class Note {
     while (state.notesId.includes(id)) {
       id++;
     }
-    state.notesId.push(id.toString());
+    state.notesId.unshift(id.toString());
     return id.toString();
   }
 }
@@ -86,7 +87,9 @@ function sortNotes(callback, key) {
     } else {
       sortedNotes.sort(callback);
     }
+    console.log(state.pinNoteID);
     state.currentNotesView = sortedNotes;
+    console.log(sortedNotes);
     state.currentSorting = key;
   };
 }
@@ -112,7 +115,7 @@ mapSortFunc
   .set('za', sortByZA)
 ;
 
-export const deleteNote = function deleteNotes(id) {
+export function deleteNote(id) {
   const index = state.notesId.indexOf(id);
   const index2 = state.notes.findIndex((element) => element.id === id);
   state.notesId.splice(index, 1);
