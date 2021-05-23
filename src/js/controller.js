@@ -97,9 +97,7 @@ parentElement.addEventListener('click', (e) => {
     model.state.pinNoteID = noteId;
     const newPinnedNote = model.findNoteById(noteId);
     newPinnedNote.isPinned = true;
-    console.log(noteId);
     model.mapSortFunc.get(model.state.currentSorting)();
     NotesView.render(model.state.currentNotesView);
-    console.log(model.state);
   }
 });

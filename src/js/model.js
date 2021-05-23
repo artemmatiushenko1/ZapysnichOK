@@ -87,9 +87,7 @@ function sortNotes(callback, key) {
     } else {
       sortedNotes.sort(callback);
     }
-    console.log(state.pinNoteID);
     state.currentNotesView = sortedNotes;
-    console.log(sortedNotes);
     state.currentSorting = key;
   };
 }
