@@ -2,6 +2,8 @@ class ToolsBarView {
     btnSortByTime = document.querySelector('.btn-sort-older-first');
     btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
     btnSortByCba = document.querySelector('.btn-sort-z-to-a');
+    textInput = document.querySelector('.input-search-note');
+    btnFind = document.querySelector('.search-btn');
 
     addHandlerSortByAbc(handler) {
         this.btnSortByAbc.addEventListener('click', (e) => {
@@ -20,6 +22,18 @@ class ToolsBarView {
             handler();
         });
     }
+
+    getText() {
+        return this.textInput.value;
+    }
+
+    addHandlerFindNote(handler) {
+        this.btnFind.addEventListener('click', (e) => {
+        handler();
+  });
+}
+
+
 }
 
 export default new ToolsBarView();
