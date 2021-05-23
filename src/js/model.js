@@ -3,6 +3,7 @@ export const state = {
   notesId: [],
   folders: {},
   currentNotesView: [],
+  currentSorting: 'fe',
   pinNoteID: null,
 };
 
@@ -74,12 +75,11 @@ export function addFolder(name) {
   writeToStorage();
 }
 
-function sortNotes(callback) {
+function sortNotes(callback, key) {
   return function() {
     const sortedNotes = [...state.notes];
     if (state.pinNoteID) {
       const indexPinNote = state.notesId.indexOf(state.pinNoteID);
-      console.log(indexPinNote);
       const pinnedNote = sortedNotes.splice(indexPinNote, 1);
       sortedNotes.sort(callback);
       sortedNotes.unshift(pinnedNote[0]);
@@ -87,13 +87,10 @@ function sortNotes(callback) {
       sortedNotes.sort(callback);
     }
     state.currentNotesView = sortedNotes;
-    console.log(sortedNotes);
-
-    return sortedNotes;
+    state.currentSorting = key;
   };
 }
 
-// partial
 function compareStrZA(a, b) {
   return a.title < b.title ? 1 : -1;
 }
@@ -102,10 +99,18 @@ function compareStrAZ(a, b) {
   return a.title > b.title ? 1 : -1;
 }
 
-export const sortFirstLater = sortNotes((a, b) => a.time - b.time);
-export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time);
-export const sortByAZ = sortNotes(compareStrAZ);
-export const sortByZA = sortNotes(compareStrZA);
+export const sortFirstLater = sortNotes((a, b) => a.time - b.time, 'fl');
+export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time, 'fe');
+export const sortByAZ = sortNotes(compareStrAZ, 'az');
+export const sortByZA = sortNotes(compareStrZA, 'za');
+
+export const mapSortFunc = new Map();
+mapSortFunc
+  .set('fl', sortFirstLater)
+  .set('fe', sortFirstEarlier)
+  .set('az', sortByAZ)
+  .set('za', sortByZA)
+;
 
 export const deleteNote = function deleteNotes(id) {
   const index = state.notesId.indexOf(id);

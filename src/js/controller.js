@@ -12,12 +12,15 @@ const controlAddNote = function() {
   model.addNote(title, description, time, 'Важливе');
   AddNoteView.clearInputs();
   AddNoteView.toogleWindow();
-  NotesView.render(model.state.notes);
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(model.state.currentNotesView);
 };
 
 const controlDeleteNote = function(id) {
+  if(id == model.state.pinNoteID) model.state.pinNoteID = null;
   model.deleteNote(id);
-  NotesView.render(model.state.notes);
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(model.state.currentNotesView);
 };
 
 const controlShowNote = function(id) {
@@ -88,5 +91,7 @@ parentElement.addEventListener('click', (e) => {
     const note = btnPinNote.closest('.note');
     const noteId = note.getAttribute('id');
     model.state.pinNoteID = noteId;
+    model.mapSortFunc.get(model.state.currentSorting)();
+    NotesView.render(model.state.currentNotesView);
   }
 });
