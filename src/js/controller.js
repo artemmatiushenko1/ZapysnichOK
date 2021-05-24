@@ -60,7 +60,7 @@ btn.addEventListener('click', () => {
 const controlSort = function(keySort) {
   model.mapSortFunc.get(keySort)();
   NotesView.render(model.state.currentNotesView);
-}
+};
 
 ToolsBarView.addHandlerSort(controlSort);
 
