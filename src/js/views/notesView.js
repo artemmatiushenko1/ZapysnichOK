@@ -48,6 +48,18 @@ class NotesView {
     });
   }
 
+  addHandlerPinNote(handler) {
+    this.parentElement.addEventListener('click', (e) => {
+      const target = e.target;
+      const btnPinNote = target.closest('.btn-pin-note');
+      if (btnPinNote) {
+        const note = btnPinNote.closest('.note');
+        const noteId = note.getAttribute('id');
+        handler(noteId);
+      }
+    });
+  }
+
   _generateMarkup() {
     return this.data
       .map(
@@ -64,7 +76,7 @@ class NotesView {
                     <div class="note-group">${note.folder}</div>
                     <ul class="btns-container">
                         <p class="note-time">
-                        ${this._formatDate(new Date(note.time))}
+                        ${this._formatDate(new Date(+note.time))}
                         </p>
                         <li class="note-action-btn">
                           <button class="btn-general mini-btn btn-delete-note">

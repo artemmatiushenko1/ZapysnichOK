@@ -8,16 +8,19 @@ import ToolsBarView from './views/toolsBarView.js';
 const controlAddNote = function() {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
-  const time = new Date().getTime();
+  const time = new Date().getTime().toString();
   model.addNote(title, description, time, 'Важливе');
   AddNoteView.clearInputs();
   AddNoteView.toogleWindow();
-  NotesView.render(model.state.notes);
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(model.state.currentNotesView);
 };
 
 const controlDeleteNote = function(id) {
+  if (id === model.state.pinNoteID) model.state.pinNoteID = null;
   model.deleteNote(id);
-  NotesView.render(model.state.notes);
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(model.state.currentNotesView);
 };
 
 const controlShowNote = function(id) {
@@ -38,7 +41,7 @@ function controlAddFolder() {
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);
-
+model.mapSortFunc.get(model.state.currentSorting)();
 NotesView.render(model.state.notes);
 foldersView.render(model.state.folders);
 AddNoteView.addHandlerAddNote(controlAddNote);
@@ -55,27 +58,40 @@ btn.addEventListener('click', () => {
 });
 
 // sorting
-const btnSortByTime = document.querySelector('.btn-sort-older-first');
-let statusTimeSort = 0;
-btnSortByTime.addEventListener('click', () => {
-  if (!statusTimeSort) {
+const controlSortTime = function() {
+  if (!model.state.statusTimeSort) {
     model.sortFirstLater();
-    statusTimeSort = 1;
+    model.state.statusTimeSort = 1;
   } else {
     model.sortFirstEarlier();
-    statusTimeSort = 0;
+    model.state.statusTimeSort = 0;
   }
   NotesView.render(model.state.currentNotesView);
-});
+};
 
-const btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
-btnSortByAbc.addEventListener('click', () => {
+const controlSortAbc = function() {
   model.sortByAZ();
   NotesView.render(model.state.currentNotesView);
-});
+};
 
-const btnSortByCba = document.querySelector('.btn-sort-z-to-a');
-btnSortByCba.addEventListener('click', () => {
+const controlSortCba = function() {
   model.sortByZA();
   NotesView.render(model.state.currentNotesView);
-});
+};
+
+ToolsBarView.addHandlerSort(controlSortAbc, controlSortCba, controlSortTime);
+
+// pin
+const controlPinNote = function(noteId) {
+  if (model.state.pinNoteID) {
+    const currentPinnedNote = model.findNoteById(model.state.pinNoteID);
+    currentPinnedNote.isPinned = false;
+  }
+  model.state.pinNoteID = noteId;
+  const newPinnedNote = model.findNoteById(noteId);
+  newPinnedNote.isPinned = true;
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(model.state.currentNotesView);
+};
+
+NotesView.addHandlerPinNote(controlPinNote);

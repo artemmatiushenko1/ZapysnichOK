@@ -4,7 +4,9 @@ export const state = {
   folders: {},
   foldersId: [],
   currentNotesView: [],
+  currentSorting: 'fe',
   pinNoteID: null,
+  statusTimeSort: 0,
 };
 
 const storage = window.localStorage;
@@ -77,63 +79,52 @@ export function addFolder(name, id) {
   writeToStorage();
 }
 
-function getIndexPinNote(sortedNotes) {
-  let indexPinNote = 0;
-  if (state.pinNoteID) {
-    while (sortedNotes[indexPinNote].id !== state.pinNoteID) {
-      indexPinNote++;
-    }
-  }
-
-  return indexPinNote;
-}
-
-function sortNotes(callback) {
+// sort with pin
+function sortNotes(callback, key) {
   return function() {
     const sortedNotes = [...state.notes];
     if (state.pinNoteID) {
-      const indexPinNote = getIndexPinNote(sortedNotes);
-      const pinnedNote = sortedNotes.pop(indexPinNote);
+      const indexPinNote = state.notesId.indexOf(state.pinNoteID);
+      const pinnedNote = sortedNotes.splice(indexPinNote, 1);
       sortedNotes.sort(callback);
-      sortedNotes.unshift(pinnedNote);
+      sortedNotes.unshift(pinnedNote[0]);
     } else {
       sortedNotes.sort(callback);
     }
     state.currentNotesView = sortedNotes;
-
-    return sortedNotes;
+    state.currentSorting = key;
   };
 }
 
-// partial
 function compareStrZA(a, b) {
-  if (a.title > b.title) {
-    return 1;
-  } else {
-    return -1;
-  }
+  return a.title < b.title ? 1 : -1;
 }
 
 function compareStrAZ(a, b) {
-  if (a.title < b.title) {
-    return 1;
-  } else {
-    return -1;
-  }
+  return a.title > b.title ? 1 : -1;
 }
 
-export const sortFirstLater = sortNotes((a, b) => a.time - b.time);
-export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time);
-export const sortByAZ = sortNotes(compareStrZA);
-export const sortByZA = sortNotes(compareStrAZ);
+export const sortFirstLater = sortNotes((a, b) => a.time - b.time, 'fl');
+export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time, 'fe');
+export const sortByAZ = sortNotes(compareStrAZ, 'az');
+export const sortByZA = sortNotes(compareStrZA, 'za');
 
-export const deleteNote = function deleteNotes(id) {
+export const mapSortFunc = new Map();
+mapSortFunc
+  .set('fl', sortFirstLater)
+  .set('fe', sortFirstEarlier)
+  .set('az', sortByAZ)
+  .set('za', sortByZA)
+;
+// end sort
+
+export function deleteNote(id) {
   const index = state.notesId.indexOf(id);
   const index2 = state.notes.findIndex((element) => element.id === id);
   state.notesId.splice(index, 1);
   state.notes.splice(index2, 1);
   writeToStorage();
-};
+}
 
 export const findNoteById = function(id) {
   const searchResult = state.notes.find((note) => note.id === id);
