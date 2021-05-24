@@ -71,9 +71,13 @@ const controlPinNote = function(noteId) {
     const currentPinnedNote = model.findNoteById(model.state.pinNoteID);
     currentPinnedNote.isPinned = false;
   }
-  model.state.pinNoteID = noteId;
-  const newPinnedNote = model.findNoteById(noteId);
-  newPinnedNote.isPinned = true;
+  if (model.state.pinNoteID === noteId) {
+    model.state.pinNoteID = null;
+  } else {
+    model.state.pinNoteID = noteId;
+    const newPinnedNote = model.findNoteById(noteId);
+    newPinnedNote.isPinned = true;
+  }
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
 };
