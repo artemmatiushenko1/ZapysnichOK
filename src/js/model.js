@@ -52,11 +52,11 @@ export class Note {
   }
 }
 
-export const addNote = function(title, description, time, folder) {
+export function addNote(title, description, time, folder) {
   const newNote = new Note(title, description, time, folder);
   state.notes.unshift(newNote);
   writeToStorage();
-};
+}
 
 console.log(state);
 
@@ -77,7 +77,7 @@ export function addFolder(name) {
 }
 
 function sortNotes(callback, key) {
-  return function() {
+  return function () {
     const sortedNotes = [...state.notes];
     if (state.pinNoteID) {
       const indexPinNote = state.notesId.indexOf(state.pinNoteID);
@@ -110,8 +110,7 @@ mapSortFunc
   .set('fl', sortFirstLater)
   .set('fe', sortFirstEarlier)
   .set('az', sortByAZ)
-  .set('za', sortByZA)
-;
+  .set('za', sortByZA);
 
 export function deleteNote(id) {
   const index = state.notesId.indexOf(id);
@@ -119,9 +118,9 @@ export function deleteNote(id) {
   state.notesId.splice(index, 1);
   state.notes.splice(index2, 1);
   writeToStorage();
-};
+}
 
-export const findNoteById = function(id) {
+export const findNoteById = function (id) {
   const searchResult = state.notes.find((note) => note.id === id);
   return searchResult;
 };
