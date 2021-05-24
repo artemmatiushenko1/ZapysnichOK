@@ -2,9 +2,11 @@ export const state = {
   notes: [],
   notesId: [],
   folders: {},
+  foldersId: [],
   currentNotesView: [],
   currentSorting: 'fe',
   pinNoteID: null,
+  statusTimeSort: 0,
 };
 
 const storage = window.localStorage;
@@ -32,23 +34,22 @@ function pushNotesIdInArray() {
   }
 }
 
+function generateId(idStorage) {
+  let id = new Date().getTime();
+  while (idStorage.includes(id)) {
+    id++;
+  }
+  idStorage.push(id);
+  return id.toString();
+}
+
 export class Note {
   constructor(title, description, time, folder) {
     this.title = title;
     this.description = description;
     this.time = time;
     this.folder = folder;
-    this.id = this._generateId();
-    this.isPinned = false;
-  }
-
-  _generateId() {
-    let id = new Date().getTime();
-    while (state.notesId.includes(id)) {
-      id++;
-    }
-    state.notesId.unshift(id.toString());
-    return id.toString();
+    this.id = generateId(state.notesId);
   }
 }
 
@@ -63,19 +64,22 @@ console.log(state);
 export class Folder {
   constructor(name) {
     this.name = name;
+    this.id = generateId(state.foldersId);
+    this.notes = [];
   }
 
   addNoteToFolder(note) {
-    state.folders.name.unshift(note);
+    this.notes.unshift(note);
   }
 }
 
-export function addFolder(name) {
-  const newFolder = new Folder(name);
-  state.folders[newFolder.name] = [];
+export function addFolder(name, id) {
+  const newFolder = new Folder(name, id);
+  state.folders[newFolder.name] = newFolder;
   writeToStorage();
 }
 
+// sort with pin
 function sortNotes(callback, key) {
   return function () {
     const sortedNotes = [...state.notes];
@@ -111,6 +115,7 @@ mapSortFunc
   .set('fe', sortFirstEarlier)
   .set('az', sortByAZ)
   .set('za', sortByZA);
+// end sort
 
 export function deleteNote(id) {
   const index = state.notesId.indexOf(id);

@@ -28,15 +28,16 @@ const controlShowNote = function(id) {
   NoteContentView.setTitle(note.title);
   NoteContentView.setDescription(note.description);
   NoteContentView.toogleWindow();
-  console.log(note);
 };
 
 function controlAddFolder() {
   const name = addFolderView.getName();
-  model.addFolder(name);
-  addFolderView.clearInputs();
+  if (name) {
+    model.addFolder(name);
+    foldersView.render(model.state.folders);
+    addFolderView.clearInputs();
+  }
   addFolderView.toogleWindow();
-  foldersView.render(model.state.folders);
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);
@@ -57,47 +58,40 @@ btn.addEventListener('click', () => {
 });
 
 // sorting
-const btnSortByTime = document.querySelector('.btn-sort-older-first');
-let statusTimeSort = 0;
-btnSortByTime.addEventListener('click', () => {
-  if (!statusTimeSort) {
+const controlSortTime = function() {
+  if (!model.state.statusTimeSort) {
     model.sortFirstLater();
-    statusTimeSort = 1;
+    model.state.statusTimeSort = 1;
   } else {
     model.sortFirstEarlier();
-    statusTimeSort = 0;
+    model.state.statusTimeSort = 0;
   }
   NotesView.render(model.state.currentNotesView);
-});
+};
 
-const btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
-btnSortByAbc.addEventListener('click', () => {
+const controlSortAbc = function() {
   model.sortByAZ();
   NotesView.render(model.state.currentNotesView);
-});
+};
 
-const btnSortByCba = document.querySelector('.btn-sort-z-to-a');
-btnSortByCba.addEventListener('click', () => {
+const controlSortCba = function() {
   model.sortByZA();
   NotesView.render(model.state.currentNotesView);
-});
+};
 
-//pin
-const parentElement = document.querySelector('.notes-container');
-parentElement.addEventListener('click', (e) => {
-  const target = e.target;
-  const btnPinNote = target.closest('.btn-pin-note');
-  if (btnPinNote) {
-    const note = btnPinNote.closest('.note');
-    const noteId = note.getAttribute('id');
-    if (model.state.pinNoteID) {
-      const currentPinnedNote = model.findNoteById(model.state.pinNoteID);
-      currentPinnedNote.isPinned = false;
-    }
-    model.state.pinNoteID = noteId;
-    const newPinnedNote = model.findNoteById(noteId);
-    newPinnedNote.isPinned = true;
-    model.mapSortFunc.get(model.state.currentSorting)();
-    NotesView.render(model.state.currentNotesView);
+ToolsBarView.addHandlerSort(controlSortAbc, controlSortCba, controlSortTime);
+
+// pin
+const controlPinNote = function(noteId) {
+  if (model.state.pinNoteID) {
+    const currentPinnedNote = model.findNoteById(model.state.pinNoteID);
+    currentPinnedNote.isPinned = false;
   }
-});
+  model.state.pinNoteID = noteId;
+  const newPinnedNote = model.findNoteById(noteId);
+  newPinnedNote.isPinned = true;
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(model.state.currentNotesView);
+};
+
+NotesView.addHandlerPinNote(controlPinNote);

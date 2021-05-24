@@ -48,6 +48,18 @@ class NotesView {
     });
   }
 
+  addHandlerPinNote(handler) {
+    this.parentElement.addEventListener('click', (e) => {
+      const target = e.target;
+      const btnPinNote = target.closest('.btn-pin-note');
+      if (btnPinNote) {
+        const note = btnPinNote.closest('.note');
+        const noteId = note.getAttribute('id');
+        handler(noteId);
+      }
+    });
+  }
+
   _generateMarkup() {
     return this.data
       .map(
