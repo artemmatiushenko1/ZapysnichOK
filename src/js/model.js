@@ -77,6 +77,7 @@ export function addFolder(name) {
   writeToStorage();
 }
 
+// sort with pin
 function sortNotes(callback, key) {
   return function() {
     const sortedNotes = [...state.notes];
@@ -113,6 +114,7 @@ mapSortFunc
   .set('az', sortByAZ)
   .set('za', sortByZA)
 ;
+// end sort
 
 export function deleteNote(id) {
   const index = state.notesId.indexOf(id);
@@ -120,7 +122,7 @@ export function deleteNote(id) {
   state.notesId.splice(index, 1);
   state.notes.splice(index2, 1);
   writeToStorage();
-};
+}
 
 export const findNoteById = function(id) {
   const searchResult = state.notes.find((note) => note.id === id);

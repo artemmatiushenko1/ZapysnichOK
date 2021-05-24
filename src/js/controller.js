@@ -57,7 +57,7 @@ btn.addEventListener('click', () => {
 });
 
 // sorting
-const controlSortByTime = function() {
+const controlSortTime = function() {
   if (!model.state.statusTimeSort) {
     model.sortFirstLater();
     model.state.statusTimeSort = 1;
@@ -66,24 +66,21 @@ const controlSortByTime = function() {
     model.state.statusTimeSort = 0;
   }
   NotesView.render(model.state.currentNotesView);
-}
+};
 
-ToolsBarView.addHandlerSortByTime(controlSortByTime);
-
-const controlSortByAbc = function() {
+const controlSortAbc = function() {
   model.sortByAZ();
   NotesView.render(model.state.currentNotesView);
 };
 
-ToolsBarView.addHandlerSortByAbc(controlSortByAbc);
-
-const controlSortByCba = function() {
+const controlSortCba = function() {
   model.sortByZA();
   NotesView.render(model.state.currentNotesView);
 };
 
-ToolsBarView.addHandlerSortByCba(controlSortByCba);
+ToolsBarView.addHandlerSort(controlSortAbc, controlSortCba, controlSortTime);
 
+// pin
 const controlPinNote = function(noteId) {
   if (model.state.pinNoteID) {
     const currentPinnedNote = model.findNoteById(model.state.pinNoteID);

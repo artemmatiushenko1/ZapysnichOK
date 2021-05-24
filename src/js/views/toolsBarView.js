@@ -3,22 +3,18 @@ class ToolsBarView {
     btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
     btnSortByCba = document.querySelector('.btn-sort-z-to-a');
 
-    addHandlerSortByAbc(handler) {
-        this.btnSortByAbc.addEventListener('click', (e) => {
-            handler();
-        });
-    }
+    addHandlerSort(handler1, handler2, handler3) {
+      this.btnSortByAbc.addEventListener('click', () => {
+        handler1();
+      });
 
-    addHandlerSortByCba(handler) {
-        this.btnSortByCba.addEventListener('click', (e) => {
-            handler();
-        });
-    }
+      this.btnSortByCba.addEventListener('click', () => {
+        handler2();
+      });
 
-    addHandlerSortByTime(handler) {
-        this.btnSortByTime.addEventListener('click', (e) => {
-            handler();
-        });
+      this.btnSortByTime.addEventListener('click', () => {
+        handler3();
+      });
     }
 }
 
