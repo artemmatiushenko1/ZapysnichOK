@@ -5,7 +5,6 @@ export const state = {
   currentNotesView: [],
   currentSorting: 'fe',
   pinNoteID: null,
-  statusTimeSort: 0,
 };
 
 const storage = window.localStorage;
