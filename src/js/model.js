@@ -2,6 +2,7 @@ export const state = {
   notes: [],
   notesId: [],
   folders: {},
+  foldersId: [],
   currentNotesView: [],
   pinNoteID: null,
 };
@@ -31,22 +32,22 @@ function pushNotesIdInArray() {
   }
 }
 
+function generateId(idStorage) {
+  let id = new Date().getTime();
+  while (idStorage.includes(id)) {
+    id++;
+  }
+  idStorage.push(id);
+  return id.toString();
+}
+
 export class Note {
   constructor(title, description, time, folder) {
     this.title = title;
     this.description = description;
     this.time = time;
     this.folder = folder;
-    this.id = this._generateId();
-  }
-
-  _generateId() {
-    let id = new Date().getTime();
-    while (state.notesId.includes(id)) {
-      id++;
-    }
-    state.notesId.push(id.toString());
-    return id.toString();
+    this.id = generateId(state.notesId);
   }
 }
 
@@ -61,16 +62,18 @@ console.log(state);
 export class Folder {
   constructor(name) {
     this.name = name;
+    this.id = generateId(state.foldersId);
+    this.notes = [];
   }
 
   addNoteToFolder(note) {
-    state.folders.name.unshift(note);
+    this.notes.unshift(note);
   }
 }
 
-export function addFolder(name) {
-  const newFolder = new Folder(name);
-  state.folders[newFolder.name] = [];
+export function addFolder(name, id) {
+  const newFolder = new Folder(name, id);
+  state.folders[newFolder.name] = newFolder;
   writeToStorage();
 }
 

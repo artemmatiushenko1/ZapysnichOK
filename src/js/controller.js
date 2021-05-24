@@ -25,15 +25,16 @@ const controlShowNote = function(id) {
   NoteContentView.setTitle(note.title);
   NoteContentView.setDescription(note.description);
   NoteContentView.toogleWindow();
-  console.log(note);
 };
 
 function controlAddFolder() {
   const name = addFolderView.getName();
-  model.addFolder(name);
-  addFolderView.clearInputs();
+  if (name) {
+    model.addFolder(name);
+    foldersView.render(model.state.folders);
+    addFolderView.clearInputs();
+  }
   addFolderView.toogleWindow();
-  foldersView.render(model.state.folders);
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);

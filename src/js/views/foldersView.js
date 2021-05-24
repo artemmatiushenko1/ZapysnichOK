@@ -50,7 +50,7 @@ class FoldersView {
     return Object.keys(this.data)
       .map(
         (folderName) => `
-          <li class="folder">
+          <li class="folder" id=${this.data[folderName].id}>
             <a href="#">${folderName}</a> 
           </li>
           `
