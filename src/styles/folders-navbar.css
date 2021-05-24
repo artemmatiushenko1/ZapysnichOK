@@ -119,3 +119,33 @@
 .folder-name-input {
   width: 70%;
 }
+
+.folder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.folder a {
+  max-width: 15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder i {
+  padding: 5px;
+  font-size: 17px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.folder i:hover {
+  background-color: #54adff;
+  color: #fff;
+}
+
+.folder:hover i {
+  opacity: 1;
+}

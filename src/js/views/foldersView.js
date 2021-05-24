@@ -51,7 +51,8 @@ class FoldersView {
       .map(
         (folderName) => `
           <li class="folder" id=${this.data[folderName].id}>
-            <a href="#">${folderName}</a> 
+            <a href="#">${folderName}</a>
+            <i class="far fa-minus-square"></i>
           </li>
           `
       )

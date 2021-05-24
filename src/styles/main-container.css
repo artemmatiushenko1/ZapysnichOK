@@ -97,7 +97,7 @@
 .note-headline {
   font-weight: 600;
   color: #6a6a6a;
-  margin-bottom: 25px;
+
   max-width: 15rem;
   white-space: nowrap;
   overflow: hidden;
@@ -107,6 +107,16 @@
 .note-content {
   font-size: 16px;
   position: relative;
+}
+
+.note-content p {
+  white-space: normal;
+  word-wrap: break-word;
+  padding: 10px 0;
+  margin-top: 25px;
+  width: 100%;
+  height: 100%;
+  line-clamp: 5;
 }
 
 .note-group {
