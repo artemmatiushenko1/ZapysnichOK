@@ -27,12 +27,11 @@ class ToolsBarView {
         return this.textInput.value;
     }
 
-    addHandlerFindNote(handler) {
+    addHandlerSearchNote(handler) {
         this.btnFind.addEventListener('click', (e) => {
-        handler();
-  });
-}
-
+            handler();
+        });
+    }
 
 }
 

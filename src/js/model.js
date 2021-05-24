@@ -122,7 +122,7 @@ export function deleteNote(id) {
   writeToStorage();
 };
 
-export function findNotes(value) {
+export function searchNotes(value) {
   const arrayOfFoundNotes = [];
   for (let elem of state.notes) {
     if (elem.title.includes(value) || elem.description.includes(value)) {
