@@ -28,7 +28,7 @@ class ToolsBarView {
     }
 
     addHandlerSearchNote(handler) {
-        this.btnFind.addEventListener('click', (e) => {
+        this.textInput.addEventListener('input', (e) => {
             handler();
         });
     }
