@@ -58,28 +58,12 @@ btn.addEventListener('click', () => {
 });
 
 // sorting
-const controlSortTime = function() {
-  if (!model.state.statusTimeSort) {
-    model.sortFirstLater();
-    model.state.statusTimeSort = 1;
-  } else {
-    model.sortFirstEarlier();
-    model.state.statusTimeSort = 0;
-  }
+const controlSort = function(keySort) {
+  model.mapSortFunc.get(keySort)();
   NotesView.render(model.state.currentNotesView);
 };
 
-const controlSortAbc = function() {
-  model.sortByAZ();
-  NotesView.render(model.state.currentNotesView);
-};
-
-const controlSortCba = function() {
-  model.sortByZA();
-  NotesView.render(model.state.currentNotesView);
-};
-
-ToolsBarView.addHandlerSort(controlSortAbc, controlSortCba, controlSortTime);
+ToolsBarView.addHandlerSort(controlSort);
 
 // pin
 const controlPinNote = function(noteId) {
@@ -87,9 +71,13 @@ const controlPinNote = function(noteId) {
     const currentPinnedNote = model.findNoteById(model.state.pinNoteID);
     currentPinnedNote.isPinned = false;
   }
-  model.state.pinNoteID = noteId;
-  const newPinnedNote = model.findNoteById(noteId);
-  newPinnedNote.isPinned = true;
+  if (model.state.pinNoteID === noteId) {
+    model.state.pinNoteID = null;
+  } else {
+    model.state.pinNoteID = noteId;
+    const newPinnedNote = model.findNoteById(noteId);
+    newPinnedNote.isPinned = true;
+  }
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
 };

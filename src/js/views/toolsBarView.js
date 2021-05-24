@@ -1,21 +1,27 @@
 class ToolsBarView {
-    btnSortByTime = document.querySelector('.btn-sort-older-first');
-    btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
-    btnSortByCba = document.querySelector('.btn-sort-z-to-a');
+  parentElement = document.querySelector('.toolsbar-container');
 
-    addHandlerSort(handler1, handler2, handler3) {
-      this.btnSortByAbc.addEventListener('click', () => {
-        handler1();
-      });
+  addHandlerSort(handler) {
+    this.parentElement.addEventListener('click', (e) => {
+      const target = e.target;
+      const element = target.closest('.btn-general');
+      const keySort = element.getAttribute('data-key');
+      if (keySort) {
+        handler(keySort);
+        if (element.classList.contains('btn-sort-older-first')) {
+          this.changeBtnSortTimeKey(element, keySort);
+        }
+      }
+    });
+  }
 
-      this.btnSortByCba.addEventListener('click', () => {
-        handler2();
-      });
-
-      this.btnSortByTime.addEventListener('click', () => {
-        handler3();
-      });
+  changeBtnSortTimeKey(element, keySort) {
+    if (keySort === 'fe') {
+      element.setAttribute('data-key', 'fl');
+    } else {
+      element.setAttribute('data-key', 'fe');
     }
+  }
 }
 
 export default new ToolsBarView();
