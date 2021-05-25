@@ -124,6 +124,18 @@ export function deleteNote(id) {
   writeToStorage();
 }
 
+export function deleteFolder(id) {
+  const folderNames = Object.keys(state.folders);
+  for (const folder of folderNames) {
+    if (String(state.folders[folder].id) === id) {
+      delete state.folders[folder];
+    }
+  }
+  const index = state.foldersId.indexOf(id);
+  state.foldersId.splice(index, 1);
+  writeToStorage();
+}
+ 
 export function searchNotes(value) {
   const arrayOfFoundNotes = [];
   for (let elem of state.notes) {
@@ -132,6 +144,7 @@ export function searchNotes(value) {
     };
   };
   return arrayOfFoundNotes;
+
 }
 
 export const findNoteById = function (id) {
