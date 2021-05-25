@@ -124,6 +124,29 @@ export function deleteNote(id) {
   writeToStorage();
 }
 
+export function deleteFolder(id) {
+  const folderNames = Object.keys(state.folders);
+  for (const folder of folderNames) {
+    if (String(state.folders[folder].id) === id) {
+      delete state.folders[folder];
+    }
+  }
+  const index = state.foldersId.indexOf(id);
+  state.foldersId.splice(index, 1);
+  writeToStorage();
+}
+ 
+export function searchNotes(value) {
+  const arrayOfFoundNotes = [];
+  for (let elem of state.notes) {
+    if (elem.title.includes(value) || elem.description.includes(value)) {
+      arrayOfFoundNotes.push(elem);
+    };
+  };
+  return arrayOfFoundNotes;
+
+}
+
 export const findNoteById = function (id) {
   const searchResult = state.notes.find((note) => note.id === id);
   return searchResult;

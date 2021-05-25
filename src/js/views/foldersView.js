@@ -46,13 +46,25 @@ class FoldersView {
     this.parentElement.innerHTML = '';
   }
 
+  addHandlerDeleteFolder(handler) {
+    this.parentElement.addEventListener('click', (e) => {
+      const target = e.target;
+      const btnDelete = target.closest('.delete-folder-btn');
+      if (btnDelete) {
+        const folder = btnDelete.closest('.folder');
+        const folderId = folder.getAttribute('id');
+        handler(folderId);
+      }
+    });
+  }
+
   _generateMarkup() {
     return Object.keys(this.data)
       .map(
         (folderName) => `
           <li class="folder" id=${this.data[folderName].id}>
             <a href="#">${folderName}</a>
-            <i class="far fa-minus-square"></i>
+            <i class="far fa-minus-square delete-folder-btn"></i>
           </li>
           `
       )
