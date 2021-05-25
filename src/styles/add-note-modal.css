@@ -83,3 +83,25 @@
 .show-note-headline {
   margin-bottom: 25px;
 }
+
+.folder-select-wrapper {
+  position: absolute;
+  padding: 0 12px;
+  top: 1rem;
+  right: 12rem;
+}
+
+.folder-select-wrapper label {
+  margin-right: 10px;
+}
+
+#folder-select {
+  height: 40px;
+  width: 8rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  outline: none;
+  border: none;
+  color: #54adff;
+}
