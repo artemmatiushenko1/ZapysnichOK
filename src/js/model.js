@@ -124,6 +124,16 @@ export function deleteNote(id) {
   writeToStorage();
 }
 
+export function searchNotes(value) {
+  const arrayOfFoundNotes = [];
+  for (let elem of state.notes) {
+    if (elem.title.includes(value) || elem.description.includes(value)) {
+      arrayOfFoundNotes.push(elem);
+    };
+  };
+  return arrayOfFoundNotes;
+}
+
 export const findNoteById = function (id) {
   const searchResult = state.notes.find((note) => note.id === id);
   return searchResult;
