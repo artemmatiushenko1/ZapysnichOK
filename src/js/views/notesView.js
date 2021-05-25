@@ -69,8 +69,8 @@ class NotesView {
                     <h2 class="note-headline">${note.title}</h2>
                     <p>${note.description}</p>
                     <button class="btn-general mini-btn btn-pin-note ${
-                      note.isPinned ? 'active-pin' : ''
-                    }">
+  note.isPinned ? 'active-pin' : ''
+}">
                         <i class="fas fa-thumbtack"></i>
                     </button>
                 </div>
