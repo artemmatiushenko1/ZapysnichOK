@@ -10,19 +10,22 @@ export const state = {
 
 const storage = window.localStorage;
 
-function writeToStorage() {
+export function writeToStorage() {
   storage.setItem('notes', JSON.stringify(state.notes));
   storage.setItem('folders', JSON.stringify(state.folders));
+  storage.setItem('pinId', JSON.stringify(state.pinNoteID));
 }
 
 function getDataFromStorage() {
   const writtenNotes = JSON.parse(storage.getItem('notes'));
   const writtenFolders = JSON.parse(storage.getItem('folders'));
+  const writtenPinId = JSON.parse(storage.getItem('pinId'));
   if (writtenNotes) {
     state.notes = writtenNotes;
     pushNotesIdInArray();
   }
   if (writtenFolders) state.folders = writtenFolders;
+  if (writtenPinId) state.pinNoteID = writtenPinId;
 }
 
 getDataFromStorage();
@@ -38,7 +41,7 @@ function generateId(idStorage) {
   while (idStorage.includes(id)) {
     id++;
   }
-  idStorage.push(id);
+  idStorage.unshift(id.toString());
   return id.toString();
 }
 
@@ -96,11 +99,11 @@ function sortNotes(callback, key) {
 }
 
 function compareStrZA(a, b) {
-  return a.title < b.title ? 1 : -1;
+  return a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1;
 }
 
 function compareStrAZ(a, b) {
-  return a.title > b.title ? 1 : -1;
+  return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1;
 }
 
 export const sortFirstLater = sortNotes((a, b) => a.time - b.time, 'fl');
@@ -114,7 +117,23 @@ mapSortFunc
   .set('fe', sortFirstEarlier)
   .set('az', sortByAZ)
   .set('za', sortByZA);
-// end sort
+
+// pin
+export function pinNote(noteId){
+  if (state.pinNoteID) {
+    const currentPinnedNote = findNoteById(state.pinNoteID);
+    currentPinnedNote.isPinned = false;
+  }
+  if (state.pinNoteID === noteId) {
+    state.pinNoteID = null;
+  } else {
+    state.pinNoteID = noteId;
+    const newPinnedNote = findNoteById(noteId);
+    newPinnedNote.isPinned = true;
+  }
+  mapSortFunc.get(state.currentSorting)();
+  writeToStorage();
+}
 
 export function deleteNote(id) {
   const index = state.notesId.indexOf(id);

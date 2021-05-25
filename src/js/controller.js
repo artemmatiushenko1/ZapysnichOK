@@ -49,7 +49,7 @@ function controlAddFolder() {
 
 addFolderView.addHandlerAddFolder(controlAddFolder);
 model.mapSortFunc.get(model.state.currentSorting)();
-NotesView.render(model.state.notes);
+NotesView.render(model.state.currentNotesView);
 foldersView.render(model.state.folders);
 AddNoteView.addHandlerAddNote(controlAddNote);
 NotesView.addHandlerDeleteNote(controlDeleteNote);
@@ -75,18 +75,7 @@ ToolsBarView.addHandlerSort(controlSort);
 
 // pin
 const controlPinNote = function(noteId) {
-  if (model.state.pinNoteID) {
-    const currentPinnedNote = model.findNoteById(model.state.pinNoteID);
-    currentPinnedNote.isPinned = false;
-  }
-  if (model.state.pinNoteID === noteId) {
-    model.state.pinNoteID = null;
-  } else {
-    model.state.pinNoteID = noteId;
-    const newPinnedNote = model.findNoteById(noteId);
-    newPinnedNote.isPinned = true;
-  }
-  model.mapSortFunc.get(model.state.currentSorting)();
+  model.pinNote(noteId)
   NotesView.render(model.state.currentNotesView);
 };
 
