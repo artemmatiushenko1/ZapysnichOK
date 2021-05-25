@@ -1,4 +1,6 @@
 class ToolsBarView {
+  textInput = document.querySelector('.input-search-note');
+  btnFind = document.querySelector('.search-btn');
   parentElement = document.querySelector('.toolsbar-container');
 
   addHandlerSort(handler) {
@@ -21,6 +23,16 @@ class ToolsBarView {
     } else {
       element.setAttribute('data-key', 'fe');
     }
+  }
+  
+  getText() {
+    return this.textInput.value;
+  }
+
+  addHandlerSearchNote(handler) {
+    this.textInput.addEventListener('input', (e) => {
+      handler();
+    });
   }
 }
 

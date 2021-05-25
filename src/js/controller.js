@@ -23,6 +23,13 @@ const controlDeleteNote = function(id) {
   NotesView.render(model.state.currentNotesView);
 };
 
+const controlSearchNote = function() {
+  const text = ToolsBarView.getText();
+  let arrayOfFoundNotes = model.searchNotes(text);
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(arrayOfFoundNotes);
+}
+
 const controlShowNote = function(id) {
   const note = model.findNoteById(id);
   NoteContentView.setTitle(note.title);
@@ -52,6 +59,7 @@ foldersView.render(model.state.folders);
 AddNoteView.addHandlerAddNote(controlAddNote);
 NotesView.addHandlerDeleteNote(controlDeleteNote);
 foldersView.addHandlerDeleteFolder(controlDeleteFolder);
+ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
 
 const btn = document.querySelector('.navbar-header h2');
