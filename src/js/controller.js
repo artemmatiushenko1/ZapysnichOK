@@ -35,15 +35,16 @@ const controlShowNote = function(id) {
   NoteContentView.setTitle(note.title);
   NoteContentView.setDescription(note.description);
   NoteContentView.toogleWindow();
-  console.log(note);
 };
 
 function controlAddFolder() {
   const name = addFolderView.getName();
-  model.addFolder(name);
-  addFolderView.clearInputs();
+  if (name) {
+    model.addFolder(name);
+    foldersView.render(model.state.folders);
+    addFolderView.clearInputs();
+  }
   addFolderView.toogleWindow();
-  foldersView.render(model.state.folders);
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);
@@ -65,41 +66,26 @@ btn.addEventListener('click', () => {
 });
 
 // sorting
-const controlSortByTime = function() {
-  if (!model.state.statusTimeSort) {
-    model.sortFirstLater();
-    model.state.statusTimeSort = 1;
-  } else {
-    model.sortFirstEarlier();
-    model.state.statusTimeSort = 0;
-  }
-  NotesView.render(model.state.currentNotesView);
-}
-
-ToolsBarView.addHandlerSortByTime(controlSortByTime);
-
-const controlSortByAbc = function() {
-  model.sortByAZ();
+const controlSort = function(keySort) {
+  model.mapSortFunc.get(keySort)();
   NotesView.render(model.state.currentNotesView);
 };
 
-ToolsBarView.addHandlerSortByAbc(controlSortByAbc);
+ToolsBarView.addHandlerSort(controlSort);
 
-const controlSortByCba = function() {
-  model.sortByZA();
-  NotesView.render(model.state.currentNotesView);
-};
-
-ToolsBarView.addHandlerSortByCba(controlSortByCba);
-
+// pin
 const controlPinNote = function(noteId) {
   if (model.state.pinNoteID) {
     const currentPinnedNote = model.findNoteById(model.state.pinNoteID);
     currentPinnedNote.isPinned = false;
   }
-  model.state.pinNoteID = noteId;
-  const newPinnedNote = model.findNoteById(noteId);
-  newPinnedNote.isPinned = true;
+  if (model.state.pinNoteID === noteId) {
+    model.state.pinNoteID = null;
+  } else {
+    model.state.pinNoteID = noteId;
+    const newPinnedNote = model.findNoteById(noteId);
+    newPinnedNote.isPinned = true;
+  }
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
 };

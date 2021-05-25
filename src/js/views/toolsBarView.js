@@ -1,38 +1,39 @@
 class ToolsBarView {
-    btnSortByTime = document.querySelector('.btn-sort-older-first');
-    btnSortByAbc = document.querySelector('.btn-sort-a-to-z');
-    btnSortByCba = document.querySelector('.btn-sort-z-to-a');
-    textInput = document.querySelector('.input-search-note');
-    btnFind = document.querySelector('.search-btn');
+  textInput = document.querySelector('.input-search-note');
+  btnFind = document.querySelector('.search-btn');
+  parentElement = document.querySelector('.toolsbar-container');
 
-    addHandlerSortByAbc(handler) {
-        this.btnSortByAbc.addEventListener('click', (e) => {
-            handler();
-        });
+  addHandlerSort(handler) {
+    this.parentElement.addEventListener('click', (e) => {
+      const target = e.target;
+      const element = target.closest('.btn-general');
+      const keySort = element.getAttribute('data-key');
+      if (keySort) {
+        handler(keySort);
+        if (element.classList.contains('btn-sort-older-first')) {
+          this.changeBtnSortTimeKey(element, keySort);
+        }
+      }
+    });
+  }
+
+  changeBtnSortTimeKey(element, keySort) {
+    if (keySort === 'fe') {
+      element.setAttribute('data-key', 'fl');
+    } else {
+      element.setAttribute('data-key', 'fe');
     }
+  }
+  
+  getText() {
+    return this.textInput.value;
+  }
 
-    addHandlerSortByCba(handler) {
-        this.btnSortByCba.addEventListener('click', (e) => {
-            handler();
-        });
-    }
-
-    addHandlerSortByTime(handler) {
-        this.btnSortByTime.addEventListener('click', (e) => {
-            handler();
-        });
-    }
-
-    getText() {
-        return this.textInput.value;
-    }
-
-    addHandlerSearchNote(handler) {
-        this.textInput.addEventListener('input', (e) => {
-            handler();
-        });
-    }
-
+  addHandlerSearchNote(handler) {
+    this.textInput.addEventListener('input', (e) => {
+      handler();
+    });
+  }
 }
 
 export default new ToolsBarView();

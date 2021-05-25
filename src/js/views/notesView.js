@@ -50,15 +50,15 @@ class NotesView {
 
   addHandlerPinNote(handler) {
     this.parentElement.addEventListener('click', (e) => {
-        const target = e.target;
-        const btnPinNote = target.closest('.btn-pin-note');
-        if (btnPinNote) {
-            const note = btnPinNote.closest('.note');
-            const noteId = note.getAttribute('id');
-            handler(noteId);
-        }
+      const target = e.target;
+      const btnPinNote = target.closest('.btn-pin-note');
+      if (btnPinNote) {
+        const note = btnPinNote.closest('.note');
+        const noteId = note.getAttribute('id');
+        handler(noteId);
+      }
     });
-}
+  }
 
   _generateMarkup() {
     return this.data
@@ -68,7 +68,9 @@ class NotesView {
                 <div class="note-content">
                     <h2 class="note-headline">${note.title}</h2>
                     <p>${note.description}</p>
-                    <button class="btn-general mini-btn btn-pin-note">
+                    <button class="btn-general mini-btn btn-pin-note ${
+                      note.isPinned ? 'active-pin' : ''
+                    }">
                         <i class="fas fa-thumbtack"></i>
                     </button>
                 </div>
