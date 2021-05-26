@@ -81,9 +81,14 @@ export function addFolder(name, id) {
   writeToStorage();
 }
 
+export const findNoteById = function(id) {
+  const searchResult = state.notes.find((note) => note.id === id);
+  return searchResult;
+};
+
 // sort with pin
 function sortNotes(callback, key) {
-  return function () {
+  return function() {
     const sortedNotes = [...state.notes];
     if (state.pinNoteID) {
       const indexPinNote = state.notesId.indexOf(state.pinNoteID);
@@ -119,7 +124,7 @@ mapSortFunc
   .set('za', sortByZA);
 
 // pin
-export function pinNote(noteId){
+export function pinNote(noteId) {
   if (state.pinNoteID) {
     const currentPinnedNote = findNoteById(state.pinNoteID);
     currentPinnedNote.isPinned = false;
@@ -145,15 +150,10 @@ export function deleteNote(id) {
 
 export function searchNotes(value) {
   const arrayOfFoundNotes = [];
-  for (let elem of state.notes) {
+  for (const elem of state.notes) {
     if (elem.title.includes(value) || elem.description.includes(value)) {
       arrayOfFoundNotes.push(elem);
-    };
-  };
+    }
+  }
   return arrayOfFoundNotes;
 }
-
-export const findNoteById = function (id) {
-  const searchResult = state.notes.find((note) => note.id === id);
-  return searchResult;
-};

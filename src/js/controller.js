@@ -25,10 +25,10 @@ const controlDeleteNote = function(id) {
 
 const controlSearchNote = function() {
   const text = ToolsBarView.getText();
-  let arrayOfFoundNotes = model.searchNotes(text);
+  const arrayOfFoundNotes = model.searchNotes(text);
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(arrayOfFoundNotes);
-}
+};
 
 const controlShowNote = function(id) {
   const note = model.findNoteById(id);
@@ -75,7 +75,7 @@ ToolsBarView.addHandlerSort(controlSort);
 
 // pin
 const controlPinNote = function(noteId) {
-  model.pinNote(noteId)
+  model.pinNote(noteId);
   NotesView.render(model.state.currentNotesView);
 };
 
