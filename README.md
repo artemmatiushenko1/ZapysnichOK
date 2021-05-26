@@ -15,3 +15,9 @@ With the help with this app you can:
 ## Previews of the app
 ![image](https://user-images.githubusercontent.com/71723893/119731703-efe7c500-be7f-11eb-930b-dac7ade34cf7.png)
 ![image](https://user-images.githubusercontent.com/71723893/119731863-2291bd80-be80-11eb-87a4-612cfdc9f4b5.png)
+
+## Want to test it out?
+Here is the link: [move to the app ⚡](https://zapysnichok.netlify.app/)
+
+## Contributors
+Artem Matiushenko, Bogdan Zinovij, Khrapko Vasyl, Danil Byaliy
