@@ -97,7 +97,6 @@
 .note-headline {
   font-weight: 600;
   color: #6a6a6a;
-
   max-width: 15rem;
   white-space: nowrap;
   overflow: hidden;
@@ -170,4 +169,12 @@
 .active-pin {
   background: #54adff;
   color: #fff;
+}
+
+.pin {
+  opacity: 0;
+}
+
+.note:hover .pin {
+  opacity: 1;
 }

@@ -105,3 +105,27 @@
   border: none;
   color: #54adff;
 }
+
+.confirm-btns-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirm-delete-window {
+  width: 28vw;
+}
+
+.btn-confirm {
+  margin-right: 10px;
+  background-color: #ff7272;
+  color: #fff;
+}
+
+.btn-confirm:hover {
+  background-color: #ff72721f;
+  color: #ff7272;
+}
+
+.confirm-msg {
+  color: #6a6a6a;
+}
