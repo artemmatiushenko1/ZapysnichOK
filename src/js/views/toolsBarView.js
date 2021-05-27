@@ -24,13 +24,13 @@ class ToolsBarView {
       element.setAttribute('data-key', 'fe');
     }
   }
-  
+
   getText() {
     return this.textInput.value;
   }
 
   addHandlerSearchNote(handler) {
-    this.textInput.addEventListener('input', (e) => {
+    this.textInput.addEventListener('input', () => {
       handler();
     });
   }
