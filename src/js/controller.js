@@ -9,8 +9,11 @@ const controlAddNote = function() {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
   const time = new Date().getTime().toString();
-  model.addNote(title, description, time, 'Важливе');
+  const folder = AddNoteView.getSelectedFolder();
+  console.log(folder);
+  const createdNote = model.addNote(title, description, time, folder);
   AddNoteView.clearInputs();
+  model.addNoteToFolder(createdNote);
   AddNoteView.toogleWindow();
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
@@ -44,24 +47,31 @@ function controlAddFolder() {
     foldersView.render(model.state.folders);
     addFolderView.clearInputs();
   }
+  AddNoteView.renderFoldersBar(model.state.folders);
   addFolderView.toogleWindow();
 }
 
 function controlDeleteFolder(id) {
+  const folder = model.findFolderById(id);
+  for (const note of folder.notes) {
+    model.deleteNote(note.id);
+  }
   model.deleteFolder(id);
   foldersView.render(model.state.folders);
+  NotesView.render(model.state.notes);
+  AddNoteView.renderFoldersBar(model.state.folders);
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);
 model.mapSortFunc.get(model.state.currentSorting)();
-NotesView.render(model.state.currentNotesView);
-foldersView.render(model.state.folders);
 AddNoteView.addHandlerAddNote(controlAddNote);
 NotesView.addHandlerDeleteNote(controlDeleteNote);
 foldersView.addHandlerDeleteFolder(controlDeleteFolder);
+NotesView.render(model.state.notes);
+foldersView.render(model.state.folders);
 ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
-
+AddNoteView.renderFoldersBar(model.state.folders);
 const btn = document.querySelector('.navbar-header h2');
 const foldersDiv = document.querySelector('.folders-container');
 const icon = document.querySelector('.fa-chevron-down');
