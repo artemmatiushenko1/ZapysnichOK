@@ -40,7 +40,7 @@
                     <div class="folders-container">
                         <ul class="folders">
                             <li class="folder">
-                                <a href="#notes">Всі записи</a>
+                                <a href="#notes" id="1">Всі записи</a>
                             </li>
                              <!-- <li class="folder">
                                 <a href="#">Книги</a>
@@ -109,20 +109,6 @@
             <div class="overlay overlay-folders hidden"></div>
             <div class="overlay overlay-add-note hidden"></div>
             <div class="overlay overlay-show-note hidden"></div>
-            <div class="overlay overlay-confirm-delete hidden"></div>
-            <div class="confirm-delete-window modal-default mini-modal hidden">
-                <form action="#" class="add-folder-form">
-                    <h3 class="confirm-msg">Ви дійсно бажаєте видалити запис?</h3>
-                    <div class="confirm-btns-wrapper">
-                        <button type="submit" class="btn-general ellipse-btn btn-confirm">
-                            Так
-                        </button>
-                        <button type="submit" class="btn-general ellipse-btn btn-cancel">
-                            Ні
-                        </button>
-                    </div>
-                </form>
-            </div>
             <div class="add-folder-window modal-default hidden">
                 <form action="#" class="add-folder-form">
                     <input
@@ -144,12 +130,7 @@
                     <select name="folders" id="folder-select">
                         <option value="">Всі записи</option>
                         <!-- Елементи option нижче мають підвантажуватись динамічно -->
-                        <option value="dog">Dog</option>
-                        <option value="cat">Cat</option>
-                        <option value="hamster">Hamster</option>
-                        <option value="parrot">Parrot</option>
-                        <option value="spider">Spider</option>
-                        <option value="goldfish">Goldfish</option>
+
                     </select>
                 </div>
                 <form class="add-note-form">
