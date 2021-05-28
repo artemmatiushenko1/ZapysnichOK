@@ -4,6 +4,7 @@ export const state = {
   folders: {},
   foldersId: [],
   currentNotesView: [],
+  archive: [],
   currentSorting: 'fe',
   pinNoteID: null,
 };
@@ -13,16 +14,19 @@ const storage = window.localStorage;
 function writeToStorage() {
   storage.setItem('notes', JSON.stringify(state.notes));
   storage.setItem('folders', JSON.stringify(state.folders));
+  storage.setItem('archive', JSON.stringify(state.archive));
 }
 
 function getDataFromStorage() {
   const writtenNotes = JSON.parse(storage.getItem('notes'));
   const writtenFolders = JSON.parse(storage.getItem('folders'));
+  const writtenArchive = JSON.parse(storage.getItem('archive'));
   if (writtenNotes) {
     state.notes = writtenNotes;
     pushNotesIdInArray();
   }
   if (writtenFolders) state.folders = writtenFolders;
+  if (writtenArchive) state.archive = writtenArchive;
 }
 
 getDataFromStorage();
@@ -119,6 +123,7 @@ mapSortFunc
 export function deleteNote(id) {
   const index = state.notesId.indexOf(id);
   const index2 = state.notes.findIndex((element) => element.id === id);
+  state.archive.unshift(state.notes[index2]);
   state.notesId.splice(index, 1);
   state.notes.splice(index2, 1);
   writeToStorage();

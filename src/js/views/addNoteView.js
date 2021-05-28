@@ -32,6 +32,7 @@ class AddNoteView extends Modal {
 
   addHandlerAddNote(handler) {
     this.createNoteBtn.addEventListener('click', (e) => {
+      console.log(this.btnOpen);
       e.preventDefault();
       handler();
     });

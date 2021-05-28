@@ -1,5 +1,7 @@
 class ToolsBarView {
   parentElement = document.querySelector('.toolsbar-container');
+  btnShowArchive = document.querySelector('.delete-all-btn');
+  container = document.querySelector('.notes-container');
 
   addHandlerSort(handler) {
     this.parentElement.addEventListener('click', (e) => {
@@ -21,6 +23,21 @@ class ToolsBarView {
     } else {
       element.setAttribute('data-key', 'fe');
     }
+  }
+
+  addHandlerShowArchive(handler) {
+    this.btnShowArchive.addEventListener('click', () => {
+      let keyShow = this.btnShowArchive.getAttribute('archive-show');
+      handler(keyShow);
+      if (keyShow === 'no') {
+        this.btnShowArchive.setAttribute('archive-show', 'yes');
+      } else {
+        this.btnShowArchive.setAttribute('archive-show', 'no');
+        for (let elem of this.container.children){
+          elem.classList.add('note-in-archive');
+        }
+      }
+    });
   }
 }
 

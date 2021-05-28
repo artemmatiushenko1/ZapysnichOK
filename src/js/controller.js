@@ -23,6 +23,10 @@ const controlDeleteNote = function(id) {
   NotesView.render(model.state.currentNotesView);
 };
 
+const controlShowArchive = function(keyShow) {
+  NotesView.render((keyShow === 'yes') ? model.state.archive : model.state.currentNotesView);
+};
+
 const controlShowNote = function(id) {
   const note = model.findNoteById(id);
   NoteContentView.setTitle(note.title);
@@ -47,6 +51,7 @@ foldersView.render(model.state.folders);
 AddNoteView.addHandlerAddNote(controlAddNote);
 NotesView.addHandlerDeleteNote(controlDeleteNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
+ToolsBarView.addHandlerShowArchive(controlShowArchive);
 
 const btn = document.querySelector('.navbar-header h2');
 const foldersDiv = document.querySelector('.folders-container');
