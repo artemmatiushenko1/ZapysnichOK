@@ -87,12 +87,36 @@ export function addFolder(name) {
   writeToStorage();
 }
 
+export function addNoteToFolder(note) {
+  const selectedFolderName = note.folder;
+  const selectedFolder = state.folders[selectedFolderName];
+  selectedFolder.notes.unshift(note);
+  writeToStorage();
+}
+
 export function findFolderById(id) {
   const folderNames = Object.keys(state.folders);
   for (const folder of folderNames) {
     if (String(state.folders[folder].id) === id) {
       return state.folders[folder];
     }
+  }
+}
+
+export function removeNoteFromFolder(noteId) {
+  const note = findNoteById(noteId);
+  const folderName = note.folder;
+  const folder = state.folders[folderName];
+  if (folderName !== 'Всі записи') {
+    const noteIndex = findIndexNoteInFolder(noteId, folder);
+    console.log(noteIndex);
+    folder.notes.splice(noteIndex, 1);
+  }
+}
+
+function findIndexNoteInFolder(noteId, folder) {
+  for (const note of folder.notes) {
+    if (note.id === noteId) return folder.notes.indexOf(note);
   }
 }
 
@@ -150,6 +174,7 @@ export function pinNote(noteId) {
 }
 
 export function deleteNote(id) {
+  removeNoteFromFolder(id);
   const index = state.notesId.indexOf(id);
   const index2 = state.notes.findIndex((element) => element.id === id);
   state.notesId.splice(index, 1);

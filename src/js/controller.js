@@ -62,6 +62,14 @@ function controlDeleteFolder(id) {
   AddNoteView.renderFoldersBar(model.state.folders);
 }
 
+function controlFolderInterface(folderId) {
+  if (folderId === '1') NotesView.render(model.state.notes);
+  else {
+    const folder = model.findFolderById(folderId);
+    NotesView.render(folder.notes);
+  }
+}
+
 addFolderView.addHandlerAddFolder(controlAddFolder);
 model.mapSortFunc.get(model.state.currentSorting)();
 AddNoteView.addHandlerAddNote(controlAddNote);
@@ -71,6 +79,7 @@ NotesView.render(model.state.notes);
 foldersView.render(model.state.folders);
 ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
+foldersView.addHandlerOpenFolder(controlFolderInterface);
 AddNoteView.renderFoldersBar(model.state.folders);
 const btn = document.querySelector('.navbar-header h2');
 const foldersDiv = document.querySelector('.folders-container');

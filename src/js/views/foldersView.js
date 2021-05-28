@@ -58,6 +58,18 @@ class FoldersView {
     });
   }
 
+  addHandlerOpenFolder(handler) {
+    this.parentElement.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.classList.contains('delete-folder-btn')) return;
+      const selectedFolder = target.closest('.folder');
+      if (selectedFolder) {
+        const selectedFolderId = selectedFolder.getAttribute('id');
+        handler(selectedFolderId);
+      }
+    });
+  }
+
   _generateMarkup() {
     return Object.keys(this.data)
       .map(
