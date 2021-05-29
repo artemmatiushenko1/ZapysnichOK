@@ -81,6 +81,7 @@ export class Folder {
 
 export function addFolder(name) {
   const newFolder = new Folder(name);
+  state.foldersId.unshift(newFolder.id);
   state.folders[newFolder.name] = newFolder;
   writeToStorage();
 }
@@ -118,6 +119,12 @@ function findIndexNoteInFolder(noteId, folder) {
   }
 }
 
+export function deleteFolderNotesFromStateArray(folderId) {
+  const folder = findFolderById(folderId);
+  for (const note of folder.notes) {
+    deleteNote(note.id);
+  }
+}
 // sort with pin
 function sortNotes(callback, key) {
   return function() {
@@ -172,7 +179,6 @@ export function pinNote(noteId) {
 }
 
 export function deleteNote(id) {
-  removeNoteFromFolder(id);
   const index = state.notesId.indexOf(id);
   const index2 = state.notes.findIndex((element) => element.id === id);
   state.notesId.splice(index, 1);

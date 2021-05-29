@@ -4,7 +4,7 @@ import AddNoteView from './views/addNoteView.js';
 import { addFolderView, foldersView } from './views/foldersView.js';
 import NoteContentView from './views/noteContentView.js';
 import ToolsBarView from './views/toolsBarView.js';
-
+console.log(model.state);
 const controlAddNote = function() {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
@@ -20,6 +20,7 @@ const controlAddNote = function() {
 
 const controlDeleteNote = function(id) {
   if (id === model.state.pinNoteID) model.state.pinNoteID = null;
+  model.removeNoteFromFolder(id);
   model.deleteNote(id);
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
@@ -51,13 +52,10 @@ function controlAddFolder() {
 }
 
 function controlDeleteFolder(id) {
-  const folder = model.findFolderById(id);
-  for (const note of folder.notes) {
-    model.deleteNote(note.id);
-  }
+  model.deleteFolderNotesFromStateArray(id);
   model.deleteFolder(id);
-  foldersView.render(model.state.folders);
   NotesView.render(model.state.notes);
+  foldersView.render(model.state.folders);
   AddNoteView.renderFoldersBar(model.state.folders);
 }
 
@@ -67,7 +65,7 @@ function controlFolderInterface(folderId) {
 }
 
 function controlMainFolderInterface() {
-  notesView.render(model.state.notes);
+  NotesView.render(model.state.notes);
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);
