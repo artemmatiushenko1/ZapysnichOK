@@ -120,7 +120,7 @@ function findIndexNoteInFolder(noteId, folder) {
 
 // sort with pin
 function sortNotes(callback, key) {
-  return function() {
+  return function () {
     const sortedNotes = [...state.notes];
     if (state.pinNoteID) {
       const indexPinNote = state.notesId.indexOf(state.pinNoteID);
@@ -197,3 +197,4 @@ export function searchNotes(value) {
   }
   return arrayOfFoundNotes;
 }
+//

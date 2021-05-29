@@ -73,3 +73,4 @@ class AddNoteView extends Modal {
 }
 
 export default new AddNoteView();
+//
