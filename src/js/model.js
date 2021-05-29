@@ -6,6 +6,7 @@ export const state = {
   currentNotesView: [],
   currentSorting: 'fe',
   pinNoteID: null,
+  activeNote: null,
 };
 
 const storage = window.localStorage;
@@ -61,6 +62,14 @@ export function addNote(title, description, time, folder) {
   writeToStorage();
 }
 
+export function updateNote(id, title, description) {
+  const noteIndex = state.notes.findIndex((note) => note.id === id);
+  const note = state.notes[noteIndex];
+  note.title = title;
+  note.description = description;
+  writeToStorage();
+}
+
 console.log(state);
 
 export class Folder {
@@ -81,10 +90,10 @@ export function addFolder(name, id) {
   writeToStorage();
 }
 
-export const findNoteById = function(id) {
+export function findNoteById(id) {
   const searchResult = state.notes.find((note) => note.id === id);
   return searchResult;
-};
+}
 
 // sort with pin
 function sortNotes(callback, key) {
@@ -159,7 +168,7 @@ export function deleteFolder(id) {
   state.foldersId.splice(index, 1);
   writeToStorage();
 }
- 
+
 export function searchNotes(value) {
   const arrayOfFoundNotes = [];
   for (const elem of state.notes) {
@@ -168,5 +177,4 @@ export function searchNotes(value) {
     }
   }
   return arrayOfFoundNotes;
-
 }

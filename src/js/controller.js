@@ -6,10 +6,22 @@ import NoteContentView from './views/noteContentView.js';
 import ToolsBarView from './views/toolsBarView.js';
 
 const controlAddNote = function() {
-  const title = AddNoteView.getTitle();
-  const description = AddNoteView.getDescription();
-  const time = new Date().getTime().toString();
-  model.addNote(title, description, time, 'Важливе');
+  if (!model.state.activeNote) {
+    const title = AddNoteView.getTitle();
+    const description = AddNoteView.getDescription();
+    const time = new Date().getTime().toString();
+    model.addNote(title, description, time, 'Важливе');
+  } else {
+    const editedTitle = AddNoteView.getTitle();
+    const editedDescription = AddNoteView.getDescription();
+    const activeNoteId = model.state.activeNote;
+    if (activeNoteId) {
+      model.updateNote(activeNoteId, editedTitle, editedDescription);
+      model.state.activeNote = null;
+      NoteContentView.resetActiveNoteId();
+    }
+  }
+
   AddNoteView.clearInputs();
   AddNoteView.toogleWindow();
   model.mapSortFunc.get(model.state.currentSorting)();
@@ -27,15 +39,28 @@ const controlSearchNote = function() {
   const text = ToolsBarView.getText();
   const arrayOfFoundNotes = model.searchNotes(text);
   model.mapSortFunc.get(model.state.currentSorting)();
-  NotesView.render(arrayOfFoundNotes);
+  if (!text) {
+    NotesView.render(model.state.currentNotesView);
+  } else {
+    NotesView.render(arrayOfFoundNotes);
+  }
 };
 
-const controlShowNote = function(id) {
-  const note = model.findNoteById(id);
+function controlShowNote(activeNoteId) {
+  model.state.activeNote = activeNoteId;
+  const note = model.findNoteById(activeNoteId);
   NoteContentView.setTitle(note.title);
   NoteContentView.setDescription(note.description);
   NoteContentView.toogleWindow();
-};
+}
+
+function controlEditNote(activeNoteId) {
+  NoteContentView.toogleWindow();
+  AddNoteView.toogleWindow();
+  const note = model.findNoteById(activeNoteId);
+  AddNoteView.setTitle(note.title);
+  AddNoteView.setDescription(note.description);
+}
 
 function controlAddFolder() {
   const name = addFolderView.getName();
@@ -52,6 +77,7 @@ function controlDeleteFolder(id) {
   foldersView.render(model.state.folders);
 }
 
+NoteContentView.addHandlerEditNote(controlEditNote);
 addFolderView.addHandlerAddFolder(controlAddFolder);
 model.mapSortFunc.get(model.state.currentSorting)();
 NotesView.render(model.state.currentNotesView);
@@ -61,15 +87,6 @@ NotesView.addHandlerDeleteNote(controlDeleteNote);
 foldersView.addHandlerDeleteFolder(controlDeleteFolder);
 ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
-
-const btn = document.querySelector('.navbar-header h2');
-const foldersDiv = document.querySelector('.folders-container');
-const icon = document.querySelector('.fa-chevron-down');
-
-btn.addEventListener('click', () => {
-  foldersDiv.classList.toggle('folders-container-active');
-  icon.classList.toggle('fa-chevron-down-active');
-});
 
 // sorting
 const controlSort = function(keySort) {

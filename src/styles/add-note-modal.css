@@ -82,6 +82,8 @@
 
 .show-note-headline {
   margin-bottom: 25px;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .folder-select-wrapper {
