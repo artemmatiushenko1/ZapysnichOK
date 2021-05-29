@@ -1,7 +1,6 @@
 import Modal from './modal.js';
 
 class AddNoteView extends Modal {
-  data;
   rootElement = document.querySelector('.main-container');
   parentElement = document.querySelector('.add-note-form');
   window = document.querySelector('.add-note-window');
@@ -11,7 +10,6 @@ class AddNoteView extends Modal {
   createNoteBtn = document.querySelector('.add-note-btn');
   titleInput = document.querySelector('.note-headline-input');
   descriptionInput = document.querySelector('.note-content-input');
-  selectedFolder = document.querySelector('#folder-select');
 
   constructor() {
     super();
@@ -31,7 +29,7 @@ class AddNoteView extends Modal {
     this.titleInput.value = '';
     this.descriptionInput.value = '';
   }
-
+  
   getSelectedFolder() {
     const result = this.selectedFolder.value;
     return result;
@@ -69,7 +67,7 @@ class AddNoteView extends Modal {
     `
     );
     return foldersBarMarkup.join('');
-  }
+  }  
 }
 
 export default new AddNoteView();
