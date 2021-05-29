@@ -61,9 +61,9 @@ class FoldersView {
   _generateMarkup() {
     return Object.keys(this.data)
       .map(
-        (folder) => `
-          <li class="folder" id=${this.data[folder].id}>
-            <a href="#">${this.data[folder].name}</a>
+        (folderName) => `
+          <li class="folder" id=${this.data[folderName].id}>
+            <a href="#">${folderName}</a>
             <i class="far fa-minus-square delete-folder-btn"></i>
           </li>
           `
