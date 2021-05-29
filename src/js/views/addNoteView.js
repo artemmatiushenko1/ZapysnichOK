@@ -29,6 +29,11 @@ class AddNoteView extends Modal {
     this.titleInput.value = '';
     this.descriptionInput.value = '';
   }
+  
+  getSelectedFolder() {
+    const result = this.selectedFolder.value;
+    return result;
+  }
 
   addHandlerAddNote(handler) {
     this.createNoteBtn.addEventListener('click', (e) => {
@@ -36,6 +41,33 @@ class AddNoteView extends Modal {
       handler();
     });
   }
+
+  _clear() {
+    this.selectedFolder.innerHTML = '';
+  }
+
+  renderFoldersBar(data) {
+    this.data = data;
+    this._clear();
+    this.selectedFolder.insertAdjacentHTML(
+      'afterbegin',
+      this._generateFoldersBarMarkup()
+    );
+  }
+
+  _generateFoldersBarMarkup() {
+    const foldersBarMarkup = Object.keys(this.data).map(
+      (folderName) => `
+      <option value="${folderName}">${folderName}</option>
+      `
+    );
+    foldersBarMarkup.unshift(
+      `
+      <option value='Всі записи'>Всі записи</option>
+    `
+    );
+    return foldersBarMarkup.join('');
+  }  
 }
 
 export default new AddNoteView();
