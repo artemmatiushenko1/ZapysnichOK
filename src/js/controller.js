@@ -4,13 +4,13 @@ import AddNoteView from './views/addNoteView.js';
 import { addFolderView, foldersView } from './views/foldersView.js';
 import NoteContentView from './views/noteContentView.js';
 import ToolsBarView from './views/toolsBarView.js';
+import notesView from './views/notesView.js';
 
 const controlAddNote = function() {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
   const time = new Date().getTime().toString();
   const folder = AddNoteView.getSelectedFolder();
-  console.log(folder);
   const createdNote = model.addNote(title, description, time, folder);
   AddNoteView.clearInputs();
   model.addNoteToFolder(createdNote);
@@ -63,11 +63,12 @@ function controlDeleteFolder(id) {
 }
 
 function controlFolderInterface(folderId) {
-  if (folderId === '1') NotesView.render(model.state.notes);
-  else {
-    const folder = model.findFolderById(folderId);
-    NotesView.render(folder.notes);
-  }
+  const folder = model.findFolderById(folderId);
+  NotesView.render(folder.notes);
+}
+
+function controlMainFolderInterface() {
+  notesView.render(model.state.notes);
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);
@@ -81,6 +82,7 @@ ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
 foldersView.addHandlerOpenFolder(controlFolderInterface);
 AddNoteView.renderFoldersBar(model.state.folders);
+foldersView.addHandlerOpenMainFolder(controlMainFolderInterface);
 const btn = document.querySelector('.navbar-header h2');
 const foldersDiv = document.querySelector('.folders-container');
 const icon = document.querySelector('.fa-chevron-down');

@@ -33,6 +33,7 @@ class AddFolderView extends Modal {
 class FoldersView {
   data;
   parentElement = document.querySelector('.new-folders');
+  mainFolder = document.querySelector('.main-folder');
   createFolderBtn = document.querySelector('.btn-create-folder');
   folderName = document.querySelector('.folder-name-input');
 
@@ -68,6 +69,10 @@ class FoldersView {
         handler(selectedFolderId);
       }
     });
+  }
+
+  addHandlerOpenMainFolder(handler) {
+    this.mainFolder.addEventListener('click', () => handler());
   }
 
   _generateMarkup() {

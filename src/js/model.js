@@ -63,9 +63,7 @@ export function addNote(title, description, time, folder) {
 }
 
 export function findNoteById(id) {
-  console.log(id);
   const searchResult = state.notes.find((note) => note.id === id);
-  console.log(searchResult);
   return searchResult;
 }
 
@@ -89,6 +87,7 @@ export function addFolder(name) {
 
 export function addNoteToFolder(note) {
   const selectedFolderName = note.folder;
+  if (selectedFolderName === 'Всі записи') return;
   const selectedFolder = state.folders[selectedFolderName];
   selectedFolder.notes.unshift(note);
   writeToStorage();
@@ -109,7 +108,6 @@ export function removeNoteFromFolder(noteId) {
   const folder = state.folders[folderName];
   if (folderName !== 'Всі записи') {
     const noteIndex = findIndexNoteInFolder(noteId, folder);
-    console.log(noteIndex);
     folder.notes.splice(noteIndex, 1);
   }
 }

@@ -17,7 +17,6 @@ class AddNoteView extends Modal {
     super();
     this._addHandlerShowWindow();
     this._addHandlerCloseWindow();
-    console.log(this.selectedFolder);
   }
 
   getTitle() {
@@ -35,7 +34,6 @@ class AddNoteView extends Modal {
 
   getSelectedFolder() {
     const result = this.selectedFolder.value;
-    console.log(result);
     return result;
   }
 
@@ -67,7 +65,7 @@ class AddNoteView extends Modal {
     );
     foldersBarMarkup.unshift(
       `
-      <option value='Всі записи' selected>Всі записи</option>
+      <option value='Всі записи'>Всі записи</option>
     `
     );
     return foldersBarMarkup.join('');
