@@ -4,7 +4,8 @@ import AddNoteView from './views/addNoteView.js';
 import { addFolderView, foldersView } from './views/foldersView.js';
 import NoteContentView from './views/noteContentView.js';
 import ToolsBarView from './views/toolsBarView.js';
-console.log(model.state);
+import DeleteConfirmationView from './views/deleteConfirmationView.js';
+
 const controlAddNote = function() {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
@@ -19,12 +20,24 @@ const controlAddNote = function() {
 };
 
 const controlDeleteNote = function(id) {
+  DeleteConfirmationView.toogleWindow();
+  model.state.noteToDelete = id;
+};
+
+const controlDeleteConfirmation = function() {
+  DeleteConfirmationView.toogleWindow();
+  const id = model.state.noteToDelete;
   if (id === model.state.pinNoteID) model.state.pinNoteID = null;
   model.removeNoteFromFolder(id);
   model.deleteNote(id);
+  model.state.noteToDelete = null;
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
-};
+}
+
+const controlDeleteCancel = function() {
+  DeleteConfirmationView.toogleWindow();
+}
 
 const controlSearchNote = function() {
   const text = ToolsBarView.getText();
@@ -71,12 +84,15 @@ function controlMainFolderInterface() {
 addFolderView.addHandlerAddFolder(controlAddFolder);
 model.mapSortFunc.get(model.state.currentSorting)();
 AddNoteView.addHandlerAddNote(controlAddNote);
-NotesView.addHandlerDeleteNote(controlDeleteNote);
 foldersView.addHandlerDeleteFolder(controlDeleteFolder);
 NotesView.render(model.state.notes);
 foldersView.render(model.state.folders);
 ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
+DeleteConfirmationView.addHandlerDeleteNote(controlDeleteNote);
+DeleteConfirmationView.addHandlerDeleteConfirm(controlDeleteConfirmation);
+DeleteConfirmationView.addHandlerDeleteFalse(controlDeleteCancel);
+
 foldersView.addHandlerOpenFolder(controlFolderInterface);
 AddNoteView.renderFoldersBar(model.state.folders);
 foldersView.addHandlerOpenMainFolder(controlMainFolderInterface);
