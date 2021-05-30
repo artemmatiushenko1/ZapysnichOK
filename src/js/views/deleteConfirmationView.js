@@ -6,7 +6,6 @@ class DeleteConfirmationView extends Modal {
     overlay = document.querySelector('.overlay-confirm-delete');
     btnConfirm = document.querySelector('.btn-confirm');
     btnCanсel = document.querySelector('.btn-cancel');
-    btnOpen = document.querySelector('.btn-delete-note');
 
     constructor() {
         super();
