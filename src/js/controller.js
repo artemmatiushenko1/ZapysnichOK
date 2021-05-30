@@ -26,11 +26,11 @@ const controlDeleteNote = function(id) {
 
 const controlDeleteConfirmation = function() {
   DeleteConfirmationView.toogleWindow();
-  let id = model.state.noteToDelete;
+  const id = model.state.noteToDelete;
   if (id === model.state.pinNoteID) model.state.pinNoteID = null;
   model.removeNoteFromFolder(id);
   model.deleteNote(id);
-  gitmodel.state.noteToDelete = null;
+  model.state.noteToDelete = null;
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
 }
@@ -84,7 +84,6 @@ function controlMainFolderInterface() {
 addFolderView.addHandlerAddFolder(controlAddFolder);
 model.mapSortFunc.get(model.state.currentSorting)();
 AddNoteView.addHandlerAddNote(controlAddNote);
-//NotesView.addHandlerDeleteNote(controlDeleteNote);
 foldersView.addHandlerDeleteFolder(controlDeleteFolder);
 NotesView.render(model.state.notes);
 foldersView.render(model.state.folders);
