@@ -42,7 +42,7 @@ function generateId(idStorage) {
   while (idStorage.includes(id)) {
     id++;
   }
-  idStorage.push(id);
+  idStorage.push(id.toString());
   return id.toString();
 }
 
@@ -121,12 +121,19 @@ mapSortFunc
 // end sort
 
 export function deleteNote(id) {
-  const index = state.notesId.indexOf(id);
-  const index2 = state.notes.findIndex((element) => element.id === id);
-  state.archive.unshift(state.notes[index2]);
-  state.notesId.splice(index, 1);
-  state.notes.splice(index2, 1);
-  writeToStorage();
+  const check = state.notesId.includes(id);
+    if (check) {
+      const index = state.notesId.indexOf(id);
+      const index2 = state.notes.findIndex((element) => element.id === id);
+      state.archive.unshift(state.notes[index2]);
+      state.notesId.splice(index, 1);
+      state.notes.splice(index2, 1);
+    } else {
+      const index3 = state.archive.findIndex((element) => element.id === id);
+      state.archive.splice(index3, 1);
+    }
+    writeToStorage();
+    return check;
 }
 
 export const findNoteById = function (id) {

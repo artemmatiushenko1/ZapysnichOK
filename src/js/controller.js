@@ -18,9 +18,9 @@ const controlAddNote = function() {
 
 const controlDeleteNote = function(id) {
   if (id === model.state.pinNoteID) model.state.pinNoteID = null;
-  model.deleteNote(id);
+  const check = model.deleteNote(id);
   model.mapSortFunc.get(model.state.currentSorting)();
-  NotesView.render(model.state.currentNotesView);
+  (check) ? NotesView.render(model.state.currentNotesView) : NotesView.render(model.state.archive);
 };
 
 const controlShowArchive = function(keyShow) {

@@ -1,6 +1,8 @@
 class NotesView {
   data;
   parentElement = document.querySelector('.notes-container');
+  btnShowArchive = document.querySelector('.delete-all-btn');
+  container = document.querySelector('.notes-container');
   message = 'There is no notes here yet :)';
 
   render(data) {
@@ -44,6 +46,13 @@ class NotesView {
         const note = btnDelete.closest('.note');
         const noteId = note.getAttribute('id');
         handler(noteId);
+      }
+      
+      const keyShow = this.btnShowArchive.getAttribute('archive-show');
+      if (keyShow === 'no')  {
+        for (let elem of this.container.children){
+          elem.classList.add('note-in-archive');
+        }
       }
     });
   }
