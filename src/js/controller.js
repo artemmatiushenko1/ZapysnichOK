@@ -10,8 +10,10 @@ const controlAddNote = function() {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
   const time = new Date().getTime().toString();
-  model.addNote(title, description, time, 'Важливе');
+  const folder = AddNoteView.getSelectedFolder();
+  const createdNote = model.addNote(title, description, time, folder);
   AddNoteView.clearInputs();
+  model.addNoteToFolder(createdNote);
   AddNoteView.toogleWindow();
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
@@ -26,8 +28,9 @@ const controlDeleteConfirmation = function() {
   DeleteConfirmationView.toogleWindow();
   let id = model.state.noteToDelete;
   if (id === model.state.pinNoteID) model.state.pinNoteID = null;
+  model.removeNoteFromFolder(id);
   model.deleteNote(id);
-  model.state.noteToDelete = null;
+  gitmodel.state.noteToDelete = null;
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
 }
@@ -57,27 +60,43 @@ function controlAddFolder() {
     foldersView.render(model.state.folders);
     addFolderView.clearInputs();
   }
+  AddNoteView.renderFoldersBar(model.state.folders);
   addFolderView.toogleWindow();
 }
 
 function controlDeleteFolder(id) {
+  model.deleteFolderNotesFromStateArray(id);
   model.deleteFolder(id);
+  NotesView.render(model.state.notes);
   foldersView.render(model.state.folders);
+  AddNoteView.renderFoldersBar(model.state.folders);
+}
+
+function controlFolderInterface(folderId) {
+  const folder = model.findFolderById(folderId);
+  NotesView.render(folder.notes);
+}
+
+function controlMainFolderInterface() {
+  NotesView.render(model.state.notes);
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);
 model.mapSortFunc.get(model.state.currentSorting)();
-NotesView.render(model.state.currentNotesView);
-foldersView.render(model.state.folders);
 AddNoteView.addHandlerAddNote(controlAddNote);
 //NotesView.addHandlerDeleteNote(controlDeleteNote);
 foldersView.addHandlerDeleteFolder(controlDeleteFolder);
+NotesView.render(model.state.notes);
+foldersView.render(model.state.folders);
 ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
 DeleteConfirmationView.addHandlerDeleteNote(controlDeleteNote);
 DeleteConfirmationView.addHandlerDeleteConfirm(controlDeleteConfirmation);
 DeleteConfirmationView.addHandlerDeleteFalse(controlDeleteCancel);
 
+foldersView.addHandlerOpenFolder(controlFolderInterface);
+AddNoteView.renderFoldersBar(model.state.folders);
+foldersView.addHandlerOpenMainFolder(controlMainFolderInterface);
 const btn = document.querySelector('.navbar-header h2');
 const foldersDiv = document.querySelector('.folders-container');
 const icon = document.querySelector('.fa-chevron-down');
