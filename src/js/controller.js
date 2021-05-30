@@ -74,11 +74,15 @@ function controlDeleteFolder(id) {
 
 function controlFolderInterface(folderId) {
   const folder = model.findFolderById(folderId);
-  NotesView.render(folder.notes);
+  model.state.activeNotes = folder.notes;
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(model.state.currentNotesView);
 }
 
 function controlMainFolderInterface() {
-  NotesView.render(model.state.notes);
+  model.state.activeNotes = model.state.notes;
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(model.state.currentNotesView);
 }
 
 addFolderView.addHandlerAddFolder(controlAddFolder);

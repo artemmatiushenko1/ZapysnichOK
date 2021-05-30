@@ -3,6 +3,7 @@ export const state = {
   notesId: [],
   folders: {},
   foldersId: [],
+  activeNotes: [],
   currentNotesView: [],
   currentSorting: 'fe',
   pinNoteID: null,
@@ -23,6 +24,7 @@ function getDataFromStorage() {
   const writtenPinId = JSON.parse(storage.getItem('pinId'));
   if (writtenNotes) {
     state.notes = writtenNotes;
+    state.activeNotes = writtenNotes;
     pushNotesIdInArray();
   }
   if (writtenFolders) state.folders = writtenFolders;
@@ -53,6 +55,7 @@ export class Note {
     this.time = time;
     this.folder = folder;
     this.id = generateId(state.notesId);
+    this.isPinned = false;
   }
 }
 
@@ -126,12 +129,20 @@ export function deleteFolderNotesFromStateArray(folderId) {
     deleteNote(note.id);
   }
 }
+
 // sort with pin
+function getIndexPinNote() {
+  const pinNote = state.activeNotes.find((note) => note.id === state.pinNoteID);
+  const indexPinNote = state.activeNotes.indexOf(pinNote);
+
+  return indexPinNote;
+}
+
 function sortNotes(callback, key) {
   return function() {
-    const sortedNotes = [...state.notes];
-    if (state.pinNoteID) {
-      const indexPinNote = state.notesId.indexOf(state.pinNoteID);
+    const sortedNotes = [...state.activeNotes];
+    const indexPinNote = getIndexPinNote();
+    if (state.pinNoteID && indexPinNote > -1) {
       const pinnedNote = sortedNotes.splice(indexPinNote, 1);
       sortedNotes.sort(callback);
       sortedNotes.unshift(pinnedNote[0]);
@@ -162,6 +173,7 @@ mapSortFunc
   .set('fe', sortFirstEarlier)
   .set('az', sortByAZ)
   .set('za', sortByZA);
+
 // pin
 export function pinNote(noteId) {
   if (state.pinNoteID) {
