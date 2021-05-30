@@ -36,18 +36,6 @@ class NotesView {
     return formattedDate;
   }
 
-  addHandlerDeleteNote(handler) {
-    this.parentElement.addEventListener('click', (e) => {
-      const target = e.target;
-      const btnDelete = target.closest('.btn-delete-note');
-      if (btnDelete) {
-        const note = btnDelete.closest('.note');
-        const noteId = note.getAttribute('id');
-        handler(noteId);
-      }
-    });
-  }
-
   addHandlerPinNote(handler) {
     this.parentElement.addEventListener('click', (e) => {
       const target = e.target;
