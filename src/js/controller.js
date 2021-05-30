@@ -85,7 +85,7 @@ addFolderView.addHandlerAddFolder(controlAddFolder);
 model.mapSortFunc.get(model.state.currentSorting)();
 AddNoteView.addHandlerAddNote(controlAddNote);
 foldersView.addHandlerDeleteFolder(controlDeleteFolder);
-NotesView.render(model.state.notes);
+NotesView.render(model.state.currentNotesView);
 foldersView.render(model.state.folders);
 ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
