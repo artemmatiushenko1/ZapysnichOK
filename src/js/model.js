@@ -130,7 +130,7 @@ export function deleteFolderNotesFromStateArray(folderId) {
   }
 }
 
-// sort with pin
+// SORTING AND PIN
 function getIndexPinNote() {
   const pinNote = state.activeNotes.find((note) => note.id === state.pinNoteID);
   const indexPinNote = state.activeNotes.indexOf(pinNote);
@@ -138,11 +138,13 @@ function getIndexPinNote() {
   return indexPinNote;
 }
 
+// func takes callback and return new function with binded condition for sorting
 function sortNotes(callback, key) {
   return function() {
     const sortedNotes = [...state.activeNotes];
     const indexPinNote = getIndexPinNote();
-    if (state.pinNoteID && indexPinNote > -1) {
+    // indexOf return -1 if no element in array 
+    if (state.pinNoteID && indexPinNote !== -1) {
       const pinnedNote = sortedNotes.splice(indexPinNote, 1);
       sortedNotes.sort(callback);
       sortedNotes.unshift(pinnedNote[0]);
@@ -154,6 +156,7 @@ function sortNotes(callback, key) {
   };
 }
 
+// return -1 or 1 because its specific work of method .sort()
 function compareStrZA(a, b) {
   return a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1;
 }
@@ -167,6 +170,7 @@ export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time, 'fe');
 export const sortByAZ = sortNotes(compareStrAZ, 'az');
 export const sortByZA = sortNotes(compareStrZA, 'za');
 
+// access to functions will be provided through keys in collection
 export const mapSortFunc = new Map();
 mapSortFunc
   .set('fl', sortFirstLater)
@@ -174,7 +178,6 @@ mapSortFunc
   .set('az', sortByAZ)
   .set('za', sortByZA);
 
-// pin
 export function pinNote(noteId) {
   if (state.pinNoteID) {
     const currentPinnedNote = findNoteById(state.pinNoteID);

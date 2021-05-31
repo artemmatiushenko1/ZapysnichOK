@@ -18,11 +18,8 @@ class ToolsBarView {
   }
 
   changeBtnSortTimeKey(element, keySort) {
-    if (keySort === 'fe') {
-      element.setAttribute('data-key', 'fl');
-    } else {
-      element.setAttribute('data-key', 'fe');
-    }
+    const newKeySort = (keySort === 'fe') ? 'fl' : 'fe';
+    element.setAttribute('data-key', newKeySort);
   }
 
   getText() {
