@@ -143,7 +143,7 @@ function sortNotes(callback, key) {
   return function() {
     const sortedNotes = [...state.activeNotes];
     const indexPinNote = getIndexPinNote();
-    // indexOf return -1 if no element in array 
+    // indexOf return -1 if no element in array
     if (state.pinNoteID && indexPinNote !== -1) {
       const pinnedNote = sortedNotes.splice(indexPinNote, 1);
       sortedNotes.sort(callback);
