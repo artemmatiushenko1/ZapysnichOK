@@ -8,33 +8,33 @@ class DeleteConfirmationView extends Modal {
     btnCanсel = document.querySelector('.btn-cancel');
 
     constructor() {
-        super();
+      super();
     }
 
     addHandlerDeleteNote(handler) {
-        this.parentElement.addEventListener('click', (e) => {
-          const target = e.target;
-          const btnDelete = target.closest('.btn-delete-note');
-          if (btnDelete) {
-            const note = btnDelete.closest('.note');
-            const noteId = note.getAttribute('id');
-            handler(noteId);
-          }
-        });
+      this.parentElement.addEventListener('click', (e) => {
+        const target = e.target;
+        const btnDelete = target.closest('.btn-delete-note');
+        if (btnDelete) {
+          const note = btnDelete.closest('.note');
+          const noteId = note.getAttribute('id');
+          handler(noteId);
+        }
+      });
     }
 
     addHandlerDeleteConfirm(handler) {
-        this.btnConfirm.addEventListener('click', (e) => {
-          e.preventDefault();
-          handler();
-        });
+      this.btnConfirm.addEventListener('click', (e) => {
+        e.preventDefault();
+        handler();
+      });
     }
-    
+
     addHandlerDeleteFalse(handler) {
-        this.btnCanсel.addEventListener('click', (e) => {
-          e.preventDefault();
-          handler();
-        });
+      this.btnCanсel.addEventListener('click', (e) => {
+        e.preventDefault();
+        handler();
+      });
     }
 }
 

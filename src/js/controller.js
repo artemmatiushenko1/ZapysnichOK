@@ -33,11 +33,11 @@ const controlDeleteConfirmation = function() {
   model.state.noteToDelete = null;
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
-}
+};
 
 const controlDeleteCancel = function() {
   DeleteConfirmationView.toogleWindow();
-}
+};
 
 const controlSearchNote = function() {
   const text = ToolsBarView.getText();
