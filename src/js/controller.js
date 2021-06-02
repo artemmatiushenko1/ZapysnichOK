@@ -6,7 +6,7 @@ import NoteContentView from './views/noteContentView.js';
 import ToolsBarView from './views/toolsBarView.js';
 import DeleteConfirmationView from './views/deleteConfirmationView.js';
 
-const controlAddNote = function() {
+const controlAddNote = function () {
   const title = AddNoteView.getTitle();
   const description = AddNoteView.getDescription();
   const time = new Date().getTime().toString();
@@ -19,12 +19,12 @@ const controlAddNote = function() {
   NotesView.render(model.state.currentNotesView);
 };
 
-const controlDeleteNote = function(id) {
+const controlDeleteNote = function (id) {
   DeleteConfirmationView.toogleWindow();
   model.state.noteToDelete = id;
 };
 
-const controlDeleteConfirmation = function() {
+const controlDeleteConfirmation = function () {
   DeleteConfirmationView.toogleWindow();
   const id = model.state.noteToDelete;
   if (id === model.state.pinNoteID) model.state.pinNoteID = null;
@@ -35,18 +35,18 @@ const controlDeleteConfirmation = function() {
   NotesView.render(model.state.currentNotesView);
 };
 
-const controlDeleteCancel = function() {
+const controlDeleteCancel = function () {
   DeleteConfirmationView.toogleWindow();
 };
 
-const controlSearchNote = function() {
+const controlSearchNote = function () {
   const text = ToolsBarView.getText();
   const arrayOfFoundNotes = model.searchNotes(text);
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(arrayOfFoundNotes);
 };
 
-const controlShowNote = function(id) {
+const controlShowNote = function (id) {
   const note = model.findNoteById(id);
   NoteContentView.setTitle(note.title);
   NoteContentView.setDescription(note.description);
@@ -110,7 +110,7 @@ btn.addEventListener('click', () => {
 });
 
 // sorting
-const controlSort = function(keySort) {
+const controlSort = function (keySort) {
   model.mapSortFunc.get(keySort)();
   NotesView.render(model.state.currentNotesView);
 };
@@ -118,7 +118,7 @@ const controlSort = function(keySort) {
 ToolsBarView.addHandlerSort(controlSort);
 
 // pin
-const controlPinNote = function(noteId) {
+const controlPinNote = function (noteId) {
   model.pinNote(noteId);
   NotesView.render(model.state.currentNotesView);
 };

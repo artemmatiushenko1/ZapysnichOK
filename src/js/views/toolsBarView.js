@@ -18,7 +18,7 @@ class ToolsBarView {
   }
 
   changeBtnSortTimeKey(element, keySort) {
-    const newKeySort = (keySort === 'fe') ? 'fl' : 'fe';
+    const newKeySort = keySort === 'fe' ? 'fl' : 'fe';
     element.setAttribute('data-key', newKeySort);
   }
 

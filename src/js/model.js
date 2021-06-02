@@ -140,7 +140,7 @@ function getIndexPinNote() {
 
 // func takes callback and return new function with binded condition for sorting
 function sortNotes(callback, key) {
-  return function() {
+  return function () {
     const sortedNotes = [...state.activeNotes];
     const indexPinNote = getIndexPinNote();
     // indexOf return -1 if no element in array
