@@ -32,28 +32,16 @@
                 </h1>
                 <div class="folders-navbar">
                     <div class="navbar-header">
-                        <h2>Розділи <i class="fas fa-chevron-down"></i></h2>
+                        <h2>Розділи <i class="fas fa-chevron-down fa-chevron-down-active"></i></h2>
                         <button class="btn-general btn-add-folder">
                             <i class="far fa-edit"></i>
                         </button>
                     </div>
-                    <div class="folders-container">
+                    <div class="folders-container folders-container-active">
                         <ul class="folders">
-                            <li class="folder">
-                                <a href="#notes">Всі записи</a>
+                            <li class="folder main-folder">
+                                <a href="#">Всі записи</a>
                             </li>
-                             <!-- <li class="folder">
-                                <a href="#">Книги</a>
-                            </li>
-                            <li class="folder">
-                                <a href="#">Цілі</a>
-                            </li>
-                            <li class="folder">
-                                <a href="#important">Важливе</a>
-                            </li>
-                            <li class="folder">
-                                <a href="#">Подорожі</a>
-                            </li> -->
                             <div class="new-folders"></div>
                         </ul>
                     </div>
@@ -93,7 +81,6 @@
                     </div>
                 </div>
                 <div class="notes-container"></div>
-                <!-- <h2 class="welcome-title">Welcome to the best app!⛅</h2> -->
             </div>
             <div class="additional-menu-container">
                 <ul class="additional-menu">
@@ -105,7 +92,6 @@
                     </li>
                 </ul>
             </div>
-
             <div class="overlay overlay-folders hidden"></div>
             <div class="overlay overlay-add-note hidden"></div>
             <div class="overlay overlay-show-note hidden"></div>
@@ -142,14 +128,7 @@
                 <div class="folder-select-wrapper">
                     <label for="folder-select">Оберіть папку:</label>
                     <select name="folders" id="folder-select">
-                        <option value="">Всі записи</option>
-                        <!-- Елементи option нижче мають підвантажуватись динамічно -->
-                        <option value="dog">Dog</option>
-                        <option value="cat">Cat</option>
-                        <option value="hamster">Hamster</option>
-                        <option value="parrot">Parrot</option>
-                        <option value="spider">Spider</option>
-                        <option value="goldfish">Goldfish</option>
+                        <option value="" >Всі записи</option>
                     </select>
                 </div>
                 <form class="add-note-form">
@@ -193,4 +172,4 @@
             </div>
         </div>
     </body>
-</html>
+</html> 

@@ -3,15 +3,17 @@ export const state = {
   notesId: [],
   folders: {},
   foldersId: [],
+  activeNotes: [],
   currentNotesView: [],
   currentSorting: 'fe',
   pinNoteID: null,
   activeNote: null,
+  noteToDelete: null,
 };
 
 const storage = window.localStorage;
 
-export function writeToStorage() {
+function writeToStorage() {
   storage.setItem('notes', JSON.stringify(state.notes));
   storage.setItem('folders', JSON.stringify(state.folders));
   storage.setItem('pinId', JSON.stringify(state.pinNoteID));
@@ -23,6 +25,7 @@ function getDataFromStorage() {
   const writtenPinId = JSON.parse(storage.getItem('pinId'));
   if (writtenNotes) {
     state.notes = writtenNotes;
+    state.activeNotes = writtenNotes;
     pushNotesIdInArray();
   }
   if (writtenFolders) state.folders = writtenFolders;
@@ -53,6 +56,7 @@ export class Note {
     this.time = time;
     this.folder = folder;
     this.id = generateId(state.notesId);
+    this.isPinned = false;
   }
 }
 
@@ -60,17 +64,29 @@ export function addNote(title, description, time, folder) {
   const newNote = new Note(title, description, time, folder);
   state.notes.unshift(newNote);
   writeToStorage();
+  return newNote;
 }
 
 export function updateNote(id, title, description) {
-  const noteIndex = state.notes.findIndex((note) => note.id === id);
-  const note = state.notes[noteIndex];
-  note.title = title;
-  note.description = description;
+  const noteToEdit = findNoteById(id);
+  const noteFolderName = noteToEdit.folder;
+  if (noteFolderName !== 'Всі записи') {
+    const noteFolderObject = state.folders[noteFolderName];
+    const noteIndexInFolder = findIndexNoteInFolder(id, noteFolderObject);
+    const noteInFolder = noteFolderObject.notes[noteIndexInFolder];
+    noteInFolder.title = title;
+    noteInFolder.description = description;
+  }
+  noteToEdit.title = title;
+  noteToEdit.description = description;
   writeToStorage();
 }
 
 console.log(state);
+export function findNoteById(id) {
+  const searchResult = state.notes.find((note) => note.id === id);
+  return searchResult;
+}
 
 export class Folder {
   constructor(name) {
@@ -79,28 +95,73 @@ export class Folder {
     this.notes = [];
   }
 
-  addNoteToFolder(note) {
+  attachNoteToFolder(note) {
     this.notes.unshift(note);
   }
 }
 
-export function addFolder(name, id) {
-  const newFolder = new Folder(name, id);
+export function addFolder(name) {
+  const newFolder = new Folder(name);
+  state.foldersId.unshift(newFolder.id);
   state.folders[newFolder.name] = newFolder;
   writeToStorage();
 }
 
-export function findNoteById(id) {
-  const searchResult = state.notes.find((note) => note.id === id);
-  return searchResult;
+export function addNoteToFolder(note) {
+  const selectedFolderName = note.folder;
+  if (selectedFolderName === 'Всі записи') return;
+  const selectedFolder = state.folders[selectedFolderName];
+  selectedFolder.notes.unshift(note);
+  writeToStorage();
 }
 
-// sort with pin
+export function findFolderById(id) {
+  const folderNames = Object.keys(state.folders);
+  for (const folder of folderNames) {
+    if (String(state.folders[folder].id) === id) {
+      return state.folders[folder];
+    }
+  }
+}
+
+export function removeNoteFromFolder(noteId) {
+  const note = findNoteById(noteId);
+  const folderName = note.folder;
+  const folder = state.folders[folderName];
+  if (folderName !== 'Всі записи') {
+    const noteIndex = findIndexNoteInFolder(noteId, folder);
+    folder.notes.splice(noteIndex, 1);
+  }
+}
+
+function findIndexNoteInFolder(noteId, folder) {
+  for (const note of folder.notes) {
+    if (note.id === noteId) return folder.notes.indexOf(note);
+  }
+}
+
+export function deleteFolderNotesFromStateArray(folderId) {
+  const folder = findFolderById(folderId);
+  for (const note of folder.notes) {
+    deleteNote(note.id);
+  }
+}
+
+// SORTING AND PIN
+function getIndexPinNote() {
+  const pinNote = state.activeNotes.find((note) => note.id === state.pinNoteID);
+  const indexPinNote = state.activeNotes.indexOf(pinNote);
+
+  return indexPinNote;
+}
+
+// func takes callback and return new function with binded condition for sorting
 function sortNotes(callback, key) {
-  return function() {
-    const sortedNotes = [...state.notes];
-    if (state.pinNoteID) {
-      const indexPinNote = state.notesId.indexOf(state.pinNoteID);
+  return function () {
+    const sortedNotes = [...state.activeNotes];
+    const indexPinNote = getIndexPinNote();
+    // indexOf return -1 if no element in array
+    if (state.pinNoteID && indexPinNote !== -1) {
       const pinnedNote = sortedNotes.splice(indexPinNote, 1);
       sortedNotes.sort(callback);
       sortedNotes.unshift(pinnedNote[0]);
@@ -112,6 +173,7 @@ function sortNotes(callback, key) {
   };
 }
 
+// return -1 or 1 because its specific work of method .sort()
 function compareStrZA(a, b) {
   return a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1;
 }
@@ -125,6 +187,7 @@ export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time, 'fe');
 export const sortByAZ = sortNotes(compareStrAZ, 'az');
 export const sortByZA = sortNotes(compareStrZA, 'za');
 
+// access to functions will be provided through keys in collection
 export const mapSortFunc = new Map();
 mapSortFunc
   .set('fl', sortFirstLater)
@@ -132,7 +195,6 @@ mapSortFunc
   .set('az', sortByAZ)
   .set('za', sortByZA);
 
-// pin
 export function pinNote(noteId) {
   if (state.pinNoteID) {
     const currentPinnedNote = findNoteById(state.pinNoteID);
@@ -158,12 +220,8 @@ export function deleteNote(id) {
 }
 
 export function deleteFolder(id) {
-  const folderNames = Object.keys(state.folders);
-  for (const folder of folderNames) {
-    if (String(state.folders[folder].id) === id) {
-      delete state.folders[folder];
-    }
-  }
+  const folder = findFolderById(id);
+  delete state.folders[folder.name];
   const index = state.foldersId.indexOf(id);
   state.foldersId.splice(index, 1);
   writeToStorage();

@@ -9,6 +9,7 @@ class AddNoteView extends Modal {
   createNoteBtn = document.querySelector('.add-note-btn');
   titleInput = document.querySelector('.note-headline-input');
   descriptionInput = document.querySelector('.note-content-input');
+  selectedFolder = document.querySelector('#folder-select');
 
   constructor() {
     super();
@@ -32,11 +33,39 @@ class AddNoteView extends Modal {
     this.descriptionInput.value = description;
   }
 
+  getSelectedFolder() {
+    const result = this.selectedFolder.value;
+    return result;
+  }
+
   addHandlerAddNote(handler) {
     this.createNoteBtn.addEventListener('click', (e) => {
       e.preventDefault();
       handler();
     });
+  }
+
+  _clear() {
+    this.selectedFolder.innerHTML = '';
+  }
+
+  renderFoldersBar(data) {
+    this.data = data;
+    this._clear();
+    this.selectedFolder.insertAdjacentHTML(
+      'afterbegin',
+      this._generateFoldersBarMarkup()
+    );
+  }
+
+  _generateFoldersBarMarkup() {
+    const foldersBarMarkup = Object.keys(this.data).map(
+      (folderName) => `
+      <option value="${folderName}">${folderName}</option>
+      `
+    );
+    foldersBarMarkup.unshift('<option value="Всі записи">Всі записи</option>');
+    return foldersBarMarkup.join('');
   }
 }
 
