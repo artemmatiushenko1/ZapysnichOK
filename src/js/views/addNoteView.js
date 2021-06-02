@@ -1,8 +1,6 @@
 import Modal from './modal.js';
 
 class AddNoteView extends Modal {
-  data;
-  rootElement = document.querySelector('.main-container');
   parentElement = document.querySelector('.add-note-form');
   window = document.querySelector('.add-note-window');
   overlay = document.querySelector('.overlay-add-note');
@@ -27,9 +25,12 @@ class AddNoteView extends Modal {
     return this.descriptionInput.value;
   }
 
-  clearInputs() {
-    this.titleInput.value = '';
-    this.descriptionInput.value = '';
+  setTitle(title) {
+    this.titleInput.value = title;
+  }
+
+  setDescription(description) {
+    this.descriptionInput.value = description;
   }
 
   getSelectedFolder() {
@@ -63,11 +64,7 @@ class AddNoteView extends Modal {
       <option value="${folderName}">${folderName}</option>
       `
     );
-    foldersBarMarkup.unshift(
-      `
-      <option value='Всі записи'>Всі записи</option>
-    `
-    );
+    foldersBarMarkup.unshift('<option value="Всі записи">Всі записи</option>');
     return foldersBarMarkup.join('');
   }
 }

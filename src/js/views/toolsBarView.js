@@ -7,8 +7,8 @@ class ToolsBarView {
     this.parentElement.addEventListener('click', (e) => {
       const target = e.target;
       const element = target.closest('.btn-general');
-      const keySort = element.getAttribute('data-key');
-      if (keySort) {
+      if (element) {
+        const keySort = element.getAttribute('data-key');
         handler(keySort);
         if (element.classList.contains('btn-sort-older-first')) {
           this.changeBtnSortTimeKey(element, keySort);

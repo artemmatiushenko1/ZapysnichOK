@@ -5,7 +5,7 @@ class AddFolderView extends Modal {
   btnOpen = document.querySelector('.btn-add-folder');
   window = document.querySelector('.add-folder-window');
   overlay = document.querySelector('.overlay-folders');
-  folderNameInput = document.querySelector('.folder-name-input');
+  titleInput = document.querySelector('.folder-name-input');
   btnCreateFolder = document.querySelector('.btn-create-folder');
 
   constructor() {
@@ -15,11 +15,7 @@ class AddFolderView extends Modal {
   }
 
   getName() {
-    return this.folderNameInput.value;
-  }
-
-  clearInputs() {
-    this.folderNameInput.value = '';
+    return this.titleInput.value;
   }
 
   addHandlerAddFolder(handler) {
@@ -36,6 +32,13 @@ class FoldersView {
   mainFolder = document.querySelector('.main-folder');
   createFolderBtn = document.querySelector('.btn-create-folder');
   folderName = document.querySelector('.folder-name-input');
+  btnShowFolders = document.querySelector('.navbar-header h2');
+  foldersContainer = document.querySelector('.folders-container');
+  arrowIcon = document.querySelector('.fa-chevron-down');
+
+  constructor() {
+    this.addHandlerAnimateFoldersView();
+  }
 
   render(data) {
     this.data = data;
@@ -56,6 +59,13 @@ class FoldersView {
         const folderId = folder.getAttribute('id');
         handler(folderId);
       }
+    });
+  }
+
+  addHandlerAnimateFoldersView() {
+    this.btnShowFolders.addEventListener('click', () => {
+      this.foldersContainer.classList.toggle('folders-container-active');
+      this.arrowIcon.classList.toggle('fa-chevron-down-active');
     });
   }
 

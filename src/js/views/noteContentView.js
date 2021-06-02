@@ -7,6 +7,8 @@ class NoteContentView extends Modal {
   btnClose = document.querySelector('.btn-close-show-window');
   titleField = document.querySelector('.note-headline');
   descriptionField = document.querySelector('.note-description');
+  btnEdit = document.querySelector('.btn-edit');
+  activeNoteId = null;
 
   constructor() {
     super();
@@ -21,6 +23,19 @@ class NoteContentView extends Modal {
     this.descriptionField.textContent = description;
   }
 
+  resetActiveNoteId() {
+    this.activeNoteId = null;
+  }
+
+  addHandlerEditNote(handler) {
+    this.btnEdit.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (this.activeNoteId) {
+        handler(this.activeNoteId);
+      }
+    });
+  }
+
   addHandlerShowNote(handler) {
     this.parentElement.addEventListener('click', (e) => {
       const target = e.target;
@@ -28,7 +43,9 @@ class NoteContentView extends Modal {
       const note = target.closest('.note');
       if (note) {
         const noteId = note.getAttribute('id');
-        handler(noteId);
+        this.activeNoteId = noteId;
+        console.log(this.activeNoteId);
+        handler(this.activeNoteId);
       }
     });
   }

@@ -7,6 +7,7 @@ export const state = {
   currentNotesView: [],
   currentSorting: 'fe',
   pinNoteID: null,
+  activeNote: null,
   noteToDelete: null,
 };
 
@@ -66,6 +67,22 @@ export function addNote(title, description, time, folder) {
   return newNote;
 }
 
+export function updateNote(id, title, description) {
+  const noteToEdit = findNoteById(id);
+  const noteFolderName = noteToEdit.folder;
+  if (noteFolderName !== 'Всі записи') {
+    const noteFolderObject = state.folders[noteFolderName];
+    const noteIndexInFolder = findIndexNoteInFolder(id, noteFolderObject);
+    const noteInFolder = noteFolderObject.notes[noteIndexInFolder];
+    noteInFolder.title = title;
+    noteInFolder.description = description;
+  }
+  noteToEdit.title = title;
+  noteToEdit.description = description;
+  writeToStorage();
+}
+
+console.log(state);
 export function findNoteById(id) {
   const searchResult = state.notes.find((note) => note.id === id);
   return searchResult;
