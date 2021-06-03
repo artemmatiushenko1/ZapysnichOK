@@ -1,7 +1,8 @@
 import * as model from '../js/model.js';
 import NotesView from './views/notesView.js';
 import AddNoteView from './views/addNoteView.js';
-import { addFolderView, foldersView } from './views/foldersView.js';
+import FoldersView from './views/foldersView.js';
+import AddFolderView from './views/addFolderView.js';
 import NoteContentView from './views/noteContentView.js';
 import ToolsBarView from './views/toolsBarView.js';
 import DeleteConfirmationView from './views/deleteConfirmationView.js';
@@ -87,48 +88,48 @@ function controlEditNote(activeNoteId) {
 }
 
 function controlAddFolder() {
-  const name = addFolderView.getName();
+  const name = AddFolderView.getName();
   if (name) {
     model.addFolder(name);
-    foldersView.render(model.state.folders);
-    addFolderView.clearInputs();
+    FoldersView.render(model.state.folders);
+    AddFolderView.clearInputs();
     AddNoteView.renderFoldersBar(model.state.folders);
   }
-  addFolderView.toogleWindow();
+  AddFolderView.toogleWindow();
 }
 
 function controlDeleteFolder(id) {
   model.deleteFolder(id);
   NotesView.render(model.state.notes);
-  foldersView.render(model.state.folders);
+  FoldersView.render(model.state.folders);
   AddNoteView.renderFoldersBar(model.state.folders);
 }
 
 function controlFolderInterface(folderId = model.mainFolderName) {
   const folder =
-    folderId === model.mainFolderName ?
-      model.state :
-      model.findFolderById(folderId);
+    folderId === model.mainFolderName
+      ? model.state
+      : model.findFolderById(folderId);
   model.state.activeNotes = folder.notes;
   model.mapSortFunc.get(model.state.currentSorting)();
   NotesView.render(model.state.currentNotesView);
 }
 
 NoteContentView.addHandlerEditNote(controlEditNote);
-addFolderView.addHandlerAddFolder(controlAddFolder);
+AddFolderView.addHandlerAddFolder(controlAddFolder);
 model.mapSortFunc.get(model.state.currentSorting)();
 AddNoteView.addHandlerAddNote(controlAddNote);
-foldersView.addHandlerDeleteFolder(controlDeleteFolder);
+FoldersView.addHandlerDeleteFolder(controlDeleteFolder);
 NotesView.render(model.state.notes);
-foldersView.render(model.state.folders);
+FoldersView.render(model.state.folders);
 ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
 DeleteConfirmationView.addHandlerDeleteNote(controlDeleteNote);
 DeleteConfirmationView.addHandlerDeleteConfirm(controlDeleteConfirmation);
 DeleteConfirmationView.addHandlerDeleteFalse(controlDeleteCancel);
-foldersView.addHandlerOpenFolder(controlFolderInterface);
+FoldersView.addHandlerOpenFolder(controlFolderInterface);
 AddNoteView.renderFoldersBar(model.state.folders);
-foldersView.addHandlerOpenMainFolder(controlFolderInterface);
+FoldersView.addHandlerOpenMainFolder(controlFolderInterface);
 ToolsBarView.addHandlerShowArchive(controlShowArchive);
 
 // sorting
