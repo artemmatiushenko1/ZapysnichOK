@@ -41,12 +41,13 @@ function pushNotesIdInArray() {
 }
 
 function generateId(idStorage) {
-  let id = new Date().getTime();
-  while (idStorage.includes(id)) {
-    id++;
+  let timestamp = new Date().getTime();
+  while (idStorage.includes(timestamp.toString())) {
+    timestamp++;
   }
-  idStorage.unshift(id.toString());
-  return id.toString();
+  const id = timestamp.toString();
+  idStorage.unshift(id);
+  return id;
 }
 
 class Note {
@@ -83,7 +84,6 @@ function updateNote(id, title, description) {
   writeToStorage();
 }
 
-console.log(state);
 function findNoteById(id) {
   const searchResult = state.notes.find((note) => note.id === id);
   return searchResult;

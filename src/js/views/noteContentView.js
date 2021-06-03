@@ -44,7 +44,6 @@ class NoteContentView extends Modal {
       if (note) {
         const noteId = note.getAttribute('id');
         this.activeNoteId = noteId;
-        console.log(this.activeNoteId);
         handler(this.activeNoteId);
       }
     });

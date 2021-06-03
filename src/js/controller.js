@@ -7,13 +7,15 @@ import NoteContentView from './views/noteContentView.js';
 import ToolsBarView from './views/toolsBarView.js';
 import DeleteConfirmationView from './views/deleteConfirmationView.js';
 
-const controlAddNote = function () {
+const renderNotesView = function () {
+  model.mapSortFunc.get(model.state.currentSorting)();
+  NotesView.render(model.state.currentNotesView);
+};
+
+const controlAddNote = function (title, description, folder) {
   const { activeNote } = model.state;
-  const title = AddNoteView.getTitle();
-  const description = AddNoteView.getDescription();
   if (!activeNote) {
     const time = new Date().getTime().toString();
-    const folder = AddNoteView.getSelectedFolder();
     model.addNote(title, description, time, folder);
   } else {
     model.updateNote(activeNote, title, description);
@@ -22,8 +24,7 @@ const controlAddNote = function () {
   }
   AddNoteView.clearInputs();
   AddNoteView.toogleWindow();
-  model.mapSortFunc.get(model.state.currentSorting)();
-  NotesView.render(model.state.currentNotesView);
+  renderNotesView();
 };
 
 const controlDeleteNote = function (id) {
@@ -58,6 +59,7 @@ const controlShowArchive = function (keyShow) {
 
 const controlDeleteCancel = function () {
   DeleteConfirmationView.toogleWindow();
+  model.state.noteToDelete = null;
 };
 
 const controlSearchNote = function () {
@@ -71,24 +73,23 @@ const controlSearchNote = function () {
   }
 };
 
-function controlShowNote(activeNoteId) {
+const controlShowNote = function (activeNoteId) {
   model.state.activeNote = activeNoteId;
   const note = model.findNoteById(activeNoteId);
   NoteContentView.setTitle(note.title);
   NoteContentView.setDescription(note.description);
   NoteContentView.toogleWindow();
-}
+};
 
-function controlEditNote(activeNoteId) {
+const controlEditNote = function (activeNoteId) {
   NoteContentView.toogleWindow();
   AddNoteView.toogleWindow();
   const note = model.findNoteById(activeNoteId);
   AddNoteView.setTitle(note.title);
   AddNoteView.setDescription(note.description);
-}
+};
 
-function controlAddFolder() {
-  const name = AddFolderView.getName();
+const controlAddFolder = function (name) {
   if (name) {
     model.addFolder(name);
     FoldersView.render(model.state.folders);
@@ -96,41 +97,23 @@ function controlAddFolder() {
     AddNoteView.renderFoldersBar(model.state.folders);
   }
   AddFolderView.toogleWindow();
-}
+};
 
-function controlDeleteFolder(id) {
+const controlDeleteFolder = function (id) {
   model.deleteFolder(id);
   NotesView.render(model.state.notes);
   FoldersView.render(model.state.folders);
   AddNoteView.renderFoldersBar(model.state.folders);
-}
+};
 
-function controlFolderInterface(folderId = model.mainFolderName) {
+const controlFolderInterface = function (folderId = model.mainFolderName) {
   const folder =
-    folderId === model.mainFolderName
-      ? model.state
-      : model.findFolderById(folderId);
+    folderId === model.mainFolderName ?
+      model.state :
+      model.findFolderById(folderId);
   model.state.activeNotes = folder.notes;
-  model.mapSortFunc.get(model.state.currentSorting)();
-  NotesView.render(model.state.currentNotesView);
-}
-
-NoteContentView.addHandlerEditNote(controlEditNote);
-AddFolderView.addHandlerAddFolder(controlAddFolder);
-model.mapSortFunc.get(model.state.currentSorting)();
-AddNoteView.addHandlerAddNote(controlAddNote);
-FoldersView.addHandlerDeleteFolder(controlDeleteFolder);
-NotesView.render(model.state.notes);
-FoldersView.render(model.state.folders);
-ToolsBarView.addHandlerSearchNote(controlSearchNote);
-NoteContentView.addHandlerShowNote(controlShowNote);
-DeleteConfirmationView.addHandlerDeleteNote(controlDeleteNote);
-DeleteConfirmationView.addHandlerDeleteConfirm(controlDeleteConfirmation);
-DeleteConfirmationView.addHandlerDeleteFalse(controlDeleteCancel);
-FoldersView.addHandlerOpenFolder(controlFolderInterface);
-AddNoteView.renderFoldersBar(model.state.folders);
-FoldersView.addHandlerOpenMainFolder(controlFolderInterface);
-ToolsBarView.addHandlerShowArchive(controlShowArchive);
+  renderNotesView();
+};
 
 // sorting
 const controlSort = function (keySort) {
@@ -138,12 +121,29 @@ const controlSort = function (keySort) {
   NotesView.render(model.state.currentNotesView);
 };
 
-ToolsBarView.addHandlerSort(controlSort);
-
 // pin
 const controlPinNote = function (noteId) {
   model.pinNote(noteId);
   NotesView.render(model.state.currentNotesView);
 };
 
+// Render a previously saved data when the app starts
+renderNotesView();
+FoldersView.render(model.state.folders);
+AddNoteView.renderFoldersBar(model.state.folders);
+
+// Subscribing for the future events
+ToolsBarView.addHandlerSort(controlSort);
 NotesView.addHandlerPinNote(controlPinNote);
+NoteContentView.addHandlerEditNote(controlEditNote);
+AddFolderView.addHandlerAddFolder(controlAddFolder);
+AddNoteView.addHandlerAddNote(controlAddNote);
+FoldersView.addHandlerDeleteFolder(controlDeleteFolder);
+ToolsBarView.addHandlerSearchNote(controlSearchNote);
+NoteContentView.addHandlerShowNote(controlShowNote);
+DeleteConfirmationView.addHandlerDeleteNote(controlDeleteNote);
+DeleteConfirmationView.addHandlerDeleteConfirm(controlDeleteConfirmation);
+DeleteConfirmationView.addHandlerDeleteFalse(controlDeleteCancel);
+FoldersView.addHandlerOpenFolder(controlFolderInterface);
+FoldersView.addHandlerOpenMainFolder(controlFolderInterface);
+ToolsBarView.addHandlerShowArchive(controlShowArchive);
