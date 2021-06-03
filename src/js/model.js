@@ -1,4 +1,4 @@
-export const state = {
+const state = {
   notes: [],
   notesId: [],
   folders: {},
@@ -12,7 +12,7 @@ export const state = {
   noteToDelete: null,
 };
 
-export const mainFolderName = 'Всі записи';
+const mainFolderName = 'Всі записи';
 
 const storage = window.localStorage;
 const places = ['notes', 'folders', 'pinNoteID', 'archive'];
@@ -49,7 +49,7 @@ function generateId(idStorage) {
   return id.toString();
 }
 
-export class Note {
+class Note {
   constructor(title, description, time, folder) {
     this.title = title;
     this.description = description;
@@ -61,14 +61,14 @@ export class Note {
   }
 }
 
-export function addNote(title, description, time, folder) {
+function addNote(title, description, time, folder) {
   const newNote = new Note(title, description, time, folder);
   state.notes.unshift(newNote);
   addNoteToFolder(newNote);
   writeToStorage();
 }
 
-export function updateNote(id, title, description) {
+function updateNote(id, title, description) {
   const noteToEdit = findNoteById(id);
   const noteFolderName = noteToEdit.folder;
   if (noteFolderName !== mainFolderName) {
@@ -84,12 +84,12 @@ export function updateNote(id, title, description) {
 }
 
 console.log(state);
-export function findNoteById(id) {
+function findNoteById(id) {
   const searchResult = state.notes.find((note) => note.id === id);
   return searchResult;
 }
 
-export class Folder {
+class Folder {
   constructor(name) {
     this.name = name;
     this.id = generateId(state.foldersId);
@@ -97,14 +97,14 @@ export class Folder {
   }
 }
 
-export function addFolder(name) {
+function addFolder(name) {
   const newFolder = new Folder(name);
   state.foldersId.unshift(newFolder.id);
   state.folders[newFolder.name] = newFolder;
   writeToStorage();
 }
 
-export function addNoteToFolder(note) {
+function addNoteToFolder(note) {
   const selectedFolderName = note.folder;
   if (selectedFolderName === mainFolderName) return;
   const selectedFolder = state.folders[selectedFolderName];
@@ -112,7 +112,7 @@ export function addNoteToFolder(note) {
   writeToStorage();
 }
 
-export function findFolderById(id) {
+function findFolderById(id) {
   const foldersNames = Object.keys(state.folders);
   const foundFolder = foldersNames.find(
     (folder) => state.folders[folder].id === id
@@ -120,7 +120,7 @@ export function findFolderById(id) {
   return state.folders[foundFolder];
 }
 
-export function removeNoteFromFolder(noteId) {
+function removeNoteFromFolder(noteId) {
   const note = findNoteById(noteId);
   const folderName = note.folder;
   const folder = state.folders[folderName];
@@ -135,7 +135,7 @@ function findNoteIndexInFolder(noteId, folder) {
   return folder.notes.indexOf(foundNote);
 }
 
-export function deleteFolderNotesFromState(folderId) {
+function deleteFolderNotesFromState(folderId) {
   const folder = findFolderById(folderId);
   for (const note of folder.notes) {
     deleteNote(note.id);
@@ -177,20 +177,20 @@ function compareStrAZ(a, b) {
   return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1;
 }
 
-export const sortFirstLater = sortNotes((a, b) => a.time - b.time, 'fl');
-export const sortFirstEarlier = sortNotes((a, b) => b.time - a.time, 'fe');
-export const sortByAZ = sortNotes(compareStrAZ, 'az');
-export const sortByZA = sortNotes(compareStrZA, 'za');
+const sortFirstLater = sortNotes((a, b) => a.time - b.time, 'fl');
+const sortFirstEarlier = sortNotes((a, b) => b.time - a.time, 'fe');
+const sortByAZ = sortNotes(compareStrAZ, 'az');
+const sortByZA = sortNotes(compareStrZA, 'za');
 
 // access to functions will be provided through keys in collection
-export const mapSortFunc = new Map();
+const mapSortFunc = new Map();
 mapSortFunc
   .set('fl', sortFirstLater)
   .set('fe', sortFirstEarlier)
   .set('az', sortByAZ)
   .set('za', sortByZA);
 
-export function pinNote(noteId) {
+function pinNote(noteId) {
   if (state.pinNoteID) {
     const currentPinnedNote = findNoteById(state.pinNoteID);
     currentPinnedNote.isPinned = false;
@@ -206,7 +206,7 @@ export function pinNote(noteId) {
   writeToStorage();
 }
 
-export function deleteNote(id) {
+function deleteNote(id) {
   const check = state.notesId.includes(id);
   let index, index2;
   if (check) {
@@ -224,7 +224,7 @@ export function deleteNote(id) {
   return check;
 }
 
-export function deleteFolder(id) {
+function deleteFolder(id) {
   const folder = findFolderById(id);
   deleteFolderNotesFromState(id);
   delete state.folders[folder.name];
@@ -233,7 +233,7 @@ export function deleteFolder(id) {
   writeToStorage();
 }
 
-export function searchNotes(value) {
+function searchNotes(value) {
   const arrayOfFoundNotes = [];
   for (const elem of state.notes) {
     const title = elem.title.toLowerCase();
@@ -245,3 +245,9 @@ export function searchNotes(value) {
   }
   return arrayOfFoundNotes;
 }
+
+export {
+  state, mapSortFunc, mainFolderName, addNote, addFolder, findNoteById, findFolderById,
+  pinNote, searchNotes, deleteNote, deleteFolder, updateNote, removeNoteFromFolder, 
+  deleteFolderNotesFromState
+};
