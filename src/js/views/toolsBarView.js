@@ -37,8 +37,8 @@ class ToolsBarView {
   addHandlerShowArchive(handler) {
     this.btnShowArchive.addEventListener('click', () => {
       const className = this.container.children[0].className;
-      const keyShow = className.includes('archived');
-      handler(keyShow);
+      const check = className.includes('archived');
+      handler(check);
     });
   }
 }
