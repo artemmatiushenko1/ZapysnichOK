@@ -48,9 +48,9 @@ const controlDeleteConfirmation = function () {
   DeleteConfirmationView.toogleWindow();
 };
 
-const controlShowArchive = function (keyShow) {
+const controlShowArchive = function (check) {
   const corection = model.state.archive.length;
-  if (keyShow || !corection) {
+  if (check || !corection) {
     NotesView.render(model.state.currentNotesView);
   } else {
     NotesView.render(model.state.archive);
@@ -66,10 +66,10 @@ const controlSearchNote = function () {
   const text = ToolsBarView.getText();
   const arrayOfFoundNotes = model.searchNotes(text);
   model.mapSortFunc.get(model.state.currentSorting)();
-  if (!text) {
-    NotesView.render(model.state.currentNotesView);
-  } else {
+  if (text) {
     NotesView.render(arrayOfFoundNotes);
+  } else {
+    NotesView.render(model.state.currentNotesView);
   }
 };
 

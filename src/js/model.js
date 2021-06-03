@@ -212,17 +212,16 @@ function pinNote(noteId) {
 
 function deleteNote(id) {
   const check = state.notesId.includes(id);
-  let index, index2;
   if (check) {
-    index = state.notesId.indexOf(id);
-    index2 = state.notes.findIndex((element) => element.id === id);
-    state.notes[index2].isArchived = true;
-    state.archive.unshift(state.notes[index2]);
-    state.notesId.splice(index, 1);
-    state.notes.splice(index2, 1);
+    const indexOfId = state.notesId.indexOf(id);
+    const indexOfNote = state.notes.findIndex((element) => element.id === id);
+    state.notes[indexOfNote].isArchived = true;
+    state.archive.unshift(state.notes[indexOfNote]);
+    state.notesId.splice(indexOfId, 1);
+    state.notes.splice(indexOfNote, 1);
   } else {
-    index2 = state.archive.findIndex((element) => element.id === id);
-    state.archive.splice(index2, 1);
+    const indexOfNote = state.archive.findIndex((element) => element.id === id);
+    state.archive.splice(indexOfNote, 1);
   }
   if (id === state.pinNoteID) state.pinNoteID = null;
   writeToStorage();
@@ -243,8 +242,8 @@ function searchNotes(value) {
   for (const elem of state.notes) {
     const title = elem.title.toLowerCase();
     const desc = elem.description.toLowerCase();
-    const keyword = value.toLowerCase();
-    if (title.includes(keyword) || desc.includes(keyword)) {
+    const text = value.toLowerCase();
+    if (title.includes(text) || desc.includes(text)) {
       arrayOfFoundNotes.push(elem);
     }
   }
