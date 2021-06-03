@@ -17,14 +17,6 @@ class AddNoteView extends Modal {
     this._addHandlerCloseWindow();
   }
 
-  getTitle() {
-    return this.titleInput.value;
-  }
-
-  getDescription() {
-    return this.descriptionInput.value;
-  }
-
   setTitle(title) {
     this.titleInput.value = title;
   }
@@ -33,24 +25,19 @@ class AddNoteView extends Modal {
     this.descriptionInput.value = description;
   }
 
-  getSelectedFolder() {
-    return this.selectedFolder.value;
-  }
-
   addHandlerAddNote(handler) {
     this.createNoteBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      handler();
+      const title = this.getValue(this.titleInput);
+      const description = this.getValue(this.descriptionInput);
+      const folder = this.getValue(this.selectedFolder);
+      handler(title, description, folder);
     });
-  }
-
-  _clear() {
-    this.selectedFolder.innerHTML = '';
   }
 
   renderFoldersBar(data) {
     this.data = data;
-    this._clear();
+    this.selectedFolder.innerHTML = '';
     this.selectedFolder.insertAdjacentHTML(
       'afterbegin',
       this._generateFoldersBarMarkup()

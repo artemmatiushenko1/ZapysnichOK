@@ -14,14 +14,11 @@ class AddFolderView extends Modal {
     this._addHandlerCloseWindow();
   }
 
-  getName() {
-    return this.titleInput.value;
-  }
-
   addHandlerAddFolder(handler) {
     this.btnCreateFolder.addEventListener('click', (e) => {
       e.preventDefault();
-      handler();
+      const folderName = this.getValue(this.titleInput);
+      handler(folderName);
     });
   }
 }

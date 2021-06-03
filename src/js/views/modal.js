@@ -5,10 +5,13 @@ export default class Modal {
     if (titleInput) {
       titleInput.value = '';
     }
-
     if (descriptionInput) {
       descriptionInput.value = '';
     }
+  }
+
+  getValue(element) {
+    return element.value;
   }
 
   toogleWindow() {
@@ -17,18 +20,17 @@ export default class Modal {
     if (this.btnOpen) {
       this.btnOpen.blur();
     }
-
     this.clearInputs();
   }
 
   _addHandlerCloseWindow() {
     if (this.btnClose) {
-      this.btnClose.addEventListener('click', this.toogleWindow.bind(this));
+      this.btnClose.addEventListener('click', () => this.toogleWindow());
     }
-    this.overlay.addEventListener('click', this.toogleWindow.bind(this));
+    this.overlay.addEventListener('click', () => this.toogleWindow());
   }
 
   _addHandlerShowWindow() {
-    this.btnOpen.addEventListener('focus', this.toogleWindow.bind(this));
+    this.btnOpen.addEventListener('focus', () => this.toogleWindow());
   }
 }

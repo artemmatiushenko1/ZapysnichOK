@@ -14,12 +14,8 @@ class FoldersView {
 
   render(data) {
     this.data = data;
-    this._clear();
-    this.parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup());
-  }
-
-  _clear() {
     this.parentElement.innerHTML = '';
+    this.parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup());
   }
 
   addHandlerDeleteFolder(handler) {
@@ -43,6 +39,7 @@ class FoldersView {
 
   addHandlerOpenFolder(handler) {
     this.parentElement.addEventListener('click', (e) => {
+      e.preventDefault();
       const target = e.target;
       if (target.classList.contains('delete-folder-btn')) return;
       const selectedFolder = target.closest('.folder');

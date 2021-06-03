@@ -9,17 +9,17 @@ class NotesView {
       this.renderMessage();
       return;
     }
-    this._clear();
+    this._clearParentEl();
     this.parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup());
   }
 
   renderMessage(message = this.message) {
     const messageMarkup = `<p>${message}</p>`;
-    this._clear();
+    this._clearParentEl();
     this.parentElement.insertAdjacentHTML('afterbegin', messageMarkup);
   }
 
-  _clear() {
+  _clearParentEl() {
     this.parentElement.innerHTML = '';
   }
 
