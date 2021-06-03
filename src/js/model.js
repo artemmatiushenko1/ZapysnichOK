@@ -12,31 +12,27 @@ export const state = {
   noteToDelete: null,
 };
 
+export const mainFolderName = 'Всі записи';
+
 const storage = window.localStorage;
+const places = ['notes', 'folders', 'pinNoteID', 'archive'];
 
 function writeToStorage() {
-  storage.setItem('notes', JSON.stringify(state.notes));
-  storage.setItem('folders', JSON.stringify(state.folders));
-  storage.setItem('pinId', JSON.stringify(state.pinNoteID));
-  storage.setItem('archive', JSON.stringify(state.archive));
-}
-
-function getDataFromStorage() {
-  const writtenNotes = JSON.parse(storage.getItem('notes'));
-  const writtenFolders = JSON.parse(storage.getItem('folders'));
-  const writtenPinId = JSON.parse(storage.getItem('pinId'));
-  const writtenArchive = JSON.parse(storage.getItem('archive'));
-  if (writtenNotes) {
-    state.notes = writtenNotes;
-    state.activeNotes = writtenNotes;
-    pushNotesIdInArray();
+  for (const place of places) {
+    const target = JSON.stringify(state[place]);
+    storage.setItem(place, target);
   }
-  if (writtenFolders) state.folders = writtenFolders;
-  if (writtenPinId) state.pinNoteID = writtenPinId;
-  if (writtenArchive) state.archive = writtenArchive;
 }
 
-getDataFromStorage();
+(function getDataFromStorage() {
+  for (const place of places) {
+    const item = storage.getItem(place);
+    const parsedItem = JSON.parse(item);
+    if (parsedItem) state[place] = parsedItem;
+  }
+  state.activeNotes = state.notes;
+  pushNotesIdInArray();
+})();
 
 function pushNotesIdInArray() {
   for (const note of state.notes) {
@@ -68,16 +64,16 @@ export class Note {
 export function addNote(title, description, time, folder) {
   const newNote = new Note(title, description, time, folder);
   state.notes.unshift(newNote);
+  addNoteToFolder(newNote);
   writeToStorage();
-  return newNote;
 }
 
 export function updateNote(id, title, description) {
   const noteToEdit = findNoteById(id);
   const noteFolderName = noteToEdit.folder;
-  if (noteFolderName !== 'Всі записи') {
+  if (noteFolderName !== mainFolderName) {
     const noteFolderObject = state.folders[noteFolderName];
-    const noteIndexInFolder = findIndexNoteInFolder(id, noteFolderObject);
+    const noteIndexInFolder = findNoteIndexInFolder(id, noteFolderObject);
     const noteInFolder = noteFolderObject.notes[noteIndexInFolder];
     noteInFolder.title = title;
     noteInFolder.description = description;
@@ -99,10 +95,6 @@ export class Folder {
     this.id = generateId(state.foldersId);
     this.notes = [];
   }
-
-  attachNoteToFolder(note) {
-    this.notes.unshift(note);
-  }
 }
 
 export function addFolder(name) {
@@ -114,38 +106,36 @@ export function addFolder(name) {
 
 export function addNoteToFolder(note) {
   const selectedFolderName = note.folder;
-  if (selectedFolderName === 'Всі записи') return;
+  if (selectedFolderName === mainFolderName) return;
   const selectedFolder = state.folders[selectedFolderName];
   selectedFolder.notes.unshift(note);
   writeToStorage();
 }
 
 export function findFolderById(id) {
-  const folderNames = Object.keys(state.folders);
-  for (const folder of folderNames) {
-    if (String(state.folders[folder].id) === id) {
-      return state.folders[folder];
-    }
-  }
+  const foldersNames = Object.keys(state.folders);
+  const foundFolder = foldersNames.find(
+    (folder) => state.folders[folder].id === id
+  );
+  return state.folders[foundFolder];
 }
 
 export function removeNoteFromFolder(noteId) {
   const note = findNoteById(noteId);
   const folderName = note.folder;
   const folder = state.folders[folderName];
-  if (folderName !== 'Всі записи') {
-    const noteIndex = findIndexNoteInFolder(noteId, folder);
-    folder.notes.splice(noteIndex, 1);
+  if (folderName !== mainFolderName) {
+    const noteIndex = findNoteIndexInFolder(noteId, folder);
+    folder.notes.splice(noteIndex, 1); //remove one element from the array
   }
 }
 
-function findIndexNoteInFolder(noteId, folder) {
-  for (const note of folder.notes) {
-    if (note.id === noteId) return folder.notes.indexOf(note);
-  }
+function findNoteIndexInFolder(noteId, folder) {
+  const foundNote = folder.notes.find((note) => note.id === noteId);
+  return folder.notes.indexOf(foundNote);
 }
 
-export function deleteFolderNotesFromStateArray(folderId) {
+export function deleteFolderNotesFromState(folderId) {
   const folder = findFolderById(folderId);
   for (const note of folder.notes) {
     deleteNote(note.id);
@@ -236,9 +226,10 @@ export function deleteNote(id) {
 
 export function deleteFolder(id) {
   const folder = findFolderById(id);
+  deleteFolderNotesFromState(id);
   delete state.folders[folder.name];
-  const index = state.foldersId.indexOf(id);
-  state.foldersId.splice(index, 1);
+  const folderIndex = state.foldersId.indexOf(id);
+  state.foldersId.splice(folderIndex, 1); //remove one element from the array
   writeToStorage();
 }
 
