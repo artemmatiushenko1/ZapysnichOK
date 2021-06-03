@@ -34,8 +34,7 @@ class AddNoteView extends Modal {
   }
 
   getSelectedFolder() {
-    const result = this.selectedFolder.value;
-    return result;
+    return this.selectedFolder.value;
   }
 
   addHandlerAddNote(handler) {
@@ -60,9 +59,7 @@ class AddNoteView extends Modal {
 
   _generateFoldersBarMarkup() {
     const foldersBarMarkup = Object.keys(this.data).map(
-      (folderName) => `
-      <option value="${folderName}">${folderName}</option>
-      `
+      (folderName) => `<option value="${folderName}">${folderName}</option>`
     );
     foldersBarMarkup.unshift('<option value="Всі записи">Всі записи</option>');
     return foldersBarMarkup.join('');
