@@ -34,12 +34,26 @@ const controlDeleteNote = function (id) {
 const controlDeleteConfirmation = function () {
   const { noteToDelete: id } = model.state;
   if (id === model.state.pinNoteID) model.state.pinNoteID = null;
-  model.removeNoteFromFolder(id);
+  const check = model.state.notesId.includes(id);
+  if (check) model.removeNoteFromFolder(id);
   model.deleteNote(id);
   model.state.noteToDelete = null;
   model.mapSortFunc.get(model.state.currentSorting)();
-  NotesView.render(model.state.currentNotesView);
+ if (check) {
+    NotesView.render(model.state.currentNotesView);
+  } else {
+    NotesView.render(model.state.archive);
+  } 
   DeleteConfirmationView.toogleWindow();
+};
+
+const controlShowArchive = function (keyShow) {
+  const corection = model.state.archive.length;
+  if (keyShow || !corection) {
+    NotesView.render(model.state.currentNotesView);
+  } else {
+    NotesView.render(model.state.archive);
+  } 
 };
 
 const controlDeleteCancel = function () {
@@ -120,6 +134,7 @@ DeleteConfirmationView.addHandlerDeleteFalse(controlDeleteCancel);
 foldersView.addHandlerOpenFolder(controlFolderInterface);
 AddNoteView.renderFoldersBar(model.state.folders);
 foldersView.addHandlerOpenMainFolder(controlMainFolderInterface);
+ToolsBarView.addHandlerShowArchive(controlShowArchive);
 
 // sorting
 const controlSort = function (keySort) {

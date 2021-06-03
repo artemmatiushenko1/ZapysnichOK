@@ -52,7 +52,8 @@ class NotesView {
     return this.data
       .map(
         (note) => `
-            <div class="note" id=${note.id}>
+            <div class="note 
+                ${note.isArchived ? 'archived' : ''}" id=${note.id}>
                 <div class="note-content">
                     <h2 class="note-headline">${note.title}</h2>
                     <p>${note.description}</p>

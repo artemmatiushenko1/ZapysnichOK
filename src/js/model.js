@@ -5,6 +5,7 @@ export const state = {
   foldersId: [],
   activeNotes: [],
   currentNotesView: [],
+  archive: [],
   currentSorting: 'fe',
   pinNoteID: null,
   activeNote: null,
@@ -17,12 +18,14 @@ function writeToStorage() {
   storage.setItem('notes', JSON.stringify(state.notes));
   storage.setItem('folders', JSON.stringify(state.folders));
   storage.setItem('pinId', JSON.stringify(state.pinNoteID));
+  storage.setItem('archive', JSON.stringify(state.archive));
 }
 
 function getDataFromStorage() {
   const writtenNotes = JSON.parse(storage.getItem('notes'));
   const writtenFolders = JSON.parse(storage.getItem('folders'));
   const writtenPinId = JSON.parse(storage.getItem('pinId'));
+  const writtenArchive = JSON.parse(storage.getItem('archive'));
   if (writtenNotes) {
     state.notes = writtenNotes;
     state.activeNotes = writtenNotes;
@@ -30,6 +33,7 @@ function getDataFromStorage() {
   }
   if (writtenFolders) state.folders = writtenFolders;
   if (writtenPinId) state.pinNoteID = writtenPinId;
+  if (writtenArchive) state.archive = writtenArchive;
 }
 
 getDataFromStorage();
@@ -57,6 +61,7 @@ export class Note {
     this.folder = folder;
     this.id = generateId(state.notesId);
     this.isPinned = false;
+    this.isArchived = false;
   }
 }
 
@@ -212,11 +217,21 @@ export function pinNote(noteId) {
 }
 
 export function deleteNote(id) {
-  const index = state.notesId.indexOf(id);
-  const index2 = state.notes.findIndex((element) => element.id === id);
-  state.notesId.splice(index, 1);
-  state.notes.splice(index2, 1);
+  const check = state.notesId.includes(id);
+  let index, index2;
+  if (check) {
+    index = state.notesId.indexOf(id);
+    index2 = state.notes.findIndex((element) => element.id === id);
+    state.notes[index2].isArchived = true;
+    state.archive.unshift(state.notes[index2]);
+    state.notesId.splice(index, 1);
+    state.notes.splice(index2, 1);
+  } else {
+    index2 = state.archive.findIndex((element) => element.id === id);
+    state.archive.splice(index2, 1);
+  }
   writeToStorage();
+  return check;
 }
 
 export function deleteFolder(id) {
@@ -230,7 +245,10 @@ export function deleteFolder(id) {
 export function searchNotes(value) {
   const arrayOfFoundNotes = [];
   for (const elem of state.notes) {
-    if (elem.title.includes(value) || elem.description.includes(value)) {
+    const title = elem.title.toLowerCase();
+    const desc = elem.description.toLowerCase();
+    const keyword = value.toLowerCase();
+    if (title.includes(keyword) || desc.includes(keyword)) {
       arrayOfFoundNotes.push(elem);
     }
   }
