@@ -106,9 +106,13 @@ function addFolder(name) {
 
 function addNoteToFolder(note) {
   const selectedFolderName = note.folder;
-  if (selectedFolderName === mainFolderName) return;
-  const selectedFolder = state.folders[selectedFolderName];
-  selectedFolder.notes.unshift(note);
+  if (selectedFolderName === mainFolderName) {
+    state.activeNotes = state.notes;
+  } else {
+    const selectedFolder = state.folders[selectedFolderName];
+    selectedFolder.notes.unshift(note);
+    state.activeNotes = selectedFolder.notes;
+  }
   writeToStorage();
 }
 
@@ -220,6 +224,7 @@ function deleteNote(id) {
     index2 = state.archive.findIndex((element) => element.id === id);
     state.archive.splice(index2, 1);
   }
+  if (id == state.pinNoteID) state.pinNoteID = null;
   writeToStorage();
   return check;
 }
