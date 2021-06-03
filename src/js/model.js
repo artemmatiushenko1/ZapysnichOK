@@ -224,7 +224,7 @@ function deleteNote(id) {
     index2 = state.archive.findIndex((element) => element.id === id);
     state.archive.splice(index2, 1);
   }
-  if (id == state.pinNoteID) state.pinNoteID = null;
+  if (id === state.pinNoteID) state.pinNoteID = null;
   writeToStorage();
   return check;
 }
@@ -252,7 +252,18 @@ function searchNotes(value) {
 }
 
 export {
-  state, mapSortFunc, mainFolderName, addNote, addFolder, findNoteById, findFolderById,
-  pinNote, searchNotes, deleteNote, deleteFolder, updateNote, removeNoteFromFolder, 
-  deleteFolderNotesFromState
+  state,
+  mapSortFunc,
+  mainFolderName,
+  addNote, 
+  addFolder, 
+  findNoteById, 
+  findFolderById,
+  pinNote, 
+  searchNotes, 
+  deleteNote, 
+  deleteFolder, 
+  updateNote, 
+  removeNoteFromFolder,
+  deleteFolderNotesFromState,
 };
