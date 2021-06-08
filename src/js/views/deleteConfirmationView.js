@@ -30,7 +30,7 @@ class DeleteConfirmationView extends Modal {
     });
   }
 
-  addHandlerDeleteFalse(handler) {
+  addHandlerDeleteCancel(handler) {
     this.btnCanсel.addEventListener('click', (e) => {
       e.preventDefault();
       handler();

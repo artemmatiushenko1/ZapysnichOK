@@ -228,6 +228,16 @@ function deleteNote(id) {
   return check;
 }
 
+function deleteAllNotes() {
+  for (const note of state.notes) {
+    removeNoteFromFolder(note.id);
+  }
+  state.notes = [];
+  state.currentNotesView = [];
+  state.notesId = [];
+  writeToStorage();
+}
+
 function deleteFolder(id) {
   const folder = findFolderById(id);
   deleteFolderNotesFromState(id);
@@ -261,6 +271,7 @@ export {
   pinNote,
   searchNotes,
   deleteNote,
+  deleteAllNotes,
   deleteFolder,
   updateNote,
   removeNoteFromFolder,

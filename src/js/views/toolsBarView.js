@@ -2,7 +2,8 @@ class ToolsBarView {
   textInput = document.querySelector('.input-search-note');
   btnFind = document.querySelector('.search-btn');
   parentElement = document.querySelector('.toolsbar-container');
-  btnShowArchive = document.querySelector('.delete-all-btn');
+  btnShowArchive = document.querySelector('.btn-archive');
+  btnDeleteAllNotes = document.querySelector('.delete-all-btn');
   container = document.querySelector('.notes-container');
 
   addHandlerSort(handler) {
@@ -39,6 +40,13 @@ class ToolsBarView {
       const className = this.container.children[0].className;
       const check = className.includes('archived');
       handler(check);
+    });
+  }
+
+  addHandlerDeleteAllNotes(handler) {
+    this.btnDeleteAllNotes.addEventListener('click', (e) => {
+      e.preventDefault();
+      handler();
     });
   }
 }

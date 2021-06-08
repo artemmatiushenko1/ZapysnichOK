@@ -32,6 +32,11 @@ const controlDeleteNote = function (id) {
   model.state.noteToDelete = id;
 };
 
+const controlDeleteAllNotes = function () {
+  model.deleteAllNotes();
+  NotesView.render(model.state.notes);
+};
+
 const controlDeleteConfirmation = function () {
   const { noteToDelete: id } = model.state;
   if (id === model.state.pinNoteID) model.state.pinNoteID = null;
@@ -143,7 +148,8 @@ ToolsBarView.addHandlerSearchNote(controlSearchNote);
 NoteContentView.addHandlerShowNote(controlShowNote);
 DeleteConfirmationView.addHandlerDeleteNote(controlDeleteNote);
 DeleteConfirmationView.addHandlerDeleteConfirm(controlDeleteConfirmation);
-DeleteConfirmationView.addHandlerDeleteFalse(controlDeleteCancel);
+DeleteConfirmationView.addHandlerDeleteCancel(controlDeleteCancel);
 FoldersView.addHandlerOpenFolder(controlFolderInterface);
 FoldersView.addHandlerOpenMainFolder(controlFolderInterface);
 ToolsBarView.addHandlerShowArchive(controlShowArchive);
+ToolsBarView.addHandlerDeleteAllNotes(controlDeleteAllNotes);
