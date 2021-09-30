@@ -14,7 +14,7 @@ class NotesView {
   }
 
   renderMessage(message = this.message) {
-    const messageMarkup = `<p>${message}</p>`;
+    const messageMarkup = `<p class="message" >${message}</p>`;
     this._clearParentEl();
     this.parentElement.insertAdjacentHTML('afterbegin', messageMarkup);
   }

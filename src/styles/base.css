@@ -1,4 +1,11 @@
-* {
+html{
+  /* font-size: 62.5%; */
+  font-size: 50%;
+}
+
+*,
+::after,
+::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,7 +20,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: 4px;
+  width: 0.4rem;
 }
 
 body::-webkit-scrollbar-track {
@@ -22,7 +29,7 @@ body::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar-thumb {
   background-color: #54adff;
-  border-radius: 20px;
+  border-radius: 2rem;
 }
 
 .app-container {
@@ -52,14 +59,14 @@ body::-webkit-scrollbar-thumb {
   background-color: #f6fbff;
   outline: none;
   color: #54adff;
-  width: 40px;
+  width: 4rem;
   cursor: pointer;
-  height: 40px;
-  font-size: 18px;
+  height: 4rem;
+  font-size: 1.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   border: 2px solid transparent;
   transition: all 0.1s ease;
 }
@@ -74,7 +81,7 @@ body::-webkit-scrollbar-thumb {
   outline: none;
   background: none;
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
+  font-size: 2rem;
   border: none;
   font-weight: 500;
   color: #6a6a6a;
@@ -86,23 +93,23 @@ body::-webkit-scrollbar-thumb {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  border-radius: 9px;
+  border-radius: 0.9rem;
   box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
   z-index: 1000;
   transition: all 0.1s;
 }
 
 .mini-btn {
-  width: 30px;
-  height: 30px;
-  font-size: 14px;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.4rem;
 }
 
 .show-note-window {
   width: 40vw;
   height: 50vh;
-  padding: 80px 45px;
-  padding-bottom: 35px;
+  padding: 8rem 4.5rem;
+  padding-bottom: 3.5rem;
 }
 
 .mini-modal {
@@ -115,7 +122,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 .ellipse-btn {
-  padding: 0 18px;
+  padding: 0 1.8rem;
   width: auto;
-  border-radius: 20px;
+  border-radius: 2rem;
+}
+
+.message{
+  font-size: 1.6rem;
 }

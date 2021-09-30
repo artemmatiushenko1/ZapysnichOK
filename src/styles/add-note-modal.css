@@ -13,8 +13,8 @@
 .add-note-window {
   width: 40vw;
   height: 50vh;
-  padding: 80px 45px;
-  padding-bottom: 35px;
+  padding: 8rem 4.5rem;
+  padding-bottom: 3.5rem;
 }
 
 .btn-close-modal {
@@ -25,15 +25,15 @@
 
 .add-note-btn {
   position: absolute;
-  padding: 0 12px;
+  padding: 0 1.2rem;
   top: 1rem;
-  right: 4.5rem;
+  right: 6rem;
   width: auto;
-  border-radius: 20px;
+  border-radius: 2rem;
 }
 
 .add-note-btn i {
-  margin-right: 8px;
+  margin-right: 0.8rem;
 }
 
 .btn-close-modal:hover,
@@ -45,8 +45,8 @@
 
 .add-note-form-headline {
   color: #54adff;
-  font-size: 25px;
-  margin-bottom: 25px;
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .inputs-wrapper {
@@ -55,20 +55,20 @@
 }
 
 .note-headline-input {
-  margin-bottom: 25px;
+  margin-bottom: 2.5rem;
 }
 
 .note-content-input {
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1.6rem;
   width: 100%;
-  height: 460px;
+  height: 46rem;
   margin: 0;
   resize: none;
 }
 
 .note-content-input::-webkit-scrollbar {
-  width: 8px;
+  width: 0.8rem;
 }
 
 .note-content-input::-webkit-scrollbar-track {
@@ -77,32 +77,33 @@
 
 .note-content-input::-webkit-scrollbar-thumb {
   background-color: #54adff;
-  border-radius: 20px;
+  border-radius: 2rem;
 }
 
 .show-note-headline {
-  margin-bottom: 25px;
-  font-size: 20px;
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
   font-weight: 500;
 }
 
 .folder-select-wrapper {
   position: absolute;
-  padding: 0 12px;
+  padding: 0 1.2rem;
   top: 1rem;
-  right: 12rem;
+  right: 17rem;
 }
 
 .folder-select-wrapper label {
-  margin-right: 10px;
+  margin-right: 1rem;
+  font-size: 1.5rem;
 }
 
 #folder-select {
-  height: 40px;
-  width: 8rem;
+  height: 4rem;
+  width: 10rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 1.5rem;
   outline: none;
   border: none;
   color: #54adff;
@@ -118,7 +119,7 @@
 }
 
 .btn-confirm {
-  margin-right: 10px;
+  margin-right: 1rem;
   background-color: #ff7272;
   color: #fff;
 }
@@ -130,4 +131,5 @@
 
 .confirm-msg {
   color: #6a6a6a;
+  font-size: 1.8rem;
 }
