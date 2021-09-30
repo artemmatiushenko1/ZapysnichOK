@@ -1,5 +1,5 @@
 .main-container {
-  padding: 25px 0;
+  padding: 2.5rem 0;
   position: relative;
 }
 
@@ -11,16 +11,16 @@
 
 .add-note-input {
   outline: none;
-  width: 745px;
+  width: 74.5rem;
   border: 2px solid transparent;
-  padding: 24px 35px;
-  border-radius: 40px;
-  font-size: 18px;
+  padding: 2.4rem 3.5rem;
+  border-radius: 4rem;
+  font-size: 1.8rem;
   font-family: 'Roboto', sans-serif;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.05);
   font-weight: 500;
   color: #6a6a6a;
-  margin-bottom: 47px;
+  margin-bottom: 4.7rem;
   transition: all 0.2s ease;
 }
 
@@ -35,14 +35,14 @@
 
 .input-search-note {
   outline: none;
-  width: 335px;
+  width: 33.5rem;
   border: 2px solid transparent;
-  padding: 11px 21px;
-  padding-right: 50px;
-  border-radius: 40px;
-  font-size: 15px;
+  padding: 1.1rem 2.1rem;
+  padding-right: 5rem;
+  border-radius: 4rem;
+  font-size: 1.5rem;
   font-family: 'Roboto', sans-serif;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.04);
   font-weight: 400;
   color: #6a6a6a;
   transition: all 0.2s ease;
@@ -56,25 +56,27 @@
 .search-btn {
   outline: none;
   position: absolute;
-  width: 30px;
-  height: 30px;
-  right: 8px;
-  top: 6.5px;
+  width: 3rem;
+  height: 3rem;
+  right: 0.8rem;
+  top: 0.65rem;
   border: none;
   background: #54adff;
   color: #fff;
-  border-radius: 20px;
+  border-radius: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  font-size: 1.3rem;
 }
+
 
 .notes-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(331px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(33.1rem, 1fr));
   grid-gap: 1rem;
-  grid-auto-rows: minmax(331px, 1fr);
+  grid-auto-rows: minmax(33.1rem, 1fr);
 }
 
 .note {
@@ -82,9 +84,9 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.04);
-  border-radius: 10px;
-  padding: 20px;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.04);
+  border-radius: 1rem;
+  padding: 2rem;
   position: relative;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -108,14 +110,14 @@
 }
 
 .note-content {
-  font-size: 16px;
+  font-size: 1.6rem;
   position: relative;
 }
 
 .note-content p {
   white-space: normal;
   word-wrap: break-word;
-  padding: 10px 0;
+  padding: 1rem 0;
   margin-top: 0;
   width: 100%;
   height: 100%;
@@ -128,8 +130,8 @@
   border: 2px solid #ff7272;
   padding: 5px;
   border-radius: 5px;
-  font-size: 15px;
-  margin-bottom: 8px;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .action-btns-container {
@@ -145,14 +147,14 @@
 }
 
 .note-time {
-  font-size: 15px;
+  font-size: 1.5rem;
 }
 
 .toolsbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 2.5rem;
 }
 
 .btns-wrapper {
@@ -161,7 +163,7 @@
 }
 
 .btns-wrapper button {
-  margin-left: 20px;
+  margin-left: 2rem;
 }
 
 .btn-pin-note {
@@ -181,4 +183,8 @@
 
 .note:hover .pin {
   opacity: 1;
+}
+
+.note-description{
+  font-size: 1.6rem;
 }

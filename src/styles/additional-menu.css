@@ -4,7 +4,7 @@
     top: 0;
     align-self: start;
     min-height: 100vh;
-    padding-top: 25px;
+    padding-top: 2.5rem;
 }
 
 .additional-menu {
@@ -27,5 +27,5 @@
 }
 
 .additional-menu li {
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
 }

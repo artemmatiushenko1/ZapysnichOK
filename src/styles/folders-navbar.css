@@ -1,6 +1,6 @@
 .folders-navbar-container {
   background-color: #fff;
-  padding: 25px 20px;
+  padding: 2.5rem 2rem;
   position: sticky;
   align-self: start;
   top: 0;
@@ -9,28 +9,28 @@
 
 .logo {
   color: #54adff;
-  font-size: 30px;
+  font-size: 3rem;
   font-weight: 900;
   text-align: center;
   letter-spacing: 1px;
-  margin-bottom: 40px;
+  margin-bottom: 4rem;
   text-transform: uppercase;
 }
 
 .logo span img {
   width: 10%;
-  margin-left: 5px;
+  margin-left: 0.5rem;
 }
 
 .navbar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .navbar-header h2 {
-  font-size: 18px;
+  font-size: 1.8rem;
   color: #6a6a6a;
 }
 
@@ -43,10 +43,10 @@
 }
 
 .folders .folder {
-  margin-bottom: 6px;
-  border-left: 4px solid #a2a2a2;
-  padding: 12px 15px;
-  font-size: 16px;
+  margin-bottom: 0.6rem;
+  border-left: 0.4rem solid #a2a2a2;
+  padding: 1.2rem 1.5rem;
+  font-size: 1.6rem;
 }
 
 .folder a {
@@ -83,12 +83,12 @@
 }
 
 .folders-container-active {
-  max-height: 500px;
+  max-height: 50rem;
 }
 
 .fa-chevron-down {
-  font-size: 15px;
-  margin-left: 8px;
+  font-size: 1.5rem;
+  margin-left: 0.8rem;
   transition: transform 0.2s ease-out;
 }
 
@@ -106,7 +106,7 @@
 }
 
 .btn-create-folder {
-  border-radius: 20px;
+  border-radius: 2rem;
 }
 
 .add-folder-form {
@@ -134,9 +134,9 @@
 }
 
 .folder i {
-  padding: 5px;
-  font-size: 17px;
-  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 1.7rem;
+  border-radius: 0.5rem;
   opacity: 0;
   transition: all 0.2s ease;
 }
