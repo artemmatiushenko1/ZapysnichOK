@@ -4,14 +4,16 @@
 }
 
 .add-note-input-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 .add-note-input {
   outline: none;
-  width: 74.5rem;
+  display: inline-block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 74.5rem;
   border: 2px solid transparent;
   padding: 2.4rem 3.5rem;
   border-radius: 4rem;
@@ -35,7 +37,8 @@
 
 .input-search-note {
   outline: none;
-  width: 33.5rem;
+  width: 100%;
+  /* width: 33.5rem; */
   border: 2px solid transparent;
   padding: 1.1rem 2.1rem;
   padding-right: 5rem;
@@ -51,6 +54,14 @@
 .search-form {
   display: inline-block;
   position: relative;
+  flex-basis: 33%;
+
+}
+
+@media only screen and (max-width: 56.2em) {
+  .search-form{
+    flex: 1;
+  }
 }
 
 .search-btn {
