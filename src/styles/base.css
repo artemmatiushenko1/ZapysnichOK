@@ -38,7 +38,9 @@ body::-webkit-scrollbar-thumb {
   max-width: 100%;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 15% 55% 5%;
+  /* grid-template-columns: 15% 0.8fr; */
+  grid-template-columns: 15% 1fr;
+
   grid-column-gap: 12.5%;
 }
 
