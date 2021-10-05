@@ -17,6 +17,19 @@
   padding-bottom: 3.5rem;
 }
 
+@media only screen and (max-width: 37.5em) {
+  .add-note-window {
+    width: 90vw;
+    height: 50vh;
+    padding: 8rem 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .folder-select-wrapper label {
+    display: none;
+  }
+}
+
 .btn-close-modal {
   position: absolute;
   top: 1rem;
@@ -116,6 +129,12 @@
 
 .confirm-delete-window {
   width: 28vw;
+}
+
+@media only screen and (max-width: 37.5em) {
+  .confirm-delete-window {
+    width: 90vw;
+  }
 }
 
 .btn-confirm {
