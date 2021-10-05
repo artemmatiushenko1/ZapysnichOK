@@ -131,6 +131,12 @@
   width: 28vw;
 }
 
+@media only screen and (max-width: 37.5em) {
+  .confirm-delete-window {
+    width: 90vw;
+  }
+}
+
 .btn-confirm {
   margin-right: 1rem;
   background-color: #ff7272;
