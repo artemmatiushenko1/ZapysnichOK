@@ -1,4 +1,4 @@
-html{
+html {
   /* font-size: 62.5%; */
   font-size: 50%;
 }
@@ -45,7 +45,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media only screen and (max-width: 37.5em) {
-  .app-container{
+  .app-container {
     grid-template-columns: 1fr;
   }
 }
@@ -120,6 +120,19 @@ body::-webkit-scrollbar-thumb {
   padding-bottom: 3.5rem;
 }
 
+@media only screen and (max-width: 37.5em) {
+  .show-note-window {
+    width: 90vw;
+    height: 50vh;
+    padding: 8rem 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .folder-select-wrapper label {
+    display: none;
+  }
+}
+
 .mini-modal {
   display: flex;
   align-items: center;
@@ -135,6 +148,6 @@ body::-webkit-scrollbar-thumb {
   border-radius: 2rem;
 }
 
-.message{
+.message {
   font-size: 1.6rem;
 }

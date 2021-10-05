@@ -10,7 +10,7 @@
 }
 
 @media only screen and (max-width: 37.5em) {
-  .folders-navbar-container{
+  .folders-navbar-container {
     position: static;
     min-height: auto;
   }
@@ -37,7 +37,7 @@
     margin-left: 0.5rem;
   }
 
-  .logo{
+  .logo {
     font-size: 2.5rem;
   }
 }
@@ -123,6 +123,17 @@
   height: 10vh;
   padding: 1rem 2rem;
   z-index: 1000;
+}
+
+@media only screen and (max-width: 37.5em) {
+  .add-folder-window {
+    width: 90vw;
+    height: 15vh;
+  }
+
+  .folder-name-input {
+    font-size: 1.8rem;
+  }
 }
 
 .btn-create-folder {
