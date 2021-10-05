@@ -128,11 +128,11 @@
 @media only screen and (max-width: 37.5em) {
   .add-folder-window {
     width: 90vw;
-    height: 15vh;
+    height: 12vh;
   }
 
   .folder-name-input {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 }
 
