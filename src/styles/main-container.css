@@ -4,6 +4,13 @@
   padding-right: 20%;
 }
 
+@media only screen and (max-width: 37.5em) {
+  .main-container{
+    padding-right: 7%;
+    padding-left: 7%;
+  }
+}
+
 .add-note-input-container {
   text-align: center;
   width: 100%;

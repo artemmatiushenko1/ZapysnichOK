@@ -9,6 +9,13 @@
   flex-direction: column;
 }
 
+@media only screen and (max-width: 37.5em) {
+  .folders-navbar-container{
+    position: static;
+    min-height: auto;
+  }
+}
+
 .logo {
   color: #54adff;
   font-size: 3rem;
@@ -22,6 +29,17 @@
 .logo span img {
   width: 10%;
   margin-left: 0.5rem;
+}
+
+@media only screen and (max-width: 37.5em) {
+  .logo span img {
+    width: 6%;
+    margin-left: 0.5rem;
+  }
+
+  .logo{
+    font-size: 2.5rem;
+  }
 }
 
 .navbar-header {

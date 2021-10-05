@@ -44,6 +44,12 @@ body::-webkit-scrollbar-thumb {
   grid-column-gap: 12.5%;
 }
 
+@media only screen and (max-width: 37.5em) {
+  .app-container{
+    grid-template-columns: 1fr;
+  }
+}
+
 .welcome-title {
   position: absolute;
   color: #54adff;
