@@ -1,5 +1,4 @@
 html {
-  /* font-size: 62.5%; */
   font-size: 50%;
 }
 
@@ -16,7 +15,6 @@ body {
   font-weight: 400;
   background-color: #fafcff;
   color: #a2a2a2;
-  /* overflow-x: hidden; */
 }
 
 body::-webkit-scrollbar {
@@ -38,7 +36,6 @@ body::-webkit-scrollbar-thumb {
   max-width: 100%;
   min-height: 100vh;
   display: grid;
-  /* grid-template-columns: 15% 0.8fr; */
   grid-template-columns: 15% 1fr;
 
   grid-column-gap: 12.5%;
